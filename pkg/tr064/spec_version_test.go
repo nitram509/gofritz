@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func Test_parsing_happy_path(t *testing.T) {
+func Test_parsing_specVersion(t *testing.T) {
 	var specVersion SpecVersion
 	err := xml.Unmarshal(([]byte)(exampleSpecVersion), &specVersion)
 	then.AssertThat(t, err, is.Nil())
