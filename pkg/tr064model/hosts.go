@@ -1,4 +1,4 @@
-package models
+package tr064model
 
 type XAvmGetSpecificHostEntryByIpResponse struct {
 	MACAddress                  string `xml:"NewMACAddress"`

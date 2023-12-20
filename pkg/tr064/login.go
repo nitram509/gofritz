@@ -2,8 +2,8 @@ package tr064
 
 import (
 	"encoding/xml"
-	"github.com/nitram509/gofitz/pkg/models"
 	"github.com/nitram509/gofitz/pkg/soap"
+	"github.com/nitram509/gofitz/pkg/tr064model"
 	"io"
 	"log"
 	"net/http"
@@ -54,7 +54,7 @@ func Login() *soap.SoapSession {
 		panic(err)
 	}
 
-	var envResp models.SoapResponse
+	var envResp tr064model.SoapResponse
 	err = xml.Unmarshal(buf, &envResp)
 
 	sid := strings.TrimLeft(envResp.Body.XAvmDeCreateUrlSIDResponse.UrlSID, "sid=")

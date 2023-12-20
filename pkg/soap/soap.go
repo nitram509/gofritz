@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg"
-	"github.com/nitram509/gofitz/pkg/models"
+	"github.com/nitram509/gofitz/pkg/tr064model"
 	"io"
 	"log"
 	"net/http"
@@ -97,7 +97,7 @@ func (ss SoapSession) getAuthHeader() string {
 
 type ActionCommand interface {
 	AddParam(name string, value string) ActionCommand
-	Do() models.SoapResponse
+	Do() tr064model.SoapResponse
 }
 
 type soapParam struct {
@@ -135,7 +135,7 @@ func (c soapCmd) Action(action string) ActionCommand {
 	}
 }
 
-func (cmd *actionCmd) Do() models.SoapResponse {
+func (cmd *actionCmd) Do() tr064model.SoapResponse {
 
 	//cmd.authenticator.createDigest()
 	username := os.Getenv("FB_USERNAME")
@@ -183,7 +183,7 @@ func (cmd *actionCmd) Do() models.SoapResponse {
 	if err != nil {
 		panic(err)
 	}
-	envResp := models.SoapResponse{}
+	envResp := tr064model.SoapResponse{}
 	err = xml.Unmarshal(resp, &envResp)
 	if err != nil {
 		panic(err)

@@ -1,4 +1,4 @@
-package models
+package tr064model
 
 import (
 	"encoding/xml"

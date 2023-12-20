@@ -1,4 +1,4 @@
-package models
+package tr064model
 
 type XAvmDeCreateUrlSIDResponse struct {
 	U      string `xml:"u,attr"`

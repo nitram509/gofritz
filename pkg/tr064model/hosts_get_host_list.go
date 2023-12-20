@@ -1,4 +1,4 @@
-package models
+package tr064model
 
 type XAvmGetHostListResponse struct {
 	Index                       int    `xml:"Index"`
