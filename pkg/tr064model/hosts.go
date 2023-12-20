@@ -1,5 +1,9 @@
 package tr064model
 
+// XAvmGetSpecificHostEntryByIpResponse auto generated model from [hostsSCPD],
+// based on service spec 'X_AVM-DE_GetSpecificHostEntryByIP'
+//
+// [hostsSCPD]: http://fritz.box/hostsSCPD.xml
 type XAvmGetSpecificHostEntryByIpResponse struct {
 	MACAddress                  string `xml:"NewMACAddress"`
 	Active                      bool   `xml:"NewActive"`
