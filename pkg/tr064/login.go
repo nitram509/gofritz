@@ -35,7 +35,7 @@ func Login() *soap.SoapSession {
 	authHeader := response.Header.Get("WWW-Authenticate")
 	method := response.Request.Method
 	url := response.Request.URL.String()
-	digest := soap.CreateAuthenticationDigest(username, password, authHeader, method, url)
+	digest := soap.CreateAuthenticationDigestResponse(username, password, authHeader, method, url)
 
 	req, err = soap.SoapRequest("fritz.box", action, uri, digest, "/upnp/control/deviceconfig", nil)
 	if err != nil {

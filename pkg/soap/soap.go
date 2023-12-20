@@ -149,7 +149,7 @@ func (cmd *actionCmd) Do() GenericSoapResponse {
 	username := os.Getenv("FB_USERNAME")
 	password := os.Getenv("FB_PASSWORD")
 	url := "http://fritz.box:49000" + cmd.soapCommand.reqPath
-	digest := CreateAuthenticationDigest(username, password, cmd.authenticator.getAuthHeader(), "POST", url)
+	digest := CreateAuthenticationDigestResponse(username, password, cmd.authenticator.getAuthHeader(), "POST", url)
 
 	req, err := SoapRequest("fritz.box",
 		cmd.soapAction,
