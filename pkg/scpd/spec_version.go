@@ -1,4 +1,4 @@
-package tr064
+package scpd
 
 type SystemVersion struct {
 	HW          string `xml:"HW"`
@@ -54,11 +54,32 @@ type Service struct {
 	SCPDURL     string `xml:"SCPDURL"`
 }
 
+type Argument struct {
+	Name                 string `xml:"name"`
+	Direction            string `xml:"direction"`
+	RelatedStateVariable string `xml:"relatedStateVariable"`
+}
+
+type Action struct {
+	Name         string     `xml:"name"`
+	ArgumentList []Argument `xml:"argumentList>argument,omitempty"`
+}
+
+type StateVariable struct {
+	Name             string   `xml:"name"`
+	SendEvents       string   `xml:"sendEvents,attr"`
+	DataType         string   `xml:"dataType"`
+	DefaultValue     string   `xml:"defaultValue,omitempty"`
+	AllowedValueList []string `xml:"allowedValueList>allowedValue,omitempty"`
+}
+
 type SpecVersion struct {
 	SpecVersion struct {
 		Major string `xml:"major"`
 		Minor string `xml:"minor"`
 	} `xml:"specVersion"`
-	SystemVersion SystemVersion `xml:"systemVersion"`
-	Device        DeviceRoot    `xml:"device"`
+	SystemVersion     SystemVersion   `xml:"systemVersion,omitempty"`
+	Device            DeviceRoot      `xml:"device,omitempty"`
+	ActionList        []Action        `xml:"actionList>action,omitempty"`
+	ServiceStateTable []StateVariable `xml:"serviceStateTable>stateVariable,omitempty"`
 }

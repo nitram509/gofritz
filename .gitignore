@@ -1,4 +1,4 @@
-.env
 .idea/
+.env
 *.iml
-
+__cache__/
