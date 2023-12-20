@@ -6,8 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"text/template"
 )
@@ -31,6 +33,7 @@ type soapResponse struct {
 	Body          struct {
 		XAvmDeCreateUrlSIDResponse           XAvmDeCreateUrlSIDResponse           `xml:"X_AVM-DE_CreateUrlSIDResponse,omitempty"`
 		XAvmGetSpecificHostEntryByIpResponse XAvmGetSpecificHostEntryByIpResponse `xml:"X_AVM-DE_GetSpecificHostEntryByIPResponse,omitempty"`
+		XAvmGetHostListPathResponse          XAvmGetHostListPathResponse          `xml:"X_AVM-DE_GetHostListPathResponse,omitempty"`
 	} `xml:"Body"`
 }
 
@@ -50,20 +53,6 @@ type soapErrorResponse struct {
 			} `xml:"detail"`
 		} `xml:"Fault"`
 	} `xml:"Body"`
-}
-
-type ConvertibleBoolean bool
-
-func (bit *ConvertibleBoolean) UnmarshalJSON(data []byte) error {
-	asString := string(data)
-	if asString == "1" || asString == "true" {
-		*bit = true
-	} else if asString == "0" || asString == "false" {
-		*bit = false
-	} else {
-		return errors.New(fmt.Sprintf("Boolean unmarshal error: invalid input %s", asString))
-	}
-	return nil
 }
 
 func soapRequest(hostname string, soapAction string, soapUri string, digestAuth string, requestPath string, params []soapParam) (*http.Request, error) {
@@ -99,6 +88,7 @@ func soapRequest(hostname string, soapAction string, soapUri string, digestAuth 
 		panic(err)
 	}
 	req.Header.Set("SOAPACTION", soapUri+"#"+soapAction)
+	req.Header.Set("Accept", "text/xml")
 	req.Header.Set("Content-Type", "text/xml")
 	req.Header.Set("User-Agent", "gofritz/"+pkg.VERSION)
 	if len(digestAuth) > 0 {
@@ -106,45 +96,6 @@ func soapRequest(hostname string, soapAction string, soapUri string, digestAuth 
 	}
 	return req, nil
 }
-
-/*
-Soap Error Example
------------------------
-
-<?xml version="1.0"?>
-<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-<s:Body>
-<s:Fault>
-<faultcode>s:Client</faultcode>
-<faultstring>UPnPError</faultstring>
-<detail>
-<UPnPError xmlns="urn:dslforum-org:control-1-0">
-<errorCode>402</errorCode>
-<errorDescription>Invalid Args</errorDescription>
-</UPnPError>
-</detail>
-</s:Fault>
-</s:Body>
-</s:Envelope>
-*/
-
-/*
-<?xml version="1.0"?>
-<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
-<s:Body>
-<s:Fault>
-<faultcode>s:Client</faultcode>
-<faultstring>UPnPError</faultstring>
-<detail>
-<UPnPError xmlns="urn:dslforum-org:control-1-0">
-<errorCode>714</errorCode>
-<errorDescription>NoSuchEntryInArray</errorDescription>
-</UPnPError>
-</detail>
-</s:Fault>
-</s:Body>
-</s:Envelope>
-*/
 
 type SoapAuthenticator interface {
 	getAuthHeader() string
@@ -155,7 +106,8 @@ func (ss SoapSession) getAuthHeader() string {
 }
 
 type ActionCommand interface {
-	XAvmGetSpecificHostEntryByIp(ipAddress string) XAvmGetSpecificHostEntryByIpCommand
+	AddParam(name string, value string) ActionCommand
+	Do() soapResponse
 }
 
 type soapParam struct {
@@ -170,11 +122,12 @@ type actionCmd struct {
 	authenticator    SoapAuthenticator
 }
 
-func (ac *actionCmd) addParam(name string, value string) {
+func (ac *actionCmd) AddParam(name string, value string) ActionCommand {
 	ac.soapActionParams = append(ac.soapActionParams, soapParam{
 		name:  name,
 		value: value,
 	})
+	return ac
 }
 
 type SoapCommand interface {
@@ -190,6 +143,62 @@ func (c soapCmd) Action(action string) ActionCommand {
 		soapAction:    action,
 		authenticator: c.authenticator,
 	}
+}
+
+func (cmd *actionCmd) Do() soapResponse {
+
+	//cmd.authenticator.createDigest()
+	username := os.Getenv("FB_USERNAME")
+	password := os.Getenv("FB_PASSWORD")
+	url := "http://fritz.box:49000" + cmd.soapCommand.reqPath
+	digest := createAuthenticationDigest(username, password, cmd.authenticator.getAuthHeader(), "POST", url)
+
+	req, err := soapRequest("fritz.box",
+		cmd.soapAction,
+		cmd.soapCommand.uri,
+		digest,
+		cmd.soapCommand.reqPath,
+		cmd.soapActionParams)
+	if err != nil {
+		panic(err)
+	}
+
+	client := &http.Client{}
+	response, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+
+	resp, err := io.ReadAll(response.Body)
+
+	if response.StatusCode != 200 {
+		if response.StatusCode == 500 {
+			upnpError := soapErrorResponse{}
+			err := xml.Unmarshal(resp, &upnpError)
+			if err != nil {
+				panic(err)
+			}
+			err = errors.New(fmt.Sprintf("%s, soap_action=%s, error_code=%s, error_description=%s",
+				upnpError.Body.Fault.Faultstring,
+				cmd.soapAction,
+				upnpError.Body.Fault.Detail.UPnPError.ErrorCode,
+				upnpError.Body.Fault.Detail.UPnPError.ErrorDescription,
+			))
+			panic(err)
+		} else {
+			panic(errors.New("Error calling '" + url + "', Status:" + response.Status))
+		}
+	}
+
+	if err != nil {
+		panic(err)
+	}
+	envResp := soapResponse{}
+	err = xml.Unmarshal(resp, &envResp)
+	if err != nil {
+		panic(err)
+	}
+	return envResp
 }
 
 func (c soapCmd) Uri(uri string) SoapCommand {

@@ -14,7 +14,7 @@ func Test_parsing_XAvmGetSpecificHostEntryByIPResponse(t *testing.T) {
 
 	response := envelope.Body.XAvmGetSpecificHostEntryByIpResponse
 	then.AssertThat(t, response.MACAddress, is.EqualTo("11:22:33:44:55:66"))
-	then.AssertThat(t, response.Active, is.EqualTo("0"))
+	then.AssertThat(t, response.Active, is.False())
 	then.AssertThat(t, response.HostName, is.EqualTo("foobar"))
 	then.AssertThat(t, response.InterfaceType, is.EqualTo("type"))
 	then.AssertThat(t, response.XAvmPort, is.EqualTo("0"))
