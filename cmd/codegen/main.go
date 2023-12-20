@@ -66,6 +66,9 @@ func determineVariableName(argumentName string) string {
 	if strings.HasPrefix(argumentName, "New") {
 		argumentName = argumentName[3:]
 	}
+	if strings.HasPrefix(argumentName, "X_AVM-DE_") {
+		argumentName = argumentName[9:]
+	}
 	return argumentName
 }
 
@@ -131,40 +134,40 @@ func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, r
 	return result
 }
 
-func serviceId2SnakeCase(serviceId string) string {
-	serviceId = strings.ReplaceAll(serviceId, "X_AVM-DE_", "Avm")
-	serviceId = strings.ReplaceAll(serviceId, "WebDAV", "Webdav")
-	serviceId = strings.ReplaceAll(serviceId, "FRITZ", "Fritz")
-	serviceId = strings.ReplaceAll(serviceId, "VoIP", "Voip")
-	serviceId = strings.ReplaceAll(serviceId, "WLAN", "Wlan")
-	serviceId = strings.ReplaceAll(serviceId, "UUID", "Uuid")
-	serviceId = strings.ReplaceAll(serviceId, "SSID", "Ssid")
-	serviceId = strings.ReplaceAll(serviceId, "DECT", "Dect")
-	serviceId = strings.ReplaceAll(serviceId, "UPnP", "Upnp")
-	serviceId = strings.ReplaceAll(serviceId, "DNS", "Dns")
-	serviceId = strings.ReplaceAll(serviceId, "FTP", "Ftp")
-	serviceId = strings.ReplaceAll(serviceId, "NTP", "Ntp")
-	serviceId = strings.ReplaceAll(serviceId, "SMB", "Smb")
-	serviceId = strings.ReplaceAll(serviceId, "SID", "Sid")
-	serviceId = strings.ReplaceAll(serviceId, "UID", "Uid")
-	serviceId = strings.ReplaceAll(serviceId, "URL", "Url")
-	serviceId = strings.ReplaceAll(serviceId, "WAN", "Wan")
-	serviceId = strings.ReplaceAll(serviceId, "VPN", "Vpn")
-	serviceId = strings.ReplaceAll(serviceId, "PFS", "Pfs")
-	serviceId = strings.ReplaceAll(serviceId, "DSL", "Dsl")
-	serviceId = strings.ReplaceAll(serviceId, "LAN", "Lan")
-	serviceId = strings.ReplaceAll(serviceId, "USP", "Usp")
-	serviceId = strings.ReplaceAll(serviceId, "TAM", "Tam")
-	serviceId = strings.ReplaceAll(serviceId, "MAC", "Mac")
-	serviceId = strings.ReplaceAll(serviceId, "CGI", "CGI")
-	serviceId = strings.ReplaceAll(serviceId, "IP", "Ip")
-	serviceId = strings.ReplaceAll(serviceId, "ID", "Id")
-	serviceId = strings.ReplaceAll(serviceId, "TR", "Tr")
-	serviceId = strings.ReplaceAll(serviceId, "TV", "Tv")
-	serviceId = strings.ReplaceAll(serviceId, "X_", "X")
+func string2SnakeCase(str string) string {
+	str = strings.ReplaceAll(str, "X_AVM-DE_", "Avm")
+	str = strings.ReplaceAll(str, "WebDAV", "Webdav")
+	str = strings.ReplaceAll(str, "FRITZ", "Fritz")
+	str = strings.ReplaceAll(str, "VoIP", "Voip")
+	str = strings.ReplaceAll(str, "WLAN", "Wlan")
+	str = strings.ReplaceAll(str, "UUID", "Uuid")
+	str = strings.ReplaceAll(str, "SSID", "Ssid")
+	str = strings.ReplaceAll(str, "DECT", "Dect")
+	str = strings.ReplaceAll(str, "UPnP", "Upnp")
+	str = strings.ReplaceAll(str, "DNS", "Dns")
+	str = strings.ReplaceAll(str, "FTP", "Ftp")
+	str = strings.ReplaceAll(str, "NTP", "Ntp")
+	str = strings.ReplaceAll(str, "SMB", "Smb")
+	str = strings.ReplaceAll(str, "SID", "Sid")
+	str = strings.ReplaceAll(str, "UID", "Uid")
+	str = strings.ReplaceAll(str, "URL", "Url")
+	str = strings.ReplaceAll(str, "WAN", "Wan")
+	str = strings.ReplaceAll(str, "VPN", "Vpn")
+	str = strings.ReplaceAll(str, "PFS", "Pfs")
+	str = strings.ReplaceAll(str, "DSL", "Dsl")
+	str = strings.ReplaceAll(str, "LAN", "Lan")
+	str = strings.ReplaceAll(str, "USP", "Usp")
+	str = strings.ReplaceAll(str, "TAM", "Tam")
+	str = strings.ReplaceAll(str, "MAC", "Mac")
+	str = strings.ReplaceAll(str, "CGI", "CGI")
+	str = strings.ReplaceAll(str, "IP", "Ip")
+	str = strings.ReplaceAll(str, "ID", "Id")
+	str = strings.ReplaceAll(str, "TR", "Tr")
+	str = strings.ReplaceAll(str, "TV", "Tv")
+	str = strings.ReplaceAll(str, "X_", "X")
 	sb := strings.Builder{}
-	for i := 0; i < len(serviceId); i++ {
-		s := serviceId[i]
+	for i := 0; i < len(str); i++ {
+		s := str[i]
 		if unicode.IsUpper(rune(s)) && (sb.Len() > 0) {
 			sb.WriteString("_")
 		}
@@ -185,16 +188,57 @@ func determineFileName(deviceType string, serviceId string, actionName string) (
 	default:
 		panic(errors.New("missing mapping for deviceType '" + deviceType + "'"))
 	}
+	serviceGroup := serviceId2SnakeCase(serviceId)
+	fileName := string2SnakeCase(actionName) + ".go"
+	return fmt.Sprintf("pkg/tr064model/%s_%s_%s", packageName, serviceGroup, fileName)
+}
 
+func serviceId2SnakeCase(serviceId string) string {
 	serviceGroup := strings.Split(serviceId, ":")[1]
 	if !strings.HasSuffix(serviceGroup, "-com") {
 		panic(errors.New("unsupported serviceId mapping for '" + serviceId + "'"))
 	}
 	serviceGroup = serviceGroup[:len(serviceGroup)-4]
-	serviceGroup = serviceId2SnakeCase(serviceGroup)
+	serviceGroup = string2SnakeCase(serviceGroup)
+	return serviceGroup
+}
 
-	fileName := serviceId2SnakeCase(actionName) + ".go"
-	return fmt.Sprintf("pkg/tr064model/%s_%s_%s", packageName, serviceGroup, fileName)
+func structNameCamelCase(serviceId string, actionName string) string {
+	if strings.HasPrefix(actionName, "X_AVM-DE_") {
+		actionName = "Xavm" + actionName[9:]
+	}
+	if actionName == "GetInfo" {
+		actionName = "Get" + string2CamelCase(serviceId2SnakeCase(serviceId))
+		// prevent double 'InfoInfo'
+		if !strings.HasSuffix(actionName, "Info") {
+			actionName = actionName + "Info"
+		}
+	} else if actionName == "SetConfig" {
+		actionName = "Set" + string2CamelCase(serviceId2SnakeCase(serviceId)) + "Config"
+	} else if actionName == "SetEnable" {
+		actionName = "Set" + string2CamelCase(serviceId2SnakeCase(serviceId)) + "Enable"
+	} else if actionName == "GetStatistics" {
+		actionName = "Get" + string2CamelCase(serviceId2SnakeCase(serviceId)) + "Statistics"
+	}
+	return actionName
+}
+
+func string2CamelCase(str string) string {
+	sb := strings.Builder{}
+	// turn into CamelCase
+	for i := 0; i < len(str); i++ {
+		s := string(str[i])
+		if sb.Len() == 0 {
+			sb.WriteString(strings.ToUpper(s))
+		} else if s == "_" {
+			i = i + 1
+			s := string(str[i])
+			sb.WriteString(strings.ToUpper(s))
+		} else {
+			sb.WriteString(s)
+		}
+	}
+	return sb.String()
 }
 
 func generateResponseStruct(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions) {
@@ -242,7 +286,7 @@ func generateResponseStruct(deviceType string, serviceId string, rootSpec scpd.S
 		}
 		// render the template
 		sd := structData{
-			Name:           action.Name + "Response",
+			Name:           structNameCamelCase(serviceId, action.Name) + "Response",
 			SCDPShortName:  deriveScdpShortName(findScdpUrlPath(rootSpec, serviceId)),
 			SCDPUrlPath:    findScdpUrlPath(rootSpec, serviceId),
 			SystemVersion:  rootSpec.SystemVersion.Display,
