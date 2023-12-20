@@ -2,6 +2,7 @@ package tr064
 
 import (
 	"encoding/xml"
+	"github.com/nitram509/gofitz/pkg/models"
 	"github.com/nitram509/gofitz/pkg/soap"
 	"io"
 	"log"
@@ -10,11 +11,7 @@ import (
 	"strings"
 )
 
-type XAvmDeCreateUrlSIDResponse struct {
-	U      string `xml:"u,attr"`
-	UrlSID string `xml:"NewX_AVM-DE_UrlSID"`
-}
-
+// TODO: refactoring! this is not in the correct package.
 func Login() *soap.SoapSession {
 	action := "X_AVM-DE_CreateUrlSID"
 	uri := "urn:dslforum-org:service:DeviceConfig:1"
@@ -57,7 +54,7 @@ func Login() *soap.SoapSession {
 		panic(err)
 	}
 
-	var envResp soap.SoapResponse
+	var envResp models.SoapResponse
 	err = xml.Unmarshal(buf, &envResp)
 
 	sid := strings.TrimLeft(envResp.Body.XAvmDeCreateUrlSIDResponse.UrlSID, "sid=")

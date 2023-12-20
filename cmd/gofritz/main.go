@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/tr064"
+	"github.com/nitram509/gofitz/pkg/tr064/lan"
 	"log"
 )
 
@@ -13,6 +14,6 @@ func main() {
 	//resp := tr064.XAvmGetSpecificHostEntryByIp(*session, "192.168.178.40")
 	//print(resp.HostName)
 
-	resp := tr064.XAvmGetHostList(*session)
+	resp := lan.XAvmGetHostList(*session)
 	print(fmt.Sprintf("%v", resp))
 }

@@ -6,8 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg"
-	"github.com/nitram509/gofitz/pkg/tr064"
-	"github.com/nitram509/gofitz/pkg/tr064/lan"
+	"github.com/nitram509/gofitz/pkg/models"
 	"io"
 	"log"
 	"net/http"
@@ -20,17 +19,6 @@ type SoapSession struct {
 	Sid        string
 	AuthDigest string
 	AuthHeader string
-}
-
-type SoapResponse struct {
-	XMLName       xml.Name `xml:"Envelope"`
-	S             string   `xml:"s,attr"`
-	EncodingStyle string   `xml:"encodingStyle,attr"`
-	Body          struct {
-		XAvmDeCreateUrlSIDResponse           tr064.XAvmDeCreateUrlSIDResponse         `xml:"X_AVM-DE_CreateUrlSIDResponse,omitempty"`
-		XAvmGetSpecificHostEntryByIpResponse lan.XAvmGetSpecificHostEntryByIpResponse `xml:"X_AVM-DE_GetSpecificHostEntryByIPResponse,omitempty"`
-		XAvmGetHostListPathResponse          lan.XAvmGetHostListPathResponse          `xml:"X_AVM-DE_GetHostListPathResponse,omitempty"`
-	} `xml:"Body"`
 }
 
 type envelopeParameter struct {
@@ -109,7 +97,7 @@ func (ss SoapSession) getAuthHeader() string {
 
 type ActionCommand interface {
 	AddParam(name string, value string) ActionCommand
-	Do() SoapResponse
+	Do() models.SoapResponse
 }
 
 type soapParam struct {
@@ -147,7 +135,7 @@ func (c soapCmd) Action(action string) ActionCommand {
 	}
 }
 
-func (cmd *actionCmd) Do() SoapResponse {
+func (cmd *actionCmd) Do() models.SoapResponse {
 
 	//cmd.authenticator.createDigest()
 	username := os.Getenv("FB_USERNAME")
@@ -195,7 +183,7 @@ func (cmd *actionCmd) Do() SoapResponse {
 	if err != nil {
 		panic(err)
 	}
-	envResp := SoapResponse{}
+	envResp := models.SoapResponse{}
 	err = xml.Unmarshal(resp, &envResp)
 	if err != nil {
 		panic(err)
