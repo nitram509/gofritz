@@ -8,12 +8,13 @@ import (
 	"os"
 	"strings"
 	"text/template"
+	"unicode"
 )
 
 const HOST = "fritz.box"
 const URL = "http://" + HOST + ":49000"
 
-const debug = true
+const debug = false
 const spaces = "                                                                                                     "
 
 type structData struct {
@@ -70,6 +71,8 @@ func determineTypeName(spec scpd.ServiceControlledProtocolDescriptions, relatedS
 				return "string"
 			case "ui4":
 				return "int   "
+			case "ui2":
+				return "int   "
 			case "boolean":
 				return "bool  "
 			default:
@@ -107,18 +110,53 @@ func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, r
 	return result
 }
 
-func determineFileName(deviceType string, serviceId string, actionName string) (result string) {
-	//var packageName string
-	var fileName string
-	//switch deviceType {
-	//case "urn:dslforum-org:device:InternetGatewayDevice:1":
-	//	packageName = "gateway"
-	//}
-	switch serviceId {
-	case "urn:DeviceInfo-com:serviceId:DeviceInfo1":
-		fileName = "device_info.go"
+func serviceId2SnakeCase(serviceId string) string {
+	serviceId = strings.ReplaceAll(serviceId, "X_AVM-DE_", "Avm")
+	serviceId = strings.ReplaceAll(serviceId, "WLAN", "Wlan")
+	serviceId = strings.ReplaceAll(serviceId, "WebDAV", "Webdav")
+	serviceId = strings.ReplaceAll(serviceId, "WAN", "Wan")
+	serviceId = strings.ReplaceAll(serviceId, "DSL", "Dsl")
+	serviceId = strings.ReplaceAll(serviceId, "LAN", "Lan")
+	serviceId = strings.ReplaceAll(serviceId, "VoIP", "Voip")
+	serviceId = strings.ReplaceAll(serviceId, "USP", "Usp")
+	serviceId = strings.ReplaceAll(serviceId, "UPnP", "Upnp")
+	serviceId = strings.ReplaceAll(serviceId, "TAM", "Tam")
+	serviceId = strings.ReplaceAll(serviceId, "X_", "X")
+	serviceId = strings.ReplaceAll(serviceId, "MAC", "Mac")
+	serviceId = strings.ReplaceAll(serviceId, "IP", "Ip")
+	sb := strings.Builder{}
+	for i := 0; i < len(serviceId); i++ {
+		s := serviceId[i]
+		if unicode.IsUpper(rune(s)) && (sb.Len() > 0) {
+			sb.WriteString("_")
+		}
+		sb.WriteString(strings.ToLower(string(s)))
 	}
-	return "pkg/tr064model/" + fileName
+	return sb.String()
+}
+
+func determineFileName(deviceType string, serviceId string, actionName string) (result string) {
+	var packageName string
+	switch deviceType {
+	case "urn:dslforum-org:device:InternetGatewayDevice:1":
+		packageName = "gateway"
+	case "urn:dslforum-org:device:LANDevice:1":
+		packageName = "lan"
+	case "urn:dslforum-org:device:WANDevice:1":
+		packageName = "wan"
+	default:
+		panic(errors.New("missing mapping for deviceType '" + deviceType + "'"))
+	}
+
+	serviceGroup := strings.Split(serviceId, ":")[1]
+	if !strings.HasSuffix(serviceGroup, "-com") {
+		panic(errors.New("unsupported serviceId mapping for '" + serviceId + "'"))
+	}
+	serviceGroup = serviceGroup[:len(serviceGroup)-4]
+	serviceGroup = serviceId2SnakeCase(serviceGroup)
+
+	fileName := serviceId2SnakeCase(actionName) + ".go"
+	return fmt.Sprintf("pkg/tr064model/%s_%s_%s", packageName, serviceGroup, fileName)
 }
 
 func generateResponseStruct(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions) {
@@ -178,12 +216,7 @@ func generateResponseStruct(deviceType string, serviceId string, rootSpec scpd.S
 		if err != nil {
 			panic(err)
 		}
-
-		if debug {
-			println(sb.String())
-			os.WriteFile(determineFileName(deviceType, serviceId, action.Name), []byte(sb.String()), 0644)
-			break
-		}
+		os.WriteFile(determineFileName(deviceType, serviceId, action.Name), []byte(sb.String()), 0644)
 	}
 
 }
