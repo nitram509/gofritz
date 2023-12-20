@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/http"
 	"github.com/nitram509/gofitz/pkg/scpd"
@@ -33,6 +34,12 @@ func fetchAllTr64SDescription() tr64Desc {
 		for _, service := range device.ServiceList {
 			serviceSpec := retrieveServiceSepc(service)
 			serviceSpec.deviceType = device.DeviceType
+			if len(serviceSpec.spec.Device.DeviceList) > 0 {
+				panic(errors.New("more devices than expected"))
+			}
+			if len(serviceSpec.spec.Device.ServiceList) > 0 {
+				panic(errors.New("more services than expected"))
+			}
 			result.services = append(result.services, serviceSpec)
 		}
 	}
