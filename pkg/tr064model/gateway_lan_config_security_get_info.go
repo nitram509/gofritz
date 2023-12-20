@@ -1,6 +1,6 @@
 package tr064model
 
-// GetLanConfigSecurityInfoResponse auto generated model from [lanconfigsecuritySCPD],
+// GetLanConfigSecurityInfoResponse AUTO-GENERATED (do not edit) model from [lanconfigsecuritySCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [lanconfigsecuritySCPD]: http://fritz.box:49000/lanconfigsecuritySCPD.xml

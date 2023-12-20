@@ -1,6 +1,6 @@
 package tr064model
 
-// GetSecurityKeysResponse auto generated model from [wlanconfigSCPD],
+// GetSecurityKeysResponse AUTO-GENERATED (do not edit) model from [wlanconfigSCPD],
 // based on SOAP action 'GetSecurityKeys', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml

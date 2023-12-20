@@ -1,6 +1,6 @@
 package tr064model
 
-// GetGenericHostEntryResponse auto generated model from [hostsSCPD],
+// GetGenericHostEntryResponse AUTO-GENERATED (do not edit) model from [hostsSCPD],
 // based on SOAP action 'GetGenericHostEntry', Fritz!Box-System-Version 164.07.57
 //
 // [hostsSCPD]: http://fritz.box:49000/hostsSCPD.xml

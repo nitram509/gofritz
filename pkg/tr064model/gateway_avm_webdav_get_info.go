@@ -1,6 +1,6 @@
 package tr064model
 
-// GetAvmWebdavInfoResponse auto generated model from [x_webdavSCPD],
+// GetAvmWebdavInfoResponse AUTO-GENERATED (do not edit) model from [x_webdavSCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [x_webdavSCPD]: http://fritz.box:49000/x_webdavSCPD.xml

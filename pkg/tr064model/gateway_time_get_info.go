@@ -1,6 +1,6 @@
 package tr064model
 
-// GetTimeInfoResponse auto generated model from [timeSCPD],
+// GetTimeInfoResponse AUTO-GENERATED (do not edit) model from [timeSCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [timeSCPD]: http://fritz.box:49000/timeSCPD.xml

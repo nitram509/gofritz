@@ -1,6 +1,6 @@
 package tr064model
 
-// GetStatisticsTotalResponse auto generated model from [wandslifconfigSCPD],
+// GetStatisticsTotalResponse AUTO-GENERATED (do not edit) model from [wandslifconfigSCPD],
 // based on SOAP action 'GetStatisticsTotal', Fritz!Box-System-Version 164.07.57
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml

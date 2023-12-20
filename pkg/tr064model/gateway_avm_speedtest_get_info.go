@@ -1,6 +1,6 @@
 package tr064model
 
-// GetAvmSpeedtestInfoResponse auto generated model from [x_speedtestSCPD],
+// GetAvmSpeedtestInfoResponse AUTO-GENERATED (do not edit) model from [x_speedtestSCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [x_speedtestSCPD]: http://fritz.box:49000/x_speedtestSCPD.xml

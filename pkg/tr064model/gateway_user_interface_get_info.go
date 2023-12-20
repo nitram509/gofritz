@@ -1,6 +1,6 @@
 package tr064model
 
-// GetUserInterfaceInfoResponse auto generated model from [userifSCPD],
+// GetUserInterfaceInfoResponse AUTO-GENERATED (do not edit) model from [userifSCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [userifSCPD]: http://fritz.box:49000/userifSCPD.xml

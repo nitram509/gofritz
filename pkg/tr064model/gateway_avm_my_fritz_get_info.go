@@ -1,6 +1,6 @@
 package tr064model
 
-// GetAvmMyFritzInfoResponse auto generated model from [x_myfritzSCPD],
+// GetAvmMyFritzInfoResponse AUTO-GENERATED (do not edit) model from [x_myfritzSCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [x_myfritzSCPD]: http://fritz.box:49000/x_myfritzSCPD.xml

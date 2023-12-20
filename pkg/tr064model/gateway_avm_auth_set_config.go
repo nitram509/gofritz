@@ -1,6 +1,6 @@
 package tr064model
 
-// SetAvmAuthConfigResponse auto generated model from [x_authSCPD],
+// SetAvmAuthConfigResponse AUTO-GENERATED (do not edit) model from [x_authSCPD],
 // based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.07.57
 //
 // [x_authSCPD]: http://fritz.box:49000/x_authSCPD.xml

@@ -1,6 +1,6 @@
 package tr064model
 
-// XavmGetDSLInfoResponse auto generated model from [wandslifconfigSCPD],
+// XavmGetDSLInfoResponse AUTO-GENERATED (do not edit) model from [wandslifconfigSCPD],
 // based on SOAP action 'X_AVM-DE_GetDSLInfo', Fritz!Box-System-Version 164.07.57
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml

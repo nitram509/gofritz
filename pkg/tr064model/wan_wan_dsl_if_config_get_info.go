@@ -1,6 +1,6 @@
 package tr064model
 
-// GetWanDslIfConfigInfoResponse auto generated model from [wandslifconfigSCPD],
+// GetWanDslIfConfigInfoResponse AUTO-GENERATED (do not edit) model from [wandslifconfigSCPD],
 // based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml

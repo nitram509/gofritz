@@ -1,6 +1,6 @@
 package tr064model
 
-// GetGenericDeviceInfosResponse auto generated model from [x_homeautoSCPD],
+// GetGenericDeviceInfosResponse AUTO-GENERATED (do not edit) model from [x_homeautoSCPD],
 // based on SOAP action 'GetGenericDeviceInfos', Fritz!Box-System-Version 164.07.57
 //
 // [x_homeautoSCPD]: http://fritz.box:49000/x_homeautoSCPD.xml
