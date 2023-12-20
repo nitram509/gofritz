@@ -6,7 +6,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg"
-	"github.com/nitram509/gofitz/pkg/tr064model"
 	"io"
 	"log"
 	"net/http"
@@ -25,6 +24,15 @@ type envelopeParameter struct {
 	Action string
 	Uri    string
 	Params string
+}
+
+type GenericSoapResponse struct {
+	XMLName       xml.Name `xml:"Envelope"`
+	S             string   `xml:"s,attr"`
+	EncodingStyle string   `xml:"encodingStyle,attr"`
+	Body          struct {
+		Data []byte `xml:",innerxml"`
+	} `xml:"Body,omitempty"`
 }
 
 type soapErrorResponse struct {
@@ -97,7 +105,7 @@ func (ss SoapSession) getAuthHeader() string {
 
 type ActionCommand interface {
 	AddParam(name string, value string) ActionCommand
-	Do() tr064model.SoapResponse
+	Do() GenericSoapResponse
 }
 
 type soapParam struct {
@@ -112,12 +120,12 @@ type actionCmd struct {
 	authenticator    SoapAuthenticator
 }
 
-func (ac *actionCmd) AddParam(name string, value string) ActionCommand {
-	ac.soapActionParams = append(ac.soapActionParams, soapParam{
+func (cmd *actionCmd) AddParam(name string, value string) ActionCommand {
+	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
 		name:  name,
 		value: value,
 	})
-	return ac
+	return cmd
 }
 
 type SoapCommand interface {
@@ -135,7 +143,7 @@ func (c soapCmd) Action(action string) ActionCommand {
 	}
 }
 
-func (cmd *actionCmd) Do() tr064model.SoapResponse {
+func (cmd *actionCmd) Do() GenericSoapResponse {
 
 	//cmd.authenticator.createDigest()
 	username := os.Getenv("FB_USERNAME")
@@ -183,7 +191,7 @@ func (cmd *actionCmd) Do() tr064model.SoapResponse {
 	if err != nil {
 		panic(err)
 	}
-	envResp := tr064model.SoapResponse{}
+	envResp := GenericSoapResponse{}
 	err = xml.Unmarshal(resp, &envResp)
 	if err != nil {
 		panic(err)

@@ -5,5 +5,6 @@ package tr064model
 //
 // [{{ .SCDPShortName }}]: http://fritz.box:49000{{ .SCDPUrlPath }}
 type {{ .Name }} struct {
+    XMLName xml.Name // rather for debug purpose
 {{ range .Variables }}	{{ . }}
 {{ end }}}
