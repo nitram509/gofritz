@@ -108,7 +108,8 @@ func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, r
 	for _, serviceState := range spec.ServiceStateTable {
 		if relatedStateVariable == serviceState.Name {
 			if len(serviceState.DefaultValue) > 0 {
-				result = result + " default=" + serviceState.DefaultValue
+				result = result + " default=" + strings.TrimSpace(serviceState.DefaultValue)
+
 			}
 			if len(serviceState.AllowedValueList) > 0 {
 				if strings.Contains(result, "default") {
@@ -209,6 +210,12 @@ func structNameCamelCase(serviceId string, actionName string) string {
 	}
 	if actionName == "GetInfo" {
 		actionName = "Get" + string2CamelCase(serviceId2SnakeCase(serviceId))
+		// prevent double 'InfoInfo'
+		if !strings.HasSuffix(actionName, "Info") {
+			actionName = actionName + "Info"
+		}
+	} else if actionName == "XavmGetInfo" {
+		actionName = "XavmGet" + string2CamelCase(serviceId2SnakeCase(serviceId))
 		// prevent double 'InfoInfo'
 		if !strings.HasSuffix(actionName, "Info") {
 			actionName = actionName + "Info"
