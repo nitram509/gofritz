@@ -4,11 +4,26 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/scpd"
+	"path/filepath"
 	"strings"
 	"unicode"
 )
 
 const spaces = "                                                                                                     "
+
+func determineStructFileName(deviceType string, serviceId string, actionName string) (result string) {
+	packageName := derivePackageName(deviceType)
+	serviceGroup := serviceId2SnakeCase(serviceId)
+	fileName := fmt.Sprintf("%s_%s_%s.go", packageName, serviceGroup, string2SnakeCase(actionName))
+	return filepath.Join("pkg", "tr064model", fileName)
+}
+
+func determineSoapStubFileName(deviceType string, serviceId string, actionName string) (result string) {
+	packageName := derivePackageName(deviceType)
+	serviceGroup := serviceId2SnakeCase(serviceId)
+	fileName := fmt.Sprintf("%s_%s.go", serviceGroup, string2SnakeCase(actionName))
+	return filepath.Join("pkg", "tr064model", packageName, fileName)
+}
 
 func string2SnakeCase(str string) string {
 	str = strings.ReplaceAll(str, "X_AVM-DE_", "Avm")

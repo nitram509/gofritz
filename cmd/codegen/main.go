@@ -12,7 +12,9 @@ import (
 const HOST = "fritz.box"
 const URL = "http://" + HOST + ":49000"
 
-const debug = false
+const RESPONSESUFFIX = "Response"
+
+const writeFiles = true
 
 type StructNameCollector interface {
 	addStruct(structName string, actionName string)
@@ -42,9 +44,9 @@ func (snc *structNameCollector) addStruct(structName string, actionName string) 
 }
 
 func generateModels(description tr64Desc) {
-	snc := structNameCollector{}
+	//snc := structNameCollector{}
 	for _, service := range description.services {
-		generateResponseStructs(service.deviceType, service.serviceId, description.root, service.spec, &snc)
+		//generateResponseStructs(service.deviceType, service.serviceId, description.root, service.spec, &snc)
 		generateSoapServiceStubs(service.deviceType, service.serviceId, description.root, service.spec)
 	}
 	//generateSoapResponseAttributes(snc)

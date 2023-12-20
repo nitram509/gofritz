@@ -1,0 +1,24 @@
+package {{ .PackageName }}
+
+import (
+	"encoding/xml"
+	"github.com/nitram509/gofitz/pkg/soap"
+	"github.com/nitram509/gofitz/pkg/tr064model"
+)
+// {{ .FuncName }} AUTO-GENERATED (do not edit) code from [{{ .SCDPShortName }}],
+// based on SOAP action '{{ .SoapActionName }}', Fritz!Box-System-Version {{ .SystemVersion }}
+//
+// [{{ .SCDPShortName }}]: http://fritz.box:49000{{ .SCDPUrlPath }}
+func {{ .FuncName }}(session soap.SoapSession{{ .FuncParameters}}) (tr064model.{{ .ReturnTypeName }}, error) {
+	bodyData := soap.NewSoapRequest().
+		WithAuthenticator(session).
+		ReqPath("{{ .ReqPath }}").
+		Uri("{{ .Uri }}").
+		Action("{{ .SoapActionName }}").
+{{ range $Name, $Value := .Parameters }}	AddParam("{{ $Name }}", {{ $Value }}).
+{{ end }}
+		Do().Body.Data
+	result := tr064model.{{ .ReturnTypeName }}{}
+	err := xml.Unmarshal(bodyData, &result)
+	return result, err
+}

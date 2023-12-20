@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/scpd"
 	"os"
-	"path/filepath"
 	"strings"
 	"text/template"
 )
@@ -20,24 +19,8 @@ type structData struct {
 	Variables      []string
 }
 
-//go:embed struct.go.tmpl
+//go:embed struct.go.gohtml
 var templateStructGo string
-
-func findScdpUrlPath(rootSpec scpd.ServiceControlledProtocolDescriptions, serviceId string) string {
-	for _, service := range rootSpec.Device.ServiceList {
-		if serviceId == service.ServiceId {
-			return service.SCPDURL
-		}
-	}
-	for _, device := range rootSpec.Device.DeviceList {
-		for _, service := range device.ServiceList {
-			if serviceId == service.ServiceId {
-				return service.SCPDURL
-			}
-		}
-	}
-	panic(errors.New(fmt.Sprintf("serviceId '%s' not found", serviceId)))
-}
 
 func deriveScdpShortName(scpdUrl string) string {
 	result := strings.TrimLeft(scpdUrl, "/")
@@ -98,21 +81,16 @@ func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, r
 	return result
 }
 
-func determineStructFileName(deviceType string, serviceId string, actionName string) (result string) {
-	var packageName string
+func derivePackageName(deviceType string) string {
 	switch deviceType {
 	case "urn:dslforum-org:device:InternetGatewayDevice:1":
-		packageName = "gateway"
+		return "gateway"
 	case "urn:dslforum-org:device:LANDevice:1":
-		packageName = "lan"
+		return "lan"
 	case "urn:dslforum-org:device:WANDevice:1":
-		packageName = "wan"
-	default:
-		panic(errors.New("missing mapping for deviceType '" + deviceType + "'"))
+		return "wan"
 	}
-	serviceGroup := serviceId2SnakeCase(serviceId)
-	fileName := fmt.Sprintf("%s_%s_%s.go", packageName, serviceGroup, string2SnakeCase(actionName))
-	return filepath.Join("pkg", "tr064model", fileName)
+	panic(errors.New("missing package name mapping for deviceType '" + deviceType + "'"))
 }
 
 func serviceId2SnakeCase(serviceId string) string {
@@ -125,7 +103,7 @@ func serviceId2SnakeCase(serviceId string) string {
 	return serviceGroup
 }
 
-func structNameCamelCase(serviceId string, actionName string) string {
+func deriveStructNameCamelCase(serviceId string, actionName string) string {
 	if strings.HasPrefix(actionName, "X_AVM-DE_") {
 		actionName = "Xavm" + actionName[9:]
 	}
@@ -148,7 +126,7 @@ func structNameCamelCase(serviceId string, actionName string) string {
 	} else if actionName == "GetStatistics" {
 		actionName = "Get" + string2CamelCase(serviceId2SnakeCase(serviceId)) + "Statistics"
 	}
-	return actionName
+	return actionName + RESPONSESUFFIX
 }
 
 func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions, snc *structNameCollector) {
@@ -157,7 +135,7 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 		if err != nil {
 			panic(err)
 		}
-		variables := []string{}
+		var variables []string
 		varNameMaxLen := 0
 		outArguments := filterArguments(action.ArgumentList, "out")
 		// create variable declaration
@@ -194,11 +172,12 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 			variables[i] = varDecl
 		}
 		// render the template
-		strucName := structNameCamelCase(serviceId, action.Name) + "Response"
+		strucName := deriveStructNameCamelCase(serviceId, action.Name)
+		scpdUrl := findService(rootSpec, serviceId).SCPDURL
 		sd := structData{
 			Name:           strucName,
-			SCDPShortName:  deriveScdpShortName(findScdpUrlPath(rootSpec, serviceId)),
-			SCDPUrlPath:    findScdpUrlPath(rootSpec, serviceId),
+			SCDPShortName:  deriveScdpShortName(scpdUrl),
+			SCDPUrlPath:    scpdUrl,
 			SystemVersion:  rootSpec.SystemVersion.Display,
 			SoapActionName: action.Name,
 			Variables:      variables,
@@ -208,7 +187,7 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 		if err != nil {
 			panic(err)
 		}
-		if !debug {
+		if writeFiles {
 			err := os.WriteFile(determineStructFileName(deviceType, serviceId, action.Name), []byte(sb.String()), 0644)
 			if err != nil {
 				panic(err)
