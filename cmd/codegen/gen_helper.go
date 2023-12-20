@@ -4,6 +4,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/scpd"
+	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"unicode"
@@ -22,7 +24,7 @@ func determineSoapStubFileName(deviceType string, serviceId string, actionName s
 	packageName := derivePackageName(deviceType)
 	serviceGroup := serviceId2SnakeCase(serviceId)
 	fileName := fmt.Sprintf("%s_%s.go", serviceGroup, string2SnakeCase(actionName))
-	return filepath.Join("pkg", "tr064model", packageName, fileName)
+	return filepath.Join("pkg", "tr064", packageName, fileName)
 }
 
 func string2SnakeCase(str string) string {
@@ -114,4 +116,16 @@ func string2CamelCase(str string) string {
 		}
 	}
 	return sb.String()
+}
+
+func writeFileAndFormat(fName string, data []byte) {
+	err := os.WriteFile(fName, data, 0644)
+	if err != nil {
+		panic(err)
+	}
+	_, err = exec.Command("go", "fmt", fName).Output()
+	if err != nil {
+		panic(err)
+	}
+
 }

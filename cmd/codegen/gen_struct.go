@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/scpd"
-	"os"
 	"strings"
 	"text/template"
 )
@@ -129,7 +128,7 @@ func deriveStructNameCamelCase(serviceId string, actionName string) string {
 	return actionName + RESPONSESUFFIX
 }
 
-func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions, snc *structNameCollector) {
+func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions) {
 	for _, action := range serviceSpec.ActionList {
 		tmpl, err := template.New("struct.go.tmpl").Parse(templateStructGo)
 		if err != nil {
@@ -187,16 +186,13 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 		if err != nil {
 			panic(err)
 		}
+		structFileName := determineStructFileName(deviceType, serviceId, action.Name)
 		if writeFiles {
-			err := os.WriteFile(determineStructFileName(deviceType, serviceId, action.Name), []byte(sb.String()), 0644)
-			if err != nil {
-				panic(err)
-			}
+			writeFileAndFormat(structFileName, []byte(sb.String()))
 		} else {
-			println("===== " + determineStructFileName(deviceType, serviceId, action.Name) + "=====")
+			println("===== " + structFileName + "=====")
 			println(sb.String())
 		}
-		snc.addStruct(strucName, action.Name)
 	}
 
 }

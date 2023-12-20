@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/scpd"
-	"os"
 	"strings"
 	"text/template"
 )
@@ -78,10 +77,7 @@ func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd
 		}
 		soapStubFileName := determineSoapStubFileName(deviceType, serviceId, action.Name)
 		if writeFiles {
-			err := os.WriteFile(soapStubFileName, []byte(sb.String()), 0644)
-			if err != nil {
-				panic(err)
-			}
+			writeFileAndFormat(soapStubFileName, []byte(sb.String()))
 		} else {
 			println("===== " + soapStubFileName + "=====")
 			println(sb.String())

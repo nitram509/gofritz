@@ -14,6 +14,9 @@ func main() {
 	//resp, _ := lan.XAvmGetSpecificHostEntryByIp(*session, "192.168.178.40")
 	//print(resp.HostName)
 
-	resp, _ := lan.XAvmGetHostList(*session)
+	//resp, _ := lan.XAvmGetHostList(*session)
+	//print(fmt.Sprintf("%v", resp))
+
+	resp, _ := lan.GetLanHCfgMgmInfo(*session)
 	print(fmt.Sprintf("%v", resp))
 }

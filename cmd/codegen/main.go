@@ -46,7 +46,8 @@ func (snc *structNameCollector) addStruct(structName string, actionName string) 
 func generateModels(description tr64Desc) {
 	//snc := structNameCollector{}
 	for _, service := range description.services {
-		//generateResponseStructs(service.deviceType, service.serviceId, description.root, service.spec, &snc)
+		println(fmt.Sprintf("Generate: (%s) - %s", service.deviceType, service.serviceId))
+		generateResponseStructs(service.deviceType, service.serviceId, description.root, service.spec)
 		generateSoapServiceStubs(service.deviceType, service.serviceId, description.root, service.spec)
 	}
 	//generateSoapResponseAttributes(snc)
@@ -90,9 +91,5 @@ func main() {
 	println("Model............: " + tr64SDescription.root.Device.ModelDescription)
 	println("System-Version...: " + tr64SDescription.root.SystemVersion.Display)
 	println("No# services.....: " + fmt.Sprintf("%d", len(tr64SDescription.services)))
-	for _, service := range tr64SDescription.services {
-		println(fmt.Sprintf("- (%s) - %s", service.deviceType, service.serviceId))
-	}
-
 	generateModels(tr64SDescription)
 }
