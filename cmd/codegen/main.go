@@ -13,8 +13,9 @@ const URL = "http://" + HOST + ":49000"
 type tr64Desc struct {
 	root     scpd.SpecVersion
 	services []struct {
-		serviceId string
-		spec      scpd.SpecVersion
+		deviceType string
+		serviceId  string
+		spec       scpd.SpecVersion
 	}
 }
 
@@ -24,17 +25,35 @@ func fetchAllTr64SDescription() tr64Desc {
 	result.root = root
 
 	for _, service := range root.Device.ServiceList {
-		spec := fetchAndParseResponse(service.SCPDURL)
-		serviceSpec := struct {
-			serviceId string
-			spec      scpd.SpecVersion
-		}{
-			serviceId: service.ServiceId,
-			spec:      spec,
-		}
+		serviceSpec := retrieveServiceSepc(service)
+		serviceSpec.deviceType = root.Device.DeviceType
 		result.services = append(result.services, serviceSpec)
 	}
+	for _, device := range root.Device.DeviceList {
+		for _, service := range device.ServiceList {
+			serviceSpec := retrieveServiceSepc(service)
+			serviceSpec.deviceType = device.DeviceType
+			result.services = append(result.services, serviceSpec)
+		}
+	}
 	return result
+}
+
+func retrieveServiceSepc(service scpd.Service) struct {
+	deviceType string
+	serviceId  string
+	spec       scpd.SpecVersion
+} {
+	spec := fetchAndParseResponse(service.SCPDURL)
+	serviceSpec := struct {
+		deviceType string
+		serviceId  string
+		spec       scpd.SpecVersion
+	}{
+		serviceId: service.ServiceId,
+		spec:      spec,
+	}
+	return serviceSpec
 }
 
 func fetchAndParseResponse(urlPath string) scpd.SpecVersion {
@@ -57,6 +76,7 @@ func main() {
 	println("System-Version...: " + tr64SDescription.root.SystemVersion.Display)
 	println("No# services.....: " + fmt.Sprintf("%d", len(tr64SDescription.services)))
 	for _, service := range tr64SDescription.services {
-		println("- " + service.serviceId)
+		println(fmt.Sprintf("- (%s) - %s", service.deviceType, service.serviceId))
+
 	}
 }

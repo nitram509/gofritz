@@ -1,6 +1,9 @@
 package tr064
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"github.com/nitram509/gofitz/pkg/http"
+)
 
 type XAvmGetSpecificHostEntryByIpResponse struct {
 	MACAddress                  string `xml:"NewMACAddress"`
@@ -87,8 +90,11 @@ func XAvmGetHostList(soap SoapSession) []XAvmGetHostListResponse {
 		XMLName xml.Name                  `xml:"List"`
 		Items   []XAvmGetHostListResponse `xml:"Item,omitempty"`
 	}
-	bytes := doHttpRequest(hostListPathResp.XAvmHostListPath)
-	err := xml.Unmarshal(bytes, &resp)
+	bytes, err := http.DoHttpRequest(hostListPathResp.XAvmHostListPath)
+	if err != nil {
+		panic(err)
+	}
+	err = xml.Unmarshal(bytes, &resp)
 	if err != nil {
 		panic(err)
 	}
