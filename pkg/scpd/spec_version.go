@@ -73,7 +73,7 @@ type StateVariable struct {
 	AllowedValueList []string `xml:"allowedValueList>allowedValue,omitempty"`
 }
 
-type SpecVersion struct {
+type ServiceControlledProtocolDescriptions struct {
 	SpecVersion struct {
 		Major string `xml:"major"`
 		Minor string `xml:"minor"`

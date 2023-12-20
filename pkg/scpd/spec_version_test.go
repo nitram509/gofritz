@@ -9,7 +9,7 @@ import (
 )
 
 func Test_parsing_tr64desc_xml_response(t *testing.T) {
-	var spec SpecVersion
+	var spec ServiceControlledProtocolDescriptions
 	err := xml.Unmarshal(([]byte)(tr64descXmlResponse), &spec)
 	then.AssertThat(t, err, is.Nil())
 
@@ -69,7 +69,7 @@ func Test_parsing_tr64desc_xml_response(t *testing.T) {
 }
 
 func Test_parsing_hostsSCPD_xml_response(t *testing.T) {
-	var spec SpecVersion
+	var spec ServiceControlledProtocolDescriptions
 	err := xml.Unmarshal(([]byte)(hostsScpdXmlResponse), &spec)
 	then.AssertThat(t, err, is.Nil())
 
