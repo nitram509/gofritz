@@ -25,9 +25,6 @@ func fetchAllTr64SDescription() tr64Desc {
 		serviceSpec := retrieveServiceSepc(service)
 		serviceSpec.deviceType = root.Device.DeviceType
 		result.services = append(result.services, serviceSpec)
-		if debug {
-			break
-		}
 	}
 	for _, device := range root.Device.DeviceList {
 		for _, service := range device.ServiceList {
@@ -40,9 +37,6 @@ func fetchAllTr64SDescription() tr64Desc {
 				panic(errors.New("more services than expected"))
 			}
 			result.services = append(result.services, serviceSpec)
-			if debug {
-				break
-			}
 		}
 	}
 	return result

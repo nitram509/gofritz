@@ -35,6 +35,13 @@ func findScdpUrlPath(rootSpec scpd.ServiceControlledProtocolDescriptions, servic
 			return service.SCPDURL
 		}
 	}
+	for _, device := range rootSpec.Device.DeviceList {
+		for _, service := range device.ServiceList {
+			if serviceId == service.ServiceId {
+				return service.SCPDURL
+			}
+		}
+	}
 	panic(errors.New(fmt.Sprintf("serviceId '%s' not found", serviceId)))
 }
 
@@ -69,9 +76,17 @@ func determineTypeName(spec scpd.ServiceControlledProtocolDescriptions, relatedS
 			// return type with trailing spaces for formatting
 			case "string":
 				return "string"
+			case "datetime":
+				return "string"
+			case "uuid":
+				return "string"
 			case "ui4":
 				return "int   "
+			case "i4":
+				return "int   "
 			case "ui2":
+				return "int   "
+			case "ui1":
 				return "int   "
 			case "boolean":
 				return "bool  "
@@ -105,6 +120,12 @@ func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, r
 				}
 				result = result + "]"
 			}
+			if strings.ToLower(serviceState.DataType) == "datetime" {
+				result = result + "; type=Datetime"
+			}
+			if strings.ToLower(serviceState.DataType) == "uuid" {
+				result = result + "; type=UUID"
+			}
 		}
 	}
 	return result
@@ -112,18 +133,35 @@ func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, r
 
 func serviceId2SnakeCase(serviceId string) string {
 	serviceId = strings.ReplaceAll(serviceId, "X_AVM-DE_", "Avm")
-	serviceId = strings.ReplaceAll(serviceId, "WLAN", "Wlan")
 	serviceId = strings.ReplaceAll(serviceId, "WebDAV", "Webdav")
+	serviceId = strings.ReplaceAll(serviceId, "FRITZ", "Fritz")
+	serviceId = strings.ReplaceAll(serviceId, "VoIP", "Voip")
+	serviceId = strings.ReplaceAll(serviceId, "WLAN", "Wlan")
+	serviceId = strings.ReplaceAll(serviceId, "UUID", "Uuid")
+	serviceId = strings.ReplaceAll(serviceId, "SSID", "Ssid")
+	serviceId = strings.ReplaceAll(serviceId, "DECT", "Dect")
+	serviceId = strings.ReplaceAll(serviceId, "UPnP", "Upnp")
+	serviceId = strings.ReplaceAll(serviceId, "DNS", "Dns")
+	serviceId = strings.ReplaceAll(serviceId, "FTP", "Ftp")
+	serviceId = strings.ReplaceAll(serviceId, "NTP", "Ntp")
+	serviceId = strings.ReplaceAll(serviceId, "SMB", "Smb")
+	serviceId = strings.ReplaceAll(serviceId, "SID", "Sid")
+	serviceId = strings.ReplaceAll(serviceId, "UID", "Uid")
+	serviceId = strings.ReplaceAll(serviceId, "URL", "Url")
 	serviceId = strings.ReplaceAll(serviceId, "WAN", "Wan")
+	serviceId = strings.ReplaceAll(serviceId, "VPN", "Vpn")
+	serviceId = strings.ReplaceAll(serviceId, "PFS", "Pfs")
 	serviceId = strings.ReplaceAll(serviceId, "DSL", "Dsl")
 	serviceId = strings.ReplaceAll(serviceId, "LAN", "Lan")
-	serviceId = strings.ReplaceAll(serviceId, "VoIP", "Voip")
 	serviceId = strings.ReplaceAll(serviceId, "USP", "Usp")
-	serviceId = strings.ReplaceAll(serviceId, "UPnP", "Upnp")
 	serviceId = strings.ReplaceAll(serviceId, "TAM", "Tam")
-	serviceId = strings.ReplaceAll(serviceId, "X_", "X")
 	serviceId = strings.ReplaceAll(serviceId, "MAC", "Mac")
+	serviceId = strings.ReplaceAll(serviceId, "CGI", "CGI")
 	serviceId = strings.ReplaceAll(serviceId, "IP", "Ip")
+	serviceId = strings.ReplaceAll(serviceId, "ID", "Id")
+	serviceId = strings.ReplaceAll(serviceId, "TR", "Tr")
+	serviceId = strings.ReplaceAll(serviceId, "TV", "Tv")
+	serviceId = strings.ReplaceAll(serviceId, "X_", "X")
 	sb := strings.Builder{}
 	for i := 0; i < len(serviceId); i++ {
 		s := serviceId[i]
@@ -216,7 +254,15 @@ func generateResponseStruct(deviceType string, serviceId string, rootSpec scpd.S
 		if err != nil {
 			panic(err)
 		}
-		os.WriteFile(determineFileName(deviceType, serviceId, action.Name), []byte(sb.String()), 0644)
+		if !debug {
+			err := os.WriteFile(determineFileName(deviceType, serviceId, action.Name), []byte(sb.String()), 0644)
+			if err != nil {
+				panic(err)
+			}
+		} else {
+			println("===== " + determineFileName(deviceType, serviceId, action.Name) + "=====")
+			println(sb.String())
+		}
 	}
 
 }
@@ -224,7 +270,6 @@ func generateResponseStruct(deviceType string, serviceId string, rootSpec scpd.S
 func generateModels(description tr64Desc) {
 	for _, service := range description.services {
 		generateResponseStruct(service.deviceType, service.serviceId, description.root, service.spec)
-		break
 	}
 }
 
