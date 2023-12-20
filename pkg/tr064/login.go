@@ -2,6 +2,7 @@ package tr064
 
 import (
 	"encoding/xml"
+	"github.com/nitram509/gofitz/pkg/soap"
 	"io"
 	"log"
 	"net/http"
@@ -14,10 +15,10 @@ type XAvmDeCreateUrlSIDResponse struct {
 	UrlSID string `xml:"NewX_AVM-DE_UrlSID"`
 }
 
-func Login() *SoapSession {
+func Login() *soap.SoapSession {
 	action := "X_AVM-DE_CreateUrlSID"
 	uri := "urn:dslforum-org:service:DeviceConfig:1"
-	req, err := soapRequest("fritz.box", action, uri, "", "/upnp/control/deviceconfig", nil)
+	req, err := soap.SoapRequest("fritz.box", action, uri, "", "/upnp/control/deviceconfig", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -37,9 +38,9 @@ func Login() *SoapSession {
 	authHeader := response.Header.Get("WWW-Authenticate")
 	method := response.Request.Method
 	url := response.Request.URL.String()
-	digest := createAuthenticationDigest(username, password, authHeader, method, url)
+	digest := soap.CreateAuthenticationDigest(username, password, authHeader, method, url)
 
-	req, err = soapRequest("fritz.box", action, uri, digest, "/upnp/control/deviceconfig", nil)
+	req, err = soap.SoapRequest("fritz.box", action, uri, digest, "/upnp/control/deviceconfig", nil)
 	if err != nil {
 		panic(err)
 	}
@@ -56,13 +57,13 @@ func Login() *SoapSession {
 		panic(err)
 	}
 
-	var envResp soapResponse
+	var envResp soap.SoapResponse
 	err = xml.Unmarshal(buf, &envResp)
 
 	sid := strings.TrimLeft(envResp.Body.XAvmDeCreateUrlSIDResponse.UrlSID, "sid=")
-	return &SoapSession{
-		sid:        sid,
-		authDigest: digest,
-		authHeader: authHeader,
+	return &soap.SoapSession{
+		Sid:        sid,
+		AuthDigest: digest,
+		AuthHeader: authHeader,
 	}
 }

@@ -1,14 +1,15 @@
-package tr064
+package lan
 
 import (
 	"encoding/xml"
 	"github.com/corbym/gocrest/is"
 	"github.com/corbym/gocrest/then"
+	"github.com/nitram509/gofitz/pkg/soap"
 	"testing"
 )
 
 func Test_parsing_XAvmGetSpecificHostEntryByIPResponse(t *testing.T) {
-	var envelope soapResponse
+	var envelope soap.SoapResponse
 	err := xml.Unmarshal(([]byte)(referenceXAvmGetSpecificHostEntryByIPResponse), &envelope)
 	then.AssertThat(t, err, is.Nil())
 

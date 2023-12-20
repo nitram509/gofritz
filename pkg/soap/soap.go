@@ -1,4 +1,4 @@
-package tr064
+package soap
 
 import (
 	"bytes"
@@ -6,6 +6,8 @@ import (
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg"
+	"github.com/nitram509/gofitz/pkg/tr064"
+	"github.com/nitram509/gofitz/pkg/tr064/lan"
 	"io"
 	"log"
 	"net/http"
@@ -15,26 +17,26 @@ import (
 )
 
 type SoapSession struct {
-	sid        string
-	authDigest string
-	authHeader string
+	Sid        string
+	AuthDigest string
+	AuthHeader string
+}
+
+type SoapResponse struct {
+	XMLName       xml.Name `xml:"Envelope"`
+	S             string   `xml:"s,attr"`
+	EncodingStyle string   `xml:"encodingStyle,attr"`
+	Body          struct {
+		XAvmDeCreateUrlSIDResponse           tr064.XAvmDeCreateUrlSIDResponse         `xml:"X_AVM-DE_CreateUrlSIDResponse,omitempty"`
+		XAvmGetSpecificHostEntryByIpResponse lan.XAvmGetSpecificHostEntryByIpResponse `xml:"X_AVM-DE_GetSpecificHostEntryByIPResponse,omitempty"`
+		XAvmGetHostListPathResponse          lan.XAvmGetHostListPathResponse          `xml:"X_AVM-DE_GetHostListPathResponse,omitempty"`
+	} `xml:"Body"`
 }
 
 type envelopeParameter struct {
 	Action string
 	Uri    string
 	Params string
-}
-
-type soapResponse struct {
-	XMLName       xml.Name `xml:"Envelope"`
-	S             string   `xml:"s,attr"`
-	EncodingStyle string   `xml:"encodingStyle,attr"`
-	Body          struct {
-		XAvmDeCreateUrlSIDResponse           XAvmDeCreateUrlSIDResponse           `xml:"X_AVM-DE_CreateUrlSIDResponse,omitempty"`
-		XAvmGetSpecificHostEntryByIpResponse XAvmGetSpecificHostEntryByIpResponse `xml:"X_AVM-DE_GetSpecificHostEntryByIPResponse,omitempty"`
-		XAvmGetHostListPathResponse          XAvmGetHostListPathResponse          `xml:"X_AVM-DE_GetHostListPathResponse,omitempty"`
-	} `xml:"Body"`
 }
 
 type soapErrorResponse struct {
@@ -55,7 +57,7 @@ type soapErrorResponse struct {
 	} `xml:"Body"`
 }
 
-func soapRequest(hostname string, soapAction string, soapUri string, digestAuth string, requestPath string, params []soapParam) (*http.Request, error) {
+func SoapRequest(hostname string, soapAction string, soapUri string, digestAuth string, requestPath string, params []soapParam) (*http.Request, error) {
 	soapRequestBody, err := template.New("soapEnvelope").Parse(`<?xml version='1.0' encoding='utf-8'?>
 <s:Envelope s:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'>
 <s:Body>
@@ -102,12 +104,12 @@ type SoapAuthenticator interface {
 }
 
 func (ss SoapSession) getAuthHeader() string {
-	return ss.authHeader
+	return ss.AuthHeader
 }
 
 type ActionCommand interface {
 	AddParam(name string, value string) ActionCommand
-	Do() soapResponse
+	Do() SoapResponse
 }
 
 type soapParam struct {
@@ -145,15 +147,15 @@ func (c soapCmd) Action(action string) ActionCommand {
 	}
 }
 
-func (cmd *actionCmd) Do() soapResponse {
+func (cmd *actionCmd) Do() SoapResponse {
 
 	//cmd.authenticator.createDigest()
 	username := os.Getenv("FB_USERNAME")
 	password := os.Getenv("FB_PASSWORD")
 	url := "http://fritz.box:49000" + cmd.soapCommand.reqPath
-	digest := createAuthenticationDigest(username, password, cmd.authenticator.getAuthHeader(), "POST", url)
+	digest := CreateAuthenticationDigest(username, password, cmd.authenticator.getAuthHeader(), "POST", url)
 
-	req, err := soapRequest("fritz.box",
+	req, err := SoapRequest("fritz.box",
 		cmd.soapAction,
 		cmd.soapCommand.uri,
 		digest,
@@ -193,7 +195,7 @@ func (cmd *actionCmd) Do() soapResponse {
 	if err != nil {
 		panic(err)
 	}
-	envResp := soapResponse{}
+	envResp := SoapResponse{}
 	err = xml.Unmarshal(resp, &envResp)
 	if err != nil {
 		panic(err)

@@ -1,4 +1,4 @@
-package tr064
+package soap
 
 import (
 	"encoding/xml"

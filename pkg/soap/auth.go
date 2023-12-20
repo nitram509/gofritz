@@ -1,4 +1,4 @@
-package tr064
+package soap
 
 import (
 	"crypto/md5"
@@ -32,15 +32,15 @@ func parseAuthParam(allParams string) map[string]string {
 	return result
 }
 
-// createAuthenticationDigest creates the auth header for digest authorization.
+// CreateAuthenticationDigest creates the auth header for digest authorization.
 // It's not a feature complete implementation see https://en.wikipedia.org/wiki/Digest_access_authentication
-// authHeader example:
+// AuthHeader example:
 // WWW-Authenticate: Digest realm="testrealm@host.com",
 //
 //	qop="auth,auth-int",
 //	nonce="dcd98b7102dd2f0e8b11d0f600bfb0c093",
 //	opaque="5ccc069c403ebaf9f0171e9517f40e41"
-func createAuthenticationDigest(username string, password string, authHeader string, method string, url string) string {
+func CreateAuthenticationDigest(username string, password string, authHeader string, method string, url string) string {
 	if !strings.HasPrefix(authHeader, "Digest") {
 		log.Fatal("Can handle digest auth only!")
 	}
