@@ -1,9 +1,12 @@
 package tr064model
 
+import "encoding/xml"
+
 // GetVoIPCommonCountryCodeResponse AUTO-GENERATED (do not edit) model from [x_voipSCPD],
 // based on SOAP action 'GetVoIPCommonCountryCode', Fritz!Box-System-Version 164.07.57
 //
 // [x_voipSCPD]: http://fritz.box:49000/x_voipSCPD.xml
 type GetVoIPCommonCountryCodeResponse struct {
-	VoIPCountryCode string `xml:"NewVoIPCountryCode"` //
+	XMLName         xml.Name // rather for debug purpose
+	VoIPCountryCode string   `xml:"NewVoIPCountryCode"` //
 }
