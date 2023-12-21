@@ -82,7 +82,5 @@ func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd
 			println("===== " + soapStubFileName + "=====")
 			println(sb.String())
 		}
-
-		break
 	}
 }
