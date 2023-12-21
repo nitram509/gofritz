@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-// CreateAuthenticationDigestResponse creates the auth header for digest authorization.
+// createAuthenticationDigestResponse creates the auth header for digest authorization.
 // It's not a feature complete implementation see https://en.wikipedia.org/wiki/Digest_access_authentication
 // AuthHeader example:
 // WWW-Authenticate: Digest realm="testrealm@host.com",
@@ -20,7 +20,7 @@ import (
 //		qop="auth,auth-int",
 //		nonce="dcd98b7102dd2f0e8b11d0f600bfb0c093",
 //		opaque="5ccc069c403ebaf9f0171e9517f40e41"
-func CreateAuthenticationDigestResponse(username string, password string, reqAuthHeader string, method string, uri string) string {
+func createAuthenticationDigestResponse(username string, password string, reqAuthHeader string, httpMethod string, fullUrl string) string {
 	if !strings.HasPrefix(reqAuthHeader, "Digest") {
 		log.Fatal("Can handle digest auth only!")
 	}
@@ -39,14 +39,14 @@ func CreateAuthenticationDigestResponse(username string, password string, reqAut
 
 	if strings.ToLower(qop) == "auth" {
 		ha1 := md5Sum(username + ":" + realm + ":" + password)
-		ha2 := md5Sum(method + ":" + uri)
+		ha2 := md5Sum(httpMethod + ":" + fullUrl)
 		response = md5Sum(fmt.Sprintf("%s:%s:%v:%s:%s:%s", ha1, nonce, nonceCount, cnonce, qop, ha2))
 	} else {
 		panic(errors.New("unsupported quality of protection (qop):" + algorithm))
 	}
 
 	return fmt.Sprintf(`Digest username="%s", realm="%s", nonce="%s", Uri="%s", cnonce="%s", nc="%v", qop="%s", response="%s"`,
-		username, realm, nonce, uri, cnonce, nonceCount, qop, response)
+		username, realm, nonce, fullUrl, cnonce, nonceCount, qop, response)
 }
 
 func md5Sum(text string) string {

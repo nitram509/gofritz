@@ -12,7 +12,7 @@ import (
 const HOST = "fritz.box"
 const URL = "http://" + HOST + ":49000"
 
-const RESPONSESUFFIX = "Response"
+const responseSuffix = "Response"
 
 const writeFiles = true
 

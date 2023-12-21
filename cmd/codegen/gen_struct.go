@@ -125,7 +125,7 @@ func deriveStructNameCamelCase(serviceId string, actionName string) string {
 	} else if actionName == "GetStatistics" {
 		actionName = "Get" + string2CamelCase(serviceId2SnakeCase(serviceId)) + "Statistics"
 	}
-	return actionName + RESPONSESUFFIX
+	return actionName + responseSuffix
 }
 
 func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions) {

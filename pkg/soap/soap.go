@@ -1,30 +1,16 @@
 package soap
 
 import (
-	"bytes"
 	"encoding/xml"
 	"errors"
 	"fmt"
 	"github.com/nitram509/gofitz/pkg"
 	"io"
-	"log"
 	"net/http"
-	"os"
 	"strings"
-	"text/template"
 )
 
-type SoapSession struct {
-	Sid        string
-	AuthDigest string
-	AuthHeader string
-}
-
-type envelopeParameter struct {
-	Action string
-	Uri    string
-	Params string
-}
+const httpMethod = "POST"
 
 type GenericSoapResponse struct {
 	XMLName       xml.Name `xml:"Envelope"`
@@ -33,6 +19,12 @@ type GenericSoapResponse struct {
 	Body          struct {
 		Data []byte `xml:",innerxml"`
 	} `xml:"Body,omitempty"`
+}
+
+type envelopeParameter struct {
+	Action string
+	Uri    string
+	Params string
 }
 
 type soapErrorResponse struct {
@@ -53,35 +45,21 @@ type soapErrorResponse struct {
 	} `xml:"Body"`
 }
 
-func SoapRequest(hostname string, soapAction string, soapUri string, digestAuth string, requestPath string, params []soapParam) (*http.Request, error) {
-	soapRequestBody, err := template.New("soapEnvelope").Parse(`<?xml version='1.0' encoding='utf-8'?>
-<s:Envelope s:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'>
-<s:Body>
-<u:{{ .Action }} xmlns:u='{{ .Uri }}'>{{ .Params }}</u:{{ .Action }}>
-</s:Body>
-</s:Envelope>`)
-	if err != nil {
-		log.Fatal("Can't parse SOAP envelope template")
-	}
-	buf := new(bytes.Buffer)
+func newHttpRequest(requestUrl string, digestAuth string, soapAction string, soapUri string, params []soapParam) *http.Request {
 	sb := strings.Builder{}
 	if params != nil {
 		for _, param := range params {
 			sb.Write([]byte(fmt.Sprintf("<%s>%s</%s>", param.name, param.value, param.name)))
 		}
 	}
-	err = soapRequestBody.Execute(buf, envelopeParameter{
-		Action: soapAction,
-		Uri:    soapUri,
-		Params: sb.String(),
-	})
-	if err != nil {
-		log.Fatal("Can't parse SOAP Envelope Template with parameters: \n" + err.Error())
-	}
-	envelope := buf.String()
-	requestUrl := "http://" + hostname + ":49000" + requestPath
+	envelope := `<?xml version='1.0' encoding='utf-8'?>
+<s:Envelope s:encodingStyle='http://schemas.xmlsoap.org/soap/encoding/' xmlns:s='http://schemas.xmlsoap.org/soap/envelope/'>
+<s:Body>
+<u:` + soapAction + ` xmlns:u='` + soapUri + `'>` + sb.String() + `</u:` + soapAction + `>
+</s:Body>
+</s:Envelope>`
 
-	req, err := http.NewRequest("POST", requestUrl, strings.NewReader(envelope))
+	req, err := http.NewRequest(httpMethod, requestUrl, strings.NewReader(envelope))
 	if err != nil {
 		panic(err)
 	}
@@ -92,87 +70,38 @@ func SoapRequest(hostname string, soapAction string, soapUri string, digestAuth 
 	if len(digestAuth) > 0 {
 		req.Header.Set("Authorization", digestAuth)
 	}
-	return req, nil
+	return req
 }
 
-type SoapAuthenticator interface {
-	getAuthHeader() string
-}
-
-func (ss SoapSession) getAuthHeader() string {
-	return ss.AuthHeader
-}
-
-type ActionCommand interface {
-	AddParam(name string, value string) ActionCommand
-	Do() GenericSoapResponse
-}
-
-type soapParam struct {
-	name  string
-	value string
-}
-
-type actionCmd struct {
-	soapCommand      soapCmd
-	soapActionParams []soapParam
-	soapAction       string
-	authenticator    SoapAuthenticator
-}
-
-func (cmd *actionCmd) AddParam(name string, value string) ActionCommand {
-	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
-		name:  name,
-		value: value,
-	})
-	return cmd
-}
-
-type SoapCommand interface {
-	Action(string) ActionCommand
-	Uri(action string) SoapCommand
-	ReqPath(reqPath string) SoapCommand
-	WithAuthenticator(authenticator SoapAuthenticator) SoapCommand
-}
-
-func (c soapCmd) Action(action string) ActionCommand {
-	return &actionCmd{
-		soapCommand:   c,
-		soapAction:    action,
-		authenticator: c.authenticator,
-	}
-}
-
-func (cmd *actionCmd) Do() GenericSoapResponse {
-
-	//cmd.authenticator.createDigest()
-	username := os.Getenv("FB_USERNAME")
-	password := os.Getenv("FB_PASSWORD")
-	url := "http://fritz.box:49000" + cmd.soapCommand.reqPath
-	digest := CreateAuthenticationDigestResponse(username, password, cmd.authenticator.getAuthHeader(), "POST", url)
-
-	req, err := SoapRequest("fritz.box",
-		cmd.soapAction,
-		cmd.soapCommand.uri,
-		digest,
-		cmd.soapCommand.reqPath,
-		cmd.soapActionParams)
-	if err != nil {
-		panic(err)
-	}
-
+func (cmd *soapCmd) Do() GenericSoapResponse {
+	fullUrl := cmd.session.BaseUrl() + cmd.reqPath
 	client := &http.Client{}
-	response, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
 
-	resp, err := io.ReadAll(response.Body)
+	var response *http.Response
+	var respData []byte
+	var err error
+	maxRetries := 1
+	for unauthorized := true; unauthorized; maxRetries-- {
+		digest := cmd.session.computeDigestResponse(httpMethod, fullUrl)
+		req := newHttpRequest(fullUrl, digest, cmd.soapAction, cmd.soapUri, cmd.soapActionParams)
+		response, err = client.Do(req)
+		if err != nil {
+			panic(err)
+		}
+		respData, err = io.ReadAll(response.Body)
+		unauthorized = response.StatusCode == 401
+		if unauthorized {
+			cmd.session.reqAuthDigest = response.Header.Get("WWW-Authenticate")
+		} // else, there is no indicator for how long the session is valid ...
+		if unauthorized && maxRetries <= 0 {
+			panic(errors.New(fmt.Sprintf("can't authenticate '%s' with user '%s'", cmd.session.BaseUrl(), cmd.session.username)))
+		}
+	}
 
 	if response.StatusCode != 200 {
 		if response.StatusCode == 500 {
 			upnpError := soapErrorResponse{}
-			err := xml.Unmarshal(resp, &upnpError)
+			err := xml.Unmarshal(respData, &upnpError)
 			if err != nil {
 				panic(err)
 			}
@@ -184,42 +113,93 @@ func (cmd *actionCmd) Do() GenericSoapResponse {
 			))
 			panic(err)
 		} else {
-			panic(errors.New("Error calling '" + url + "', Status:" + response.Status))
+			panic(errors.New("Error calling '" + fullUrl + "', Status:" + response.Status))
 		}
 	}
 
-	if err != nil {
-		panic(err)
-	}
 	envResp := GenericSoapResponse{}
-	err = xml.Unmarshal(resp, &envResp)
+	err = xml.Unmarshal(respData, &envResp)
 	if err != nil {
 		panic(err)
 	}
 	return envResp
 }
 
-func (c soapCmd) Uri(uri string) SoapCommand {
-	c.uri = uri
-	return c
+type soapParam struct {
+	name  string
+	value string
 }
 
-func (c soapCmd) ReqPath(reqPath string) SoapCommand {
-	c.reqPath = reqPath
-	return c
+func (cmd *soapCmd) AddParam(name string, value string) SoapCommand {
+	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
+		name:  name,
+		value: value,
+	})
+	return cmd
 }
 
-func (c soapCmd) WithAuthenticator(authenticator SoapAuthenticator) SoapCommand {
-	c.authenticator = authenticator
-	return c
+type SoapSession struct {
+	hostname      string
+	username      string
+	password      string
+	reqAuthDigest string
+}
+
+// NewSession for a given host name/ip (typical "fritz.box" or "192.168.178.1") with basic credentials
+func NewSession(host string, username string, password string) *SoapSession {
+	return &SoapSession{
+		hostname: host,
+		username: username,
+		password: password,
+	}
+}
+
+// BaseUrl gives the valid URL for the given host with port number and no trailing slash
+// (typical http://fritz.box:49000)
+func (ss *SoapSession) BaseUrl() string {
+	return "http://" + ss.hostname + ":49000"
+}
+
+func (ss *SoapSession) computeDigestResponse(httpMethod string, fullUrl string) string {
+	if len(ss.reqAuthDigest) == 0 {
+		return ""
+	}
+	return createAuthenticationDigestResponse(ss.username, ss.password, ss.reqAuthDigest, httpMethod, fullUrl)
+}
+
+func NewSoapRequest(session *SoapSession) SoapCommand {
+	return &soapCmd{
+		session: session,
+	}
+}
+
+type SoapCommand interface {
+	Action(string) SoapCommand
+	Uri(action string) SoapCommand
+	ReqPath(reqPath string) SoapCommand
+	AddParam(name string, value string) SoapCommand
+	Do() GenericSoapResponse
 }
 
 type soapCmd struct {
-	uri           string
-	reqPath       string
-	authenticator SoapAuthenticator
+	session          *SoapSession
+	soapUri          string
+	reqPath          string
+	soapAction       string
+	soapActionParams []soapParam
 }
 
-func NewSoapRequest() SoapCommand {
-	return soapCmd{}
+func (cmd *soapCmd) Action(action string) SoapCommand {
+	cmd.soapAction = action
+	return cmd
+}
+
+func (cmd *soapCmd) Uri(uri string) SoapCommand {
+	cmd.soapUri = uri
+	return cmd
+}
+
+func (cmd *soapCmd) ReqPath(reqPath string) SoapCommand {
+	cmd.reqPath = reqPath
+	return cmd
 }

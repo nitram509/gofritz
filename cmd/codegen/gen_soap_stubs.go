@@ -53,7 +53,7 @@ func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd
 		}
 
 		strucName := deriveStructNameCamelCase(serviceId, action.Name)
-		funcName := strucName[:len(strucName)-len(RESPONSESUFFIX)]
+		funcName := strucName[:len(strucName)-len(responseSuffix)]
 		packageName := derivePackageName(deviceType)
 		scpdUrl := findService(rootSpec, serviceId).SCPDURL
 		sd := soapStubTemplateDate{

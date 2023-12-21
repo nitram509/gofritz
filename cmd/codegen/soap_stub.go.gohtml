@@ -9,9 +9,8 @@ import (
 // based on SOAP action '{{ .SoapActionName }}', Fritz!Box-System-Version {{ .SystemVersion }}
 //
 // [{{ .SCDPShortName }}]: http://fritz.box:49000{{ .SCDPUrlPath }}
-func {{ .FuncName }}(session soap.SoapSession{{ .FuncParameters}}) (tr064model.{{ .ReturnTypeName }}, error) {
-	bodyData := soap.NewSoapRequest().
-		WithAuthenticator(session).
+func {{ .FuncName }}(session *soap.SoapSession{{ .FuncParameters}}) (tr064model.{{ .ReturnTypeName }}, error) {
+	bodyData := soap.NewSoapRequest(session).
 		ReqPath("{{ .ReqPath }}").
 		Uri("{{ .Uri }}").
 		Action("{{ .SoapActionName }}").
