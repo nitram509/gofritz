@@ -31,21 +31,17 @@ func deriveScdpShortName(scpdUrl string) string {
 
 func filterArguments(arguments []scpd.Argument, direction string) (result []scpd.Argument) {
 	for _, arg := range arguments {
-		if arg.Direction == direction {
+		if strings.EqualFold(arg.Direction, direction) {
 			result = append(result, arg)
 		}
 	}
 	return result
 }
 
-func determineVariableName(argumentName string) string {
-	if strings.HasPrefix(argumentName, "New") {
-		argumentName = argumentName[3:]
-	}
-	if strings.HasPrefix(argumentName, "X_AVM-DE_") {
-		argumentName = argumentName[9:]
-	}
-	return argumentName
+func deriveStructVariableName(name string) string {
+	name, _ = strings.CutPrefix(name, "New")
+	name, _ = strings.CutPrefix(name, "X_AVM-DE_")
+	return strings.ToUpper(string(name[0])) + name[1:]
 }
 
 func determineVariableComment(spec scpd.ServiceControlledProtocolDescriptions, relatedStateVariable string) string {
@@ -98,7 +94,7 @@ func serviceId2SnakeCase(serviceId string) string {
 		panic(errors.New("unsupported serviceId mapping for '" + serviceId + "'"))
 	}
 	serviceGroup = serviceGroup[:len(serviceGroup)-4]
-	serviceGroup = string2SnakeCase(serviceGroup)
+	serviceGroup = deriveSnakeCase(serviceGroup)
 	return serviceGroup
 }
 
@@ -139,7 +135,7 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 		outArguments := filterArguments(action.ArgumentList, "out")
 		// create variable declaration
 		for _, argument := range outArguments {
-			varName := determineVariableName(argument.Name)
+			varName := deriveStructVariableName(argument.Name)
 			varDeclaration := fmt.Sprintf("%s\t%s `xml:\"%s\"`",
 				varName,
 				determineTypeName(serviceSpec, argument.RelatedStateVariable),

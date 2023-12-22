@@ -16,18 +16,18 @@ const spaces = "                                                                
 func determineStructFileName(deviceType string, serviceId string, actionName string) (result string) {
 	packageName := derivePackageName(deviceType)
 	serviceGroup := serviceId2SnakeCase(serviceId)
-	fileName := fmt.Sprintf("%s_%s_%s.go", packageName, serviceGroup, string2SnakeCase(actionName))
+	fileName := fmt.Sprintf("%s_%s_%s.go", packageName, serviceGroup, deriveSnakeCase(actionName))
 	return filepath.Join("pkg", "tr064model", fileName)
 }
 
 func determineSoapStubFileName(deviceType string, serviceId string, actionName string) (result string) {
 	packageName := derivePackageName(deviceType)
 	serviceGroup := serviceId2SnakeCase(serviceId)
-	fileName := fmt.Sprintf("%s_%s.go", serviceGroup, string2SnakeCase(actionName))
+	fileName := fmt.Sprintf("%s_%s.go", serviceGroup, deriveSnakeCase(actionName))
 	return filepath.Join("pkg", "tr064", packageName, fileName)
 }
 
-func string2SnakeCase(str string) string {
+func deriveSnakeCase(str string) string {
 	str = strings.ReplaceAll(str, "X_AVM-DE_", "Avm")
 	str = strings.ReplaceAll(str, "WebDAV", "Webdav")
 	str = strings.ReplaceAll(str, "FRITZ", "Fritz")
@@ -36,6 +36,7 @@ func string2SnakeCase(str string) string {
 	str = strings.ReplaceAll(str, "UUID", "Uuid")
 	str = strings.ReplaceAll(str, "SSID", "Ssid")
 	str = strings.ReplaceAll(str, "DECT", "Dect")
+	str = strings.ReplaceAll(str, "DHCP", "Dhcp")
 	str = strings.ReplaceAll(str, "UPnP", "Upnp")
 	str = strings.ReplaceAll(str, "DNS", "Dns")
 	str = strings.ReplaceAll(str, "FTP", "Ftp")
@@ -53,6 +54,10 @@ func string2SnakeCase(str string) string {
 	str = strings.ReplaceAll(str, "TAM", "Tam")
 	str = strings.ReplaceAll(str, "MAC", "Mac")
 	str = strings.ReplaceAll(str, "CGI", "CGI")
+	str = strings.ReplaceAll(str, "WPS", "Wps")
+	str = strings.ReplaceAll(str, "WEP", "Wep")
+	str = strings.ReplaceAll(str, "AVM", "Avm")
+	str = strings.ReplaceAll(str, "WOL", "Wol")
 	str = strings.ReplaceAll(str, "IP", "Ip")
 	str = strings.ReplaceAll(str, "ID", "Id")
 	str = strings.ReplaceAll(str, "TR", "Tr")

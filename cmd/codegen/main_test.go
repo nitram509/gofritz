@@ -46,8 +46,8 @@ func Test_toCamelCase(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := string2SnakeCase(tt.args.s); got != tt.want {
-				t.Errorf("string2SnakeCase() = %v, want %v", got, tt.want)
+			if got := deriveSnakeCase(tt.args.s); got != tt.want {
+				t.Errorf("deriveSnakeCase() = %v, want %v", got, tt.want)
 			}
 		})
 	}
