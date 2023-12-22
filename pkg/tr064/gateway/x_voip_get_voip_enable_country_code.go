@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'GetVoIPEnableCountryCode', Fritz!Box-System-Version 164.07.57
 //
 // [x_voipSCPD]: http://fritz.box:49000/x_voipSCPD.xml
-func GetVoIPEnableCountryCode(session *soap.SoapSession) (tr064model.GetVoIPEnableCountryCodeResponse, error) {
+func GetVoIPEnableCountryCode(session *soap.SoapSession, voipAccountIndex int) (tr064model.GetVoIPEnableCountryCodeResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_voip").
 		Uri("urn:dslforum-org:service:X_VoIP:1").
 		Action("GetVoIPEnableCountryCode").
+		AddIntParam("NewVoIPAccountIndex", voipAccountIndex).
 		Do().Body.Data
 	result := tr064model.GetVoIPEnableCountryCodeResponse{}
 	err := xml.Unmarshal(bodyData, &result)

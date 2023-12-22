@@ -7,6 +7,7 @@ import (
 	"github.com/nitram509/gofitz/pkg"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -130,10 +131,30 @@ type soapParam struct {
 	value string
 }
 
-func (cmd *soapCmd) AddParam(name string, value string) SoapCommand {
+func (cmd *soapCmd) AddStringParam(name string, value string) SoapCommand {
 	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
 		name:  name,
 		value: value,
+	})
+	return cmd
+}
+
+func (cmd *soapCmd) AddIntParam(name string, value int) SoapCommand {
+	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
+		name:  name,
+		value: strconv.Itoa(value),
+	})
+	return cmd
+}
+
+func (cmd *soapCmd) AddBoolParam(name string, value bool) SoapCommand {
+	valueStr := "0"
+	if value {
+		valueStr = "1"
+	}
+	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
+		name:  name,
+		value: valueStr,
 	})
 	return cmd
 }
@@ -177,7 +198,9 @@ type SoapCommand interface {
 	Action(string) SoapCommand
 	Uri(action string) SoapCommand
 	ReqPath(reqPath string) SoapCommand
-	AddParam(name string, value string) SoapCommand
+	AddStringParam(name string, value string) SoapCommand
+	AddIntParam(name string, value int) SoapCommand
+	AddBoolParam(name string, value bool) SoapCommand
 	Do() GenericSoapResponse
 }
 

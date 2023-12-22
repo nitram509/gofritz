@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'GetBoxSenderId', Fritz!Box-System-Version 164.07.57
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
-func GetBoxSenderId(session *soap.SoapSession) (tr064model.GetBoxSenderIdResponse, error) {
+func GetBoxSenderId(session *soap.SoapSession, appId string) (tr064model.GetBoxSenderIdResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_appsetup").
 		Uri("urn:dslforum-org:service:X_AVM-DE_AppSetup:1").
 		Action("GetBoxSenderId").
+		AddStringParam("NewAppId", appId).
 		Do().Body.Data
 	result := tr064model.GetBoxSenderIdResponse{}
 	err := xml.Unmarshal(bodyData, &result)

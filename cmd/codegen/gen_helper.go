@@ -78,7 +78,6 @@ func determineTypeName(spec scpd.ServiceControlledProtocolDescriptions, relatedS
 	for _, serviceState := range spec.ServiceStateTable {
 		if relatedStateVariable == serviceState.Name {
 			switch strings.ToLower(serviceState.DataType) {
-			// return type with trailing spaces for formatting
 			case "string":
 				return "string"
 			case "datetime":
@@ -86,15 +85,15 @@ func determineTypeName(spec scpd.ServiceControlledProtocolDescriptions, relatedS
 			case "uuid":
 				return "string"
 			case "ui4":
-				return "int   "
+				return "int"
 			case "i4":
-				return "int   "
+				return "int"
 			case "ui2":
-				return "int   "
+				return "int"
 			case "ui1":
-				return "int   "
+				return "int"
 			case "boolean":
-				return "bool  "
+				return "bool"
 			default:
 				panic(errors.New(fmt.Sprintf("relatedStateVariable '%s' unknown type '%s'",
 					relatedStateVariable,
@@ -128,9 +127,9 @@ func writeFileAndFormat(fName string, data []byte) {
 	if err != nil {
 		panic(err)
 	}
-	_, err = exec.Command("go", "fmt", fName).Output()
+	out, err := exec.Command("go", "fmt", fName).Output()
 	if err != nil {
-		panic(err)
+		panic(errors.Join(errors.New("file: "+fName), errors.New(string(out)), err))
 	}
 
 }

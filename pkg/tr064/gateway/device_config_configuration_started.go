@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'ConfigurationStarted', Fritz!Box-System-Version 164.07.57
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
-func ConfigurationStarted(session *soap.SoapSession) (tr064model.ConfigurationStartedResponse, error) {
+func ConfigurationStarted(session *soap.SoapSession, sessionId string) (tr064model.ConfigurationStartedResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceconfig").
 		Uri("urn:dslforum-org:service:DeviceConfig:1").
 		Action("ConfigurationStarted").
+		AddStringParam("NewSessionID", sessionId).
 		Do().Body.Data
 	result := tr064model.ConfigurationStartedResponse{}
 	err := xml.Unmarshal(bodyData, &result)

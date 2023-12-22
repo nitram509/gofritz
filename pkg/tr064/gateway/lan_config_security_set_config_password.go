@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'SetConfigPassword', Fritz!Box-System-Version 164.07.57
 //
 // [lanconfigsecuritySCPD]: http://fritz.box:49000/lanconfigsecuritySCPD.xml
-func SetConfigPassword(session *soap.SoapSession) (tr064model.SetConfigPasswordResponse, error) {
+func SetConfigPassword(session *soap.SoapSession, password string) (tr064model.SetConfigPasswordResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/lanconfigsecurity").
 		Uri("urn:dslforum-org:service:LANConfigSecurity:1").
 		Action("SetConfigPassword").
+		AddStringParam("NewPassword", password).
 		Do().Body.Data
 	result := tr064model.SetConfigPasswordResponse{}
 	err := xml.Unmarshal(bodyData, &result)

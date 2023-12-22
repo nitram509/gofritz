@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'GetMessageList', Fritz!Box-System-Version 164.07.57
 //
 // [x_tamSCPD]: http://fritz.box:49000/x_tamSCPD.xml
-func GetMessageList(session *soap.SoapSession) (tr064model.GetMessageListResponse, error) {
+func GetMessageList(session *soap.SoapSession, index int) (tr064model.GetMessageListResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_tam").
 		Uri("urn:dslforum-org:service:X_AVM-DE_TAM:1").
 		Action("GetMessageList").
+		AddIntParam("NewIndex", index).
 		Do().Body.Data
 	result := tr064model.GetMessageListResponse{}
 	err := xml.Unmarshal(bodyData, &result)

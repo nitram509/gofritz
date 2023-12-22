@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'SetEnable', Fritz!Box-System-Version 164.07.57
 //
 // [x_remoteSCPD]: http://fritz.box:49000/x_remoteSCPD.xml
-func SetAvmRemoteAccessEnable(session *soap.SoapSession) (tr064model.SetAvmRemoteAccessEnableResponse, error) {
+func SetAvmRemoteAccessEnable(session *soap.SoapSession, enabled bool) (tr064model.SetAvmRemoteAccessEnableResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_remote").
 		Uri("urn:dslforum-org:service:X_AVM-DE_RemoteAccess:1").
 		Action("SetEnable").
+		AddBoolParam("NewEnabled", enabled).
 		Do().Body.Data
 	result := tr064model.SetAvmRemoteAccessEnableResponse{}
 	err := xml.Unmarshal(bodyData, &result)

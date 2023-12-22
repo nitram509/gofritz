@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'X_AVM-DE_GetConfigFile', Fritz!Box-System-Version 164.07.57
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
-func XavmGetConfigFile(session *soap.SoapSession) (tr064model.XavmGetConfigFileResponse, error) {
+func XavmGetConfigFile(session *soap.SoapSession, avmPassword string) (tr064model.XavmGetConfigFileResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceconfig").
 		Uri("urn:dslforum-org:service:DeviceConfig:1").
 		Action("X_AVM-DE_GetConfigFile").
+		AddStringParam("NewX_AVM-DE_Password", avmPassword).
 		Do().Body.Data
 	result := tr064model.XavmGetConfigFileResponse{}
 	err := xml.Unmarshal(bodyData, &result)

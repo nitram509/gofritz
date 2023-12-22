@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'X_AVM-DE_SendSupportData', Fritz!Box-System-Version 164.07.57
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
-func XavmSendSupportData(session *soap.SoapSession) (tr064model.XavmSendSupportDataResponse, error) {
+func XavmSendSupportData(session *soap.SoapSession, avmSupportDataMode string) (tr064model.XavmSendSupportDataResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceconfig").
 		Uri("urn:dslforum-org:service:DeviceConfig:1").
 		Action("X_AVM-DE_SendSupportData").
+		AddStringParam("NewX_AVM-DE_SupportDataMode", avmSupportDataMode).
 		Do().Body.Data
 	result := tr064model.XavmSendSupportDataResponse{}
 	err := xml.Unmarshal(bodyData, &result)

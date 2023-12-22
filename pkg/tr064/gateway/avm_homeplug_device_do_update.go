@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'DeviceDoUpdate', Fritz!Box-System-Version 164.07.57
 //
 // [x_homeplugSCPD]: http://fritz.box:49000/x_homeplugSCPD.xml
-func DeviceDoUpdate(session *soap.SoapSession) (tr064model.DeviceDoUpdateResponse, error) {
+func DeviceDoUpdate(session *soap.SoapSession, macAddress string) (tr064model.DeviceDoUpdateResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_homeplug").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Homeplug:1").
 		Action("DeviceDoUpdate").
+		AddStringParam("NewMACAddress", macAddress).
 		Do().Body.Data
 	result := tr064model.DeviceDoUpdateResponse{}
 	err := xml.Unmarshal(bodyData, &result)

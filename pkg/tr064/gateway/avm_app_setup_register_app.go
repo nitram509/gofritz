@@ -10,11 +10,21 @@ import (
 // based on SOAP action 'RegisterApp', Fritz!Box-System-Version 164.07.57
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
-func RegisterApp(session *soap.SoapSession) (tr064model.RegisterAppResponse, error) {
+func RegisterApp(session *soap.SoapSession, appId string, appDisplayName string, appDeviceMac string, appUsername string, appPassword string, appRight string, nasRight string, phoneRight string, homeautoRight string, appInternetRights bool) (tr064model.RegisterAppResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_appsetup").
 		Uri("urn:dslforum-org:service:X_AVM-DE_AppSetup:1").
 		Action("RegisterApp").
+		AddStringParam("NewAppId", appId).
+		AddStringParam("NewAppDisplayName", appDisplayName).
+		AddStringParam("NewAppDeviceMAC", appDeviceMac).
+		AddStringParam("NewAppUsername", appUsername).
+		AddStringParam("NewAppPassword", appPassword).
+		AddStringParam("NewAppRight", appRight).
+		AddStringParam("NewNasRight", nasRight).
+		AddStringParam("NewPhoneRight", phoneRight).
+		AddStringParam("NewHomeautoRight", homeautoRight).
+		AddBoolParam("NewAppInternetRights", appInternetRights).
 		Do().Body.Data
 	result := tr064model.RegisterAppResponse{}
 	err := xml.Unmarshal(bodyData, &result)

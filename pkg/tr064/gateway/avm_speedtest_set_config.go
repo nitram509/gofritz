@@ -10,11 +10,16 @@ import (
 // based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.07.57
 //
 // [x_speedtestSCPD]: http://fritz.box:49000/x_speedtestSCPD.xml
-func SetAvmSpeedtestConfig(session *soap.SoapSession) (tr064model.SetAvmSpeedtestConfigResponse, error) {
+func SetAvmSpeedtestConfig(session *soap.SoapSession, enableTcp bool, enableUdp bool, enableUdpBidirect bool, wanEnableTcp bool, wanEnableUdp bool) (tr064model.SetAvmSpeedtestConfigResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_speedtest").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Speedtest:1").
 		Action("SetConfig").
+		AddBoolParam("NewEnableTcp", enableTcp).
+		AddBoolParam("NewEnableUdp", enableUdp).
+		AddBoolParam("NewEnableUdpBidirect", enableUdpBidirect).
+		AddBoolParam("NewWANEnableTcp", wanEnableTcp).
+		AddBoolParam("NewWANEnableUdp", wanEnableUdp).
 		Do().Body.Data
 	result := tr064model.SetAvmSpeedtestConfigResponse{}
 	err := xml.Unmarshal(bodyData, &result)

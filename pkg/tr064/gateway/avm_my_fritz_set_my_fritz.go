@@ -10,11 +10,13 @@ import (
 // based on SOAP action 'SetMyFRITZ', Fritz!Box-System-Version 164.07.57
 //
 // [x_myfritzSCPD]: http://fritz.box:49000/x_myfritzSCPD.xml
-func SetMyFRITZ(session *soap.SoapSession) (tr064model.SetMyFRITZResponse, error) {
+func SetMyFRITZ(session *soap.SoapSession, enabled bool, email string) (tr064model.SetMyFRITZResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_myfritz").
 		Uri("urn:dslforum-org:service:X_AVM-DE_MyFritz:1").
 		Action("SetMyFRITZ").
+		AddBoolParam("NewEnabled", enabled).
+		AddStringParam("NewEmail", email).
 		Do().Body.Data
 	result := tr064model.SetMyFRITZResponse{}
 	err := xml.Unmarshal(bodyData, &result)

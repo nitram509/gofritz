@@ -27,9 +27,10 @@ type soapStubTemplateDate struct {
 }
 
 type actionInputParam struct {
-	SoapName string
-	VarName  string
-	TypeName string
+	SoapName         string
+	VarName          string
+	TypeName         string
+	AddParamFuncName string
 }
 
 func deriveParamVarName(name string) string {
@@ -76,15 +77,17 @@ func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd
 		scpdUrl := findService(rootSpec, serviceId).SCPDURL
 		var soapParams []actionInputParam
 		funcParams := strings.Builder{}
-		println(fmt.Sprintf("String Value: %v", "test"))
-		println(fmt.Sprintf("Int    Value: %v", 33))
-		println(fmt.Sprintf("Bool   Value: %v", true))
 		for _, argument := range filterArguments(action.ArgumentList, "in") {
+			typeName := determineTypeName(serviceSpec, argument.RelatedStateVariable)
+			varName := deriveParamVarName(argument.Name)
 			soapParams = append(soapParams, actionInputParam{
-				SoapName: argument.Name,
-				VarName:  deriveParamVarName(argument.Name),
-				TypeName: determineTypeName(serviceSpec, argument.RelatedStateVariable),
+				SoapName:         argument.Name,
+				VarName:          varName,
+				TypeName:         typeName,
+				AddParamFuncName: string2CamelCase("Add_" + typeName + "_param"),
 			})
+			funcParams.WriteString(", ")
+			funcParams.WriteString(varName + " " + typeName)
 		}
 		sd := soapStubTemplateDate{
 			PackageName:    packageName,

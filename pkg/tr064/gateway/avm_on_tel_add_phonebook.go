@@ -10,11 +10,13 @@ import (
 // based on SOAP action 'AddPhonebook', Fritz!Box-System-Version 164.07.57
 //
 // [x_contactSCPD]: http://fritz.box:49000/x_contactSCPD.xml
-func AddPhonebook(session *soap.SoapSession) (tr064model.AddPhonebookResponse, error) {
+func AddPhonebook(session *soap.SoapSession, phonebookExtraId string, phonebookName string) (tr064model.AddPhonebookResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_contact").
 		Uri("urn:dslforum-org:service:X_AVM-DE_OnTel:1").
 		Action("AddPhonebook").
+		AddStringParam("NewPhonebookExtraID", phonebookExtraId).
+		AddStringParam("NewPhonebookName", phonebookName).
 		Do().Body.Data
 	result := tr064model.AddPhonebookResponse{}
 	err := xml.Unmarshal(bodyData, &result)

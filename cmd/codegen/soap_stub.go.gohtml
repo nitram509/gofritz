@@ -14,7 +14,7 @@ func {{ .FuncName }}(session *soap.SoapSession{{ .FuncParameters}}) (tr064model.
 		ReqPath("{{ .ReqPath }}").
 		Uri("{{ .Uri }}").
 		Action("{{ .SoapActionName }}").
-{{ range $I, $Param := .Parameters }}		AddParam("{{ $Param.SoapName }}", {{ $Param.VarName }}).
+{{ range $I, $Param := .Parameters }}		{{ $Param.AddParamFuncName }}("{{ $Param.SoapName }}", {{ $Param.VarName }}).
 {{ end }}		Do().Body.Data
 	result := tr064model.{{ .ReturnTypeName }}{}
 	err := xml.Unmarshal(bodyData, &result)

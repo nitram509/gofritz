@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'SetPersistentData', Fritz!Box-System-Version 164.07.57
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
-func SetPersistentData(session *soap.SoapSession) (tr064model.SetPersistentDataResponse, error) {
+func SetPersistentData(session *soap.SoapSession, persistentData string) (tr064model.SetPersistentDataResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceconfig").
 		Uri("urn:dslforum-org:service:DeviceConfig:1").
 		Action("SetPersistentData").
+		AddStringParam("NewPersistentData", persistentData).
 		Do().Body.Data
 	result := tr064model.SetPersistentDataResponse{}
 	err := xml.Unmarshal(bodyData, &result)

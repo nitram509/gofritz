@@ -10,11 +10,13 @@ import (
 // based on SOAP action 'DisallowWANAccessByIP', Fritz!Box-System-Version 164.07.57
 //
 // [x_hostfilterSCPD]: http://fritz.box:49000/x_hostfilterSCPD.xml
-func DisallowWANAccessByIP(session *soap.SoapSession) (tr064model.DisallowWANAccessByIPResponse, error) {
+func DisallowWANAccessByIP(session *soap.SoapSession, ipv4Address string, disallow bool) (tr064model.DisallowWANAccessByIPResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_hostfilter").
 		Uri("urn:dslforum-org:service:X_AVM-DE_HostFilter:1").
 		Action("DisallowWANAccessByIP").
+		AddStringParam("NewIPv4Address", ipv4Address).
+		AddBoolParam("NewDisallow", disallow).
 		Do().Body.Data
 	result := tr064model.DisallowWANAccessByIPResponse{}
 	err := xml.Unmarshal(bodyData, &result)

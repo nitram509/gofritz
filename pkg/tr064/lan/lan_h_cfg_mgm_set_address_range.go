@@ -10,11 +10,13 @@ import (
 // based on SOAP action 'SetAddressRange', Fritz!Box-System-Version 164.07.57
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
-func SetAddressRange(session *soap.SoapSession) (tr064model.SetAddressRangeResponse, error) {
+func SetAddressRange(session *soap.SoapSession, minAddress string, maxAddress string) (tr064model.SetAddressRangeResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/lanhostconfigmgm").
 		Uri("urn:dslforum-org:service:LANHostConfigManagement:1").
 		Action("SetAddressRange").
+		AddStringParam("NewMinAddress", minAddress).
+		AddStringParam("NewMaxAddress", maxAddress).
 		Do().Body.Data
 	result := tr064model.SetAddressRangeResponse{}
 	err := xml.Unmarshal(bodyData, &result)

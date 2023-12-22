@@ -10,11 +10,15 @@ import (
 // based on SOAP action 'SetAppMessageReceiver', Fritz!Box-System-Version 164.07.57
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
-func SetAppMessageReceiver(session *soap.SoapSession) (tr064model.SetAppMessageReceiverResponse, error) {
+func SetAppMessageReceiver(session *soap.SoapSession, appId string, cryptAlgos string, appAvmAddress string, appAvmPasswordHash string) (tr064model.SetAppMessageReceiverResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_appsetup").
 		Uri("urn:dslforum-org:service:X_AVM-DE_AppSetup:1").
 		Action("SetAppMessageReceiver").
+		AddStringParam("NewAppId", appId).
+		AddStringParam("NewCryptAlgos", cryptAlgos).
+		AddStringParam("NewAppAVMAddress", appAvmAddress).
+		AddStringParam("NewAppAVMPasswordHash", appAvmPasswordHash).
 		Do().Body.Data
 	result := tr064model.SetAppMessageReceiverResponse{}
 	err := xml.Unmarshal(bodyData, &result)
