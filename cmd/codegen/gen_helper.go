@@ -27,6 +27,22 @@ func determineSoapStubFileName(deviceType string, serviceId string, actionName s
 	return filepath.Join("pkg", "tr064", packageName, fileName)
 }
 
+func findService(rootSpec scpd.ServiceControlledProtocolDescriptions, serviceId string) scpd.Service {
+	for _, service := range rootSpec.Device.ServiceList {
+		if serviceId == service.ServiceId {
+			return service
+		}
+	}
+	for _, device := range rootSpec.Device.DeviceList {
+		for _, service := range device.ServiceList {
+			if serviceId == service.ServiceId {
+				return service
+			}
+		}
+	}
+	panic(errors.New(fmt.Sprintf("serviceId '%s' not found", serviceId)))
+}
+
 func deriveSnakeCase(str string) string {
 	str = strings.ReplaceAll(str, "X_AVM-DE_", "Avm")
 	str = strings.ReplaceAll(str, "WebDAV", "Webdav")

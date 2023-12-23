@@ -10,11 +10,12 @@ import (
 // based on SOAP action 'X_AVM-DE_SetWPSConfig', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
-func XavmSetWPSConfig(session *soap.SoapSession) (tr064model.XavmSetWPSConfigResponse, error) {
+func XavmSetWPSConfig(session *soap.SoapSession, avmWpsMode string) (tr064model.XavmSetWPSConfigResponse, error) {
 	bodyData := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wlanconfig3").
 		Uri("urn:dslforum-org:service:WLANConfiguration:3").
 		Action("X_AVM-DE_SetWPSConfig").
+		AddStringParam("NewX_AVM-DE_WPSMode", avmWpsMode).
 		Do().Body.Data
 	result := tr064model.XavmSetWPSConfigResponse{}
 	err := xml.Unmarshal(bodyData, &result)

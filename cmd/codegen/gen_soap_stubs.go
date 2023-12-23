@@ -2,8 +2,6 @@ package main
 
 import (
 	_ "embed"
-	"errors"
-	"fmt"
 	"github.com/nitram509/gofitz/pkg/scpd"
 	"strings"
 	"text/template"
@@ -48,31 +46,15 @@ func deriveParamVarName(name string) string {
 	return name
 }
 
-func findService(rootSpec scpd.ServiceControlledProtocolDescriptions, serviceId string) scpd.Service {
-	for _, service := range rootSpec.Device.ServiceList {
-		if serviceId == service.ServiceId {
-			return service
-		}
-	}
-	for _, device := range rootSpec.Device.DeviceList {
-		for _, service := range device.ServiceList {
-			if serviceId == service.ServiceId {
-				return service
-			}
-		}
-	}
-	panic(errors.New(fmt.Sprintf("serviceId '%s' not found", serviceId)))
-}
-
-func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions) {
+func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd.ServiceControlledProtocolDescriptions, serviceSpec scpd.ServiceControlledProtocolDescriptions, snc *structNameCollector) {
 	for _, action := range serviceSpec.ActionList {
 		tmpl, err := template.New("soap_stub.go.gohtml").Parse(templateSoapStubsGo)
 		if err != nil {
 			panic(err)
 		}
 
-		strucName := deriveStructNameCamelCase(serviceId, action.Name)
-		funcName := strucName[:len(strucName)-len(responseSuffix)]
+		structName := deriveStructNameCamelCase(serviceId, action.Name)
+		funcName := structName[:len(structName)-len(responseSuffix)]
 		packageName := derivePackageName(deviceType)
 		scpdUrl := findService(rootSpec, serviceId).SCPDURL
 		var soapParams []actionInputParam
@@ -89,11 +71,12 @@ func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd
 			funcParams.WriteString(", ")
 			funcParams.WriteString(varName + " " + typeName)
 		}
+
 		sd := soapStubTemplateDate{
 			PackageName:    packageName,
 			FuncName:       funcName,
 			FuncParameters: funcParams.String(),
-			ReturnTypeName: strucName,
+			ReturnTypeName: structName,
 			ReqPath:        findService(rootSpec, serviceId).ControlURL,
 			Uri:            findService(rootSpec, serviceId).ServiceType,
 			SCDPShortName:  deriveScdpShortName(scpdUrl),
@@ -102,6 +85,15 @@ func generateSoapServiceStubs(deviceType string, serviceId string, rootSpec scpd
 			SoapActionName: action.Name,
 			Parameters:     soapParams,
 		}
+
+		snc.add(soapMetaData{
+			deviceType:     deviceType,
+			serviceId:      serviceId,
+			actionName:     action.Name,
+			packageName:    packageName,
+			funcName:       funcName,
+			respStructName: structName,
+		})
 
 		sb := strings.Builder{}
 		err = tmpl.Execute(&sb, sd)

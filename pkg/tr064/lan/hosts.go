@@ -11,7 +11,7 @@ func XAvmGetSpecificHostEntryByIp(session *soap.SoapSession, ipAddress string) (
 		ReqPath("/upnp/control/hosts").
 		Uri("urn:dslforum-org:service:Hosts:1").
 		Action("X_AVM-DE_GetSpecificHostEntryByIp").
-		AddParam("NewIPAddress", ipAddress).
+		AddStringParam("NewIPAddress", ipAddress).
 		Do().Body.Data
 	result := tr064model.XavmGetSpecificHostEntryByIPResponse{}
 	err := xml.Unmarshal(bodyData, &result)
