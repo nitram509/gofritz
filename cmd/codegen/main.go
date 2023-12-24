@@ -10,13 +10,13 @@ const URL = "http://" + HOST + ":49000"
 
 const responseSuffix = "Response"
 
-const writeFiles = true
+const writeFiles = false
 
 func generateAllCode(description tr64Desc) {
 	snc := &structNameCollector{}
 	for _, service := range description.services {
 		println(fmt.Sprintf("Generate: (%s) - %s", service.deviceType, service.serviceId))
-		//generateResponseStructs(service.deviceType, service.serviceId, description.root, service.spec)
+		generateResponseStructs(service.deviceType, service.serviceId, description.root, service.spec)
 		generateSoapServiceStubs(service.deviceType, service.serviceId, description.root, service.spec, snc)
 	}
 	generateFunctionsTestCode(snc)

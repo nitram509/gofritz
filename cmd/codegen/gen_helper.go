@@ -54,6 +54,7 @@ func deriveSnakeCase(str string) string {
 	str = strings.ReplaceAll(str, "DECT", "Dect")
 	str = strings.ReplaceAll(str, "DHCP", "Dhcp")
 	str = strings.ReplaceAll(str, "UPnP", "Upnp")
+	str = strings.ReplaceAll(str, "DVBC", "Dvbc")
 	str = strings.ReplaceAll(str, "DNS", "Dns")
 	str = strings.ReplaceAll(str, "FTP", "Ftp")
 	str = strings.ReplaceAll(str, "NTP", "Ntp")
