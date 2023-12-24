@@ -8,7 +8,7 @@ import (
 )
 
 func XAvmGetHostList(session *soap.SoapSession) ([]tr064model.XAvmGetHostListResponse, error) {
-	hostListPathResp, err := XAvmGetHostListPath(session)
+	hostListPathResp, err := XavmGetHostListPath(session)
 
 	var resp struct {
 		XMLName xml.Name                             `xml:"List"`

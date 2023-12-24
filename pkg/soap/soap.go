@@ -22,12 +22,6 @@ type GenericSoapResponse struct {
 	} `xml:"Body,omitempty"`
 }
 
-type envelopeParameter struct {
-	Action string
-	Uri    string
-	Params string
-}
-
 type soapErrorResponse struct {
 	XMLName       xml.Name `xml:"Envelope"`
 	S             string   `xml:"s,attr"`
@@ -132,30 +126,29 @@ type soapParam struct {
 }
 
 func (cmd *soapCmd) AddStringParam(name string, value string) SoapCommand {
+	escapedValue := strings.Builder{}
+	err := xml.EscapeText(&escapedValue, []byte(value))
+	if err != nil {
+		panic(err)
+	}
 	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
 		name:  name,
-		value: value,
+		value: escapedValue.String(),
 	})
 	return cmd
 }
 
 func (cmd *soapCmd) AddIntParam(name string, value int) SoapCommand {
-	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
-		name:  name,
-		value: strconv.Itoa(value),
-	})
+	cmd.AddStringParam(name, strconv.Itoa(value))
 	return cmd
 }
 
 func (cmd *soapCmd) AddBoolParam(name string, value bool) SoapCommand {
-	valueStr := "0"
 	if value {
-		valueStr = "1"
+		cmd.AddStringParam(name, "1")
+	} else {
+		cmd.AddStringParam(name, "0")
 	}
-	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
-		name:  name,
-		value: valueStr,
-	})
 	return cmd
 }
 

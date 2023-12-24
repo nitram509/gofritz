@@ -148,7 +148,7 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 		}
 		// fix block spacing for alignment
 		var varDeclMaxLen = 0
-		for i, _ := range variables {
+		for i := range variables {
 			varDecl := variables[i]
 			idx := strings.Index(varDecl, "\t")
 			varDecl = strings.Replace(varDecl, "\t", spaces[:varNameMaxLen-idx+1], 1)
@@ -158,7 +158,7 @@ func generateResponseStructs(deviceType string, serviceId string, rootSpec scpd.
 			variables[i] = varDecl
 		}
 		// append commends with block ident
-		for i, _ := range variables {
+		for i := range variables {
 			varDecl := variables[i]
 			comment := determineVariableComment(serviceSpec, outArguments[i].RelatedStateVariable)
 			if len(comment) > 0 {

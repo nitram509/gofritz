@@ -12,10 +12,6 @@ import (
 const markerStart = "// === START AUTO-GENERATED CODE ==="
 const markerEnd = "// === END AUTO-GENERATED CODE ==="
 
-type StructNameCollector interface {
-	add(soapMetaData soapMetaData)
-}
-
 type soapMetaData struct {
 	deviceType     string
 	serviceId      string
