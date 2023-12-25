@@ -9,380 +9,380 @@ import (
 	"testing"
 )
 
-var registryX = map[string]interface{}{
+var testRegistry = []interface{}{
 	// === START AUTO-GENERATED CODE ===
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceInfo-com:serviceId:DeviceInfo1--GetInfo":                                                 gateway.GetDeviceInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceInfo-com:serviceId:DeviceInfo1--SetProvisioningCode":                                     gateway.SetProvisioningCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceInfo-com:serviceId:DeviceInfo1--GetDeviceLog":                                            gateway.GetDeviceLog,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceInfo-com:serviceId:DeviceInfo1--GetSecurityPort":                                         gateway.GetSecurityPort,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--GetPersistentData":                                   gateway.GetPersistentData,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--SetPersistentData":                                   gateway.SetPersistentData,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--ConfigurationStarted":                                gateway.ConfigurationStarted,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--ConfigurationFinished":                               gateway.ConfigurationFinished,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--FactoryReset":                                        gateway.FactoryReset,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--Reboot":                                              gateway.Reboot,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_GenerateUUID":                                      gateway.X_GenerateUUID,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_GetConfigFile":                              gateway.XavmGetConfigFile,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_SetConfigFile":                              gateway.XavmSetConfigFile,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_CreateUrlSID":                               gateway.XavmCreateUrlSID,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_SendSupportData":                            gateway.XavmSendSupportData,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_GetSupportDataInfo":                         gateway.XavmGetSupportDataInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_GetSupportDataEnable":                       gateway.XavmGetSupportDataEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:DeviceConfig-com:serviceId:DeviceConfig1--X_AVM-DE_SetSupportDataEnable":                       gateway.XavmSetSupportDataEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--SetDefaultConnectionService":                 gateway.SetDefaultConnectionService,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--GetDefaultConnectionService":                 gateway.GetDefaultConnectionService,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--GetForwardNumberOfEntries":                   gateway.GetForwardNumberOfEntries,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--AddForwardingEntry":                          gateway.AddForwardingEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--DeleteForwardingEntry":                       gateway.DeleteForwardingEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--GetSpecificForwardingEntry":                  gateway.GetSpecificForwardingEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--GetGenericForwardingEntry":                   gateway.GetGenericForwardingEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1--SetForwardingEntryEnable":                    gateway.SetForwardingEntryEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1--GetInfo":                                   gateway.GetLanConfigSecurityInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1--X_AVM-DE_GetCurrentUser":                   gateway.XavmGetCurrentUser,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1--X_AVM-DE_GetAnonymousLogin":                gateway.XavmGetAnonymousLogin,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1--SetConfigPassword":                         gateway.SetConfigPassword,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1--X_AVM-DE_GetUserList":                      gateway.XavmGetUserList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--GetInfo":                                     gateway.GetManagementServerInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--SetManagementServerURL":                      gateway.SetManagementServerURL,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--SetManagementServerUsername":                 gateway.SetManagementServerUsername,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--SetManagementServerPassword":                 gateway.SetManagementServerPassword,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--SetPeriodicInform":                           gateway.SetPeriodicInform,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--SetConnectionRequestAuthentication":          gateway.SetConnectionRequestAuthentication,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--SetUpgradeManagement":                        gateway.SetUpgradeManagement,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--X_SetTR069Enable":                            gateway.X_SetTR069Enable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--X_AVM-DE_GetTR069FirmwareDownloadEnabled":    gateway.XavmGetTR069FirmwareDownloadEnabled,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:ManagementServer-com:serviceId:ManagementServer1--X_AVM-DE_SetTR069FirmwareDownloadEnabled":    gateway.XavmSetTR069FirmwareDownloadEnabled,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Time-com:serviceId:Time1--GetInfo":                                                             gateway.GetTimeInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:Time-com:serviceId:Time1--SetNTPServers":                                                       gateway.SetNTPServers,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--GetInfo":                                           gateway.GetUserInterfaceInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_CheckUpdate":                              gateway.XavmCheckUpdate,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_DoUpdate":                                 gateway.XavmDoUpdate,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_DoPrepareCGI":                             gateway.XavmDoPrepareCGI,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_DoManualUpdate":                           gateway.XavmDoManualUpdate,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_GetInternationalConfig":                   gateway.XavmGetInternationalConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_SetInternationalConfig":                   gateway.XavmSetInternationalConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_GetInfo":                                  gateway.XavmGetUserInterfaceInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:UserInterface-com:serviceId:UserInterface1--X_AVM-DE_SetConfig":                                gateway.XavmSetConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--GetInfo":                                     gateway.GetAvmStorageInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--RequestFTPServerWAN":                         gateway.RequestFTPServerWAN,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--SetFTPServer":                                gateway.SetFTPServer,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--SetFTPServerWAN":                             gateway.SetFTPServerWAN,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--SetSMBServer":                                gateway.SetSMBServer,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--GetUserInfo":                                 gateway.GetUserInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1--SetUserConfig":                               gateway.SetUserConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_WebDAV-com:serviceId:X_AVM-DE_WebDAVClient1--GetInfo":                                 gateway.GetAvmWebdavInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_WebDAV-com:serviceId:X_AVM-DE_WebDAVClient1--SetConfig":                               gateway.SetAvmWebdavConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_UPnP-com:serviceId:X_AVM-DE_UPnP1--GetInfo":                                           gateway.GetAvmUpnpInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_UPnP-com:serviceId:X_AVM-DE_UPnP1--SetConfig":                                         gateway.SetAvmUpnpConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1--GetInfo":                                 gateway.GetAvmSpeedtestInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1--SetConfig":                               gateway.SetAvmSpeedtestConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1--GetStatistics":                           gateway.GetAvmSpeedtestStatistics,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1--ResetStatistics":                         gateway.ResetStatistics,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--GetInfo":                           gateway.GetAvmRemoteAccessInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--SetConfig":                         gateway.SetAvmRemoteAccessConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--SetEnable":                         gateway.SetAvmRemoteAccessEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--SetLetsEncryptEnable":              gateway.SetLetsEncryptEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--GetDDNSInfo":                       gateway.GetDDNSInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--GetDDNSProviders":                  gateway.GetDDNSProviders,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1--SetDDNSConfig":                     gateway.SetDDNSConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1--GetInfo":                                     gateway.GetAvmMyFritzInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1--SetMyFRITZ":                                  gateway.SetMyFRITZ,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1--GetNumberOfServices":                         gateway.GetNumberOfServices,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1--GetServiceByIndex":                           gateway.GetServiceByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1--SetServiceByIndex":                           gateway.SetServiceByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1--DeleteServiceByIndex":                        gateway.DeleteServiceByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetInfoEx":                                                       gateway.GetInfoEx,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_AddVoIPAccount":                                         gateway.XavmAddVoIPAccount,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetVoIPAccount":                                         gateway.XavmGetVoIPAccount,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_DelVoIPAccount":                                         gateway.XavmDelVoIPAccount,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetVoIPAccounts":                                        gateway.XavmGetVoIPAccounts,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetVoIPStatus":                                          gateway.XavmGetVoIPStatus,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetInfo":                                                         gateway.GetXVoipInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--SetConfig":                                                       gateway.SetXVoipConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetMaxVoIPNumbers":                                               gateway.GetMaxVoIPNumbers,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetExistingVoIPNumbers":                                          gateway.GetExistingVoIPNumbers,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetNumberOfClients":                                     gateway.XavmGetNumberOfClients,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetClient":                                              gateway.XavmGetClient,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetClient2":                                             gateway.XavmGetClient2,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetClient":                                              gateway.XavmSetClient,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetClient2":                                             gateway.XavmSetClient2,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetClient3":                                             gateway.XavmGetClient3,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetClientByClientId":                                    gateway.XavmGetClientByClientId,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetClient3":                                             gateway.XavmSetClient3,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetClient4":                                             gateway.XavmSetClient4,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetClients":                                             gateway.XavmGetClients,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetNumberOfNumbers":                                     gateway.XavmGetNumberOfNumbers,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetNumbers":                                             gateway.XavmGetNumbers,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_DeleteClient":                                           gateway.XavmDeleteClient,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_DialGetConfig":                                          gateway.XavmDialGetConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_DialSetConfig":                                          gateway.XavmDialSetConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_DialNumber":                                             gateway.XavmDialNumber,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_DialHangup":                                             gateway.XavmDialHangup,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetPhonePort":                                           gateway.XavmGetPhonePort,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetDelayedCallNotification":                             gateway.XavmSetDelayedCallNotification,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetVoIPCommonCountryCode":                                        gateway.GetVoIPCommonCountryCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetVoIPCommonCountryCode":                               gateway.XavmGetVoIPCommonCountryCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--SetVoIPCommonCountryCode":                                        gateway.SetVoIPCommonCountryCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetVoIPCommonCountryCode":                               gateway.XavmSetVoIPCommonCountryCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetVoIPEnableCountryCode":                                        gateway.GetVoIPEnableCountryCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--SetVoIPEnableCountryCode":                                        gateway.SetVoIPEnableCountryCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetVoIPCommonAreaCode":                                           gateway.GetVoIPCommonAreaCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetVoIPCommonAreaCode":                                  gateway.XavmGetVoIPCommonAreaCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--SetVoIPCommonAreaCode":                                           gateway.SetVoIPCommonAreaCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetVoIPCommonAreaCode":                                  gateway.XavmSetVoIPCommonAreaCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--GetVoIPEnableAreaCode":                                           gateway.GetVoIPEnableAreaCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--SetVoIPEnableAreaCode":                                           gateway.SetVoIPEnableAreaCode,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetAlarmClock":                                          gateway.XavmGetAlarmClock,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_SetAlarmClockEnable":                                    gateway.XavmSetAlarmClockEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_VoIP-com:serviceId:X_VoIP1--X_AVM-DE_GetNumberOfAlarmClocks":                                 gateway.XavmGetNumberOfAlarmClocks,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetInfo":                                         gateway.GetAvmOnTelInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetEnable":                                       gateway.SetAvmOnTelEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetConfig":                                       gateway.SetAvmOnTelConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetInfoByIndex":                                  gateway.GetInfoByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetEnableByIndex":                                gateway.SetEnableByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetConfigByIndex":                                gateway.SetConfigByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--DeleteByIndex":                                   gateway.DeleteByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetNumberOfEntries":                              gateway.GetNumberOfEntries,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetCallList":                                     gateway.GetCallList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetPhonebookList":                                gateway.GetPhonebookList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetPhonebook":                                    gateway.GetPhonebook,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--AddPhonebook":                                    gateway.AddPhonebook,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--DeletePhonebook":                                 gateway.DeletePhonebook,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetPhonebookEntry":                               gateway.GetPhonebookEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetPhonebookEntryUID":                            gateway.GetPhonebookEntryUID,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetPhonebookEntry":                               gateway.SetPhonebookEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetPhonebookEntryUID":                            gateway.SetPhonebookEntryUID,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--DeletePhonebookEntry":                            gateway.DeletePhonebookEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--DeletePhonebookEntryUID":                         gateway.DeletePhonebookEntryUID,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetCallBarringEntry":                             gateway.GetCallBarringEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetCallBarringEntryByNum":                        gateway.GetCallBarringEntryByNum,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetCallBarringList":                              gateway.GetCallBarringList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetCallBarringEntry":                             gateway.SetCallBarringEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--DeleteCallBarringEntryUID":                       gateway.DeleteCallBarringEntryUID,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetDECTHandsetList":                              gateway.GetDECTHandsetList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetDECTHandsetInfo":                              gateway.GetDECTHandsetInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetDECTHandsetPhonebook":                         gateway.SetDECTHandsetPhonebook,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetNumberOfDeflections":                          gateway.GetNumberOfDeflections,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetDeflection":                                   gateway.GetDeflection,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--GetDeflections":                                  gateway.GetDeflections,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1--SetDeflectionEnable":                             gateway.SetDeflectionEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1--GetNumberOfDectEntries":                            gateway.GetNumberOfDectEntries,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1--GetGenericDectEntry":                               gateway.GetGenericDectEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1--GetSpecificDectEntry":                              gateway.GetSpecificDectEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1--DectDoUpdate":                                      gateway.DectDoUpdate,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1--GetDectListPath":                                   gateway.GetDectListPath,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1--GetInfo":                                             gateway.GetAvmTamInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1--SetEnable":                                           gateway.SetAvmTamEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1--GetMessageList":                                      gateway.GetMessageList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1--MarkMessage":                                         gateway.MarkMessage,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1--DeleteMessage":                                       gateway.DeleteMessage,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1--GetList":                                             gateway.GetList,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--GetInfo":                                   gateway.GetAvmAppSetupInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--GetConfig":                                 gateway.GetConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--GetAppMessageFilter":                       gateway.GetAppMessageFilter,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--RegisterApp":                               gateway.RegisterApp,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--SetAppVPN":                                 gateway.SetAppVPN,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--SetAppVPNwithPFS":                          gateway.SetAppVPNwithPFS,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--SetAppMessageFilter":                       gateway.SetAppMessageFilter,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--SetAppMessageReceiver":                     gateway.SetAppMessageReceiver,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--ResetEvent":                                gateway.ResetEvent,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--GetAppRemoteInfo":                          gateway.GetAppRemoteInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1--GetBoxSenderId":                            gateway.GetBoxSenderId,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1--GetInfo":                                   gateway.GetAvmHomeautoInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1--GetGenericDeviceInfos":                     gateway.GetGenericDeviceInfos,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1--GetSpecificDeviceInfos":                    gateway.GetSpecificDeviceInfos,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1--SetDeviceName":                             gateway.SetDeviceName,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1--SetSwitch":                                 gateway.SetSwitch,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1--GetNumberOfDeviceEntries":                  gateway.GetNumberOfDeviceEntries,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1--GetGenericDeviceEntry":                     gateway.GetGenericDeviceEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1--GetSpecificDeviceEntry":                    gateway.GetSpecificDeviceEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1--DeviceDoUpdate":                            gateway.DeviceDoUpdate,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--GetNumberOfFilelinkEntries":              gateway.GetNumberOfFilelinkEntries,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--GetGenericFilelinkEntry":                 gateway.GetGenericFilelinkEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--GetSpecificFilelinkEntry":                gateway.GetSpecificFilelinkEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--NewFilelinkEntry":                        gateway.NewFilelinkEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--SetFilelinkEntry":                        gateway.SetFilelinkEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--DeleteFilelinkEntry":                     gateway.DeleteFilelinkEntry,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1--GetFilelinkListPath":                     gateway.GetFilelinkListPath,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Auth-com:serviceId:X_AVM-DE_Auth1--GetInfo":                                           gateway.GetAvmAuthInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Auth-com:serviceId:X_AVM-DE_Auth1--GetState":                                          gateway.GetState,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Auth-com:serviceId:X_AVM-DE_Auth1--SetConfig":                                         gateway.SetAvmAuthConfig,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1--MarkTicket":                            gateway.MarkTicket,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1--GetTicketIDStatus":                     gateway.GetTicketIDStatus,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1--DiscardAllTickets":                     gateway.DiscardAllTickets,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1--DisallowWANAccessByIP":                 gateway.DisallowWANAccessByIP,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1--GetWANAccessByIP":                      gateway.GetWANAccessByIP,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1--GetInfo":                                         gateway.GetAvmMediaInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1--GetDVBCEnable":                                   gateway.GetDVBCEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1--SetDVBCEnable":                                   gateway.SetDVBCEnable,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1--StationSearch":                                   gateway.StationSearch,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1--GetSearchProgress":                               gateway.GetSearchProgress,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1--GetInfo":                         gateway.GetAvmUspControllerInfo,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1--GetUSPControllerByIndex":         gateway.GetUSPControllerByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1--GetUSPControllerNumberOfEntries": gateway.GetUSPControllerNumberOfEntries,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1--AddUSPController":                gateway.AddUSPController,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1--DeleteUSPControllerByIndex":      gateway.DeleteUSPControllerByIndex,
-	"urn:dslforum-org:device:InternetGatewayDevice:1--urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1--SetUSPControllerEnableByIndex":   gateway.SetUSPControllerEnableByIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetEnable":                                             lan.Wlan1SetWlanConfigurationEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetInfo":                                               lan.Wlan1GetWlanConfigurationInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetConfig":                                             lan.Wlan1SetWlanConfigurationConfig,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetSecurityKeys":                                       lan.Wlan1SetSecurityKeys,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetSecurityKeys":                                       lan.Wlan1GetSecurityKeys,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetDefaultWEPKeyIndex":                                 lan.Wlan1SetDefaultWEPKeyIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetDefaultWEPKeyIndex":                                 lan.Wlan1GetDefaultWEPKeyIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetBasBeaconSecurityProperties":                        lan.Wlan1SetBasBeaconSecurityProperties,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetBasBeaconSecurityProperties":                        lan.Wlan1GetBasBeaconSecurityProperties,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetStatistics":                                         lan.Wlan1GetWlanConfigurationStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetPacketStatistics":                                   lan.Wlan1GetPacketStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetBSSID":                                              lan.Wlan1GetBSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetSSID":                                               lan.Wlan1GetSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetSSID":                                               lan.Wlan1SetSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetBeaconType":                                         lan.Wlan1GetBeaconType,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetBeaconType":                                         lan.Wlan1SetBeaconType,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetChannelInfo":                                        lan.Wlan1GetChannelInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetChannel":                                            lan.Wlan1SetChannel,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetBeaconAdvertisement":                                lan.Wlan1GetBeaconAdvertisement,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--SetBeaconAdvertisement":                                lan.Wlan1SetBeaconAdvertisement,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetTotalAssociations":                                  lan.Wlan1GetTotalAssociations,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetGenericAssociatedDeviceInfo":                        lan.Wlan1GetGenericAssociatedDeviceInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--GetSpecificAssociatedDeviceInfo":                       lan.Wlan1GetSpecificAssociatedDeviceInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp":          lan.Wlan1XavmGetSpecificAssociatedDeviceInfoByIp,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetWLANDeviceListPath":                        lan.Wlan1XavmGetWLANDeviceListPath,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_SetStickSurfEnable":                           lan.Wlan1XavmSetStickSurfEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetIPTVOptimized":                             lan.Wlan1XavmGetIPTVOptimized,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_SetIPTVOptimized":                             lan.Wlan1XavmSetIPTVOptimized,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetNightControl":                              lan.Wlan1XavmGetNightControl,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetWLANHybridMode":                            lan.Wlan1XavmGetWLANHybridMode,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_SetWLANHybridMode":                            lan.Wlan1XavmSetWLANHybridMode,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetWLANExtInfo":                               lan.Wlan1XavmGetWLANExtInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetWPSInfo":                                   lan.Wlan1XavmGetWPSInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_SetWPSConfig":                                 lan.Wlan1XavmSetWPSConfig,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_SetWPSEnable":                                 lan.Wlan1XavmSetWPSEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_SetWLANGlobalEnable":                          lan.Wlan1XavmSetWLANGlobalEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration1--X_AVM-DE_GetWLANConnectionInfo":                        lan.Wlan1XavmGetWLANConnectionInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetEnable":                                             lan.Wlan2SetWlanConfigurationEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetInfo":                                               lan.Wlan2GetWlanConfigurationInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetConfig":                                             lan.Wlan2SetWlanConfigurationConfig,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetSecurityKeys":                                       lan.Wlan2SetSecurityKeys,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetSecurityKeys":                                       lan.Wlan2GetSecurityKeys,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetDefaultWEPKeyIndex":                                 lan.Wlan2SetDefaultWEPKeyIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetDefaultWEPKeyIndex":                                 lan.Wlan2GetDefaultWEPKeyIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetBasBeaconSecurityProperties":                        lan.Wlan2SetBasBeaconSecurityProperties,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetBasBeaconSecurityProperties":                        lan.Wlan2GetBasBeaconSecurityProperties,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetStatistics":                                         lan.Wlan2GetWlanConfigurationStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetPacketStatistics":                                   lan.Wlan2GetPacketStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetBSSID":                                              lan.Wlan2GetBSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetSSID":                                               lan.Wlan2GetSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetSSID":                                               lan.Wlan2SetSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetBeaconType":                                         lan.Wlan2GetBeaconType,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetBeaconType":                                         lan.Wlan2SetBeaconType,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetChannelInfo":                                        lan.Wlan2GetChannelInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetChannel":                                            lan.Wlan2SetChannel,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetBeaconAdvertisement":                                lan.Wlan2GetBeaconAdvertisement,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--SetBeaconAdvertisement":                                lan.Wlan2SetBeaconAdvertisement,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetTotalAssociations":                                  lan.Wlan2GetTotalAssociations,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetGenericAssociatedDeviceInfo":                        lan.Wlan2GetGenericAssociatedDeviceInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--GetSpecificAssociatedDeviceInfo":                       lan.Wlan2GetSpecificAssociatedDeviceInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp":          lan.Wlan2XavmGetSpecificAssociatedDeviceInfoByIp,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetWLANDeviceListPath":                        lan.Wlan2XavmGetWLANDeviceListPath,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_SetStickSurfEnable":                           lan.Wlan2XavmSetStickSurfEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetIPTVOptimized":                             lan.Wlan2XavmGetIPTVOptimized,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_SetIPTVOptimized":                             lan.Wlan2XavmSetIPTVOptimized,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetNightControl":                              lan.Wlan2XavmGetNightControl,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetWLANHybridMode":                            lan.Wlan2XavmGetWLANHybridMode,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_SetWLANHybridMode":                            lan.Wlan2XavmSetWLANHybridMode,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetWLANExtInfo":                               lan.Wlan2XavmGetWLANExtInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetWPSInfo":                                   lan.Wlan2XavmGetWPSInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_SetWPSConfig":                                 lan.Wlan2XavmSetWPSConfig,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_SetWPSEnable":                                 lan.Wlan2XavmSetWPSEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_SetWLANGlobalEnable":                          lan.Wlan2XavmSetWLANGlobalEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration2--X_AVM-DE_GetWLANConnectionInfo":                        lan.Wlan2XavmGetWLANConnectionInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetEnable":                                             lan.Wlan3SetWlanConfigurationEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetInfo":                                               lan.Wlan3GetWlanConfigurationInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetConfig":                                             lan.Wlan3SetWlanConfigurationConfig,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetSecurityKeys":                                       lan.Wlan3SetSecurityKeys,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetSecurityKeys":                                       lan.Wlan3GetSecurityKeys,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetDefaultWEPKeyIndex":                                 lan.Wlan3SetDefaultWEPKeyIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetDefaultWEPKeyIndex":                                 lan.Wlan3GetDefaultWEPKeyIndex,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetBasBeaconSecurityProperties":                        lan.Wlan3SetBasBeaconSecurityProperties,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetBasBeaconSecurityProperties":                        lan.Wlan3GetBasBeaconSecurityProperties,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetStatistics":                                         lan.Wlan3GetWlanConfigurationStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetPacketStatistics":                                   lan.Wlan3GetPacketStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetBSSID":                                              lan.Wlan3GetBSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetSSID":                                               lan.Wlan3GetSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetSSID":                                               lan.Wlan3SetSSID,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetBeaconType":                                         lan.Wlan3GetBeaconType,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetBeaconType":                                         lan.Wlan3SetBeaconType,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetChannelInfo":                                        lan.Wlan3GetChannelInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetChannel":                                            lan.Wlan3SetChannel,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetBeaconAdvertisement":                                lan.Wlan3GetBeaconAdvertisement,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--SetBeaconAdvertisement":                                lan.Wlan3SetBeaconAdvertisement,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetTotalAssociations":                                  lan.Wlan3GetTotalAssociations,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetGenericAssociatedDeviceInfo":                        lan.Wlan3GetGenericAssociatedDeviceInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--GetSpecificAssociatedDeviceInfo":                       lan.Wlan3GetSpecificAssociatedDeviceInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp":          lan.Wlan3XavmGetSpecificAssociatedDeviceInfoByIp,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetWLANDeviceListPath":                        lan.Wlan3XavmGetWLANDeviceListPath,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_SetStickSurfEnable":                           lan.Wlan3XavmSetStickSurfEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetIPTVOptimized":                             lan.Wlan3XavmGetIPTVOptimized,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_SetIPTVOptimized":                             lan.Wlan3XavmSetIPTVOptimized,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetNightControl":                              lan.Wlan3XavmGetNightControl,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetWLANHybridMode":                            lan.Wlan3XavmGetWLANHybridMode,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_SetWLANHybridMode":                            lan.Wlan3XavmSetWLANHybridMode,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetWLANExtInfo":                               lan.Wlan3XavmGetWLANExtInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetWPSInfo":                                   lan.Wlan3XavmGetWPSInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_SetWPSConfig":                                 lan.Wlan3XavmSetWPSConfig,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_SetWPSEnable":                                 lan.Wlan3XavmSetWPSEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_SetWLANGlobalEnable":                          lan.Wlan3XavmSetWLANGlobalEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:WLANConfiguration-com:serviceId:WLANConfiguration3--X_AVM-DE_GetWLANConnectionInfo":                        lan.Wlan3XavmGetWLANConnectionInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--GetHostNumberOfEntries":                                               lan.GetHostNumberOfEntries,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--GetSpecificHostEntry":                                                 lan.GetSpecificHostEntry,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--GetGenericHostEntry":                                                  lan.GetGenericHostEntry,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetInfo":                                                     lan.XavmGetLanDeviceHostsInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetChangeCounter":                                            lan.XavmGetChangeCounter,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_SetHostNameByMACAddress":                                     lan.XavmSetHostNameByMACAddress,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetAutoWakeOnLANByMACAddress":                                lan.XavmGetAutoWakeOnLANByMACAddress,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_SetAutoWakeOnLANByMACAddress":                                lan.XavmSetAutoWakeOnLANByMACAddress,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_WakeOnLANByMACAddress":                                       lan.XavmWakeOnLANByMACAddress,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetSpecificHostEntryByIP":                                    lan.XavmGetSpecificHostEntryByIP,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_HostsCheckUpdate":                                            lan.XavmHostsCheckUpdate,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_HostDoUpdate":                                                lan.XavmHostDoUpdate,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_SetPrioritizationByIP":                                       lan.XavmSetPrioritizationByIP,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetHostListPath":                                             lan.XavmGetHostListPath,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetMeshListPath":                                             lan.XavmGetMeshListPath,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_GetFriendlyName":                                             lan.XavmGetFriendlyName,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_SetFriendlyName":                                             lan.XavmSetFriendlyName,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_SetFriendlyNameByIP":                                         lan.XavmSetFriendlyNameByIP,
-	"urn:dslforum-org:device:LANDevice:1--urn:LanDeviceHosts-com:serviceId:Hosts1--X_AVM-DE_SetFriendlyNameByMAC":                                        lan.XavmSetFriendlyNameByMAC,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANEthernetIfCfg-com:serviceId:LANEthernetInterfaceConfig1--SetEnable":                                     lan.SetLanEthernetIfCfgEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANEthernetIfCfg-com:serviceId:LANEthernetInterfaceConfig1--GetInfo":                                       lan.GetLanEthernetIfCfgInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANEthernetIfCfg-com:serviceId:LANEthernetInterfaceConfig1--GetStatistics":                                 lan.GetLanEthernetIfCfgStatistics,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--GetInfo":                                                lan.GetLanHCfgMgmInfo,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--SetDHCPServerEnable":                                    lan.SetDHCPServerEnable,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--SetIPInterface":                                         lan.SetIPInterface,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--GetAddressRange":                                        lan.GetAddressRange,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--SetAddressRange":                                        lan.SetAddressRange,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--GetIPRoutersList":                                       lan.GetIPRoutersList,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--SetIPRouter":                                            lan.SetIPRouter,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--GetSubnetMask":                                          lan.GetSubnetMask,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--SetSubnetMask":                                          lan.SetSubnetMask,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--GetDNSServers":                                          lan.GetDNSServers,
-	"urn:dslforum-org:device:LANDevice:1--urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1--GetIPInterfaceNumberOfEntries":                          lan.GetIPInterfaceNumberOfEntries,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--GetCommonLinkProperties":                             wan.GetCommonLinkProperties,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--GetTotalBytesSent":                                   wan.GetTotalBytesSent,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--GetTotalBytesReceived":                               wan.GetTotalBytesReceived,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--GetTotalPacketsSent":                                 wan.GetTotalPacketsSent,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--GetTotalPacketsReceived":                             wan.GetTotalPacketsReceived,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--X_AVM-DE_SetWANAccessType":                           wan.XavmSetWANAccessType,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--X_AVM-DE_GetActiveProvider":                          wan.XavmGetActiveProvider,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1--X_AVM-DE_GetOnlineMonitor":                           wan.XavmGetOnlineMonitor,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1--GetInfo":                                              wan.GetWanDslIfConfigInfo,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1--GetStatisticsTotal":                                   wan.GetStatisticsTotal,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1--X_AVM-DE_GetDSLDiagnoseInfo":                          wan.XavmGetDSLDiagnoseInfo,
-	"urn:dslforum-org:device:WANDevice:1--urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1--X_AVM-DE_GetDSLInfo":                                  wan.XavmGetDSLInfo,
+	gateway.GetDeviceInfo,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  GetInfo
+	gateway.SetProvisioningCode,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  SetProvisioningCode
+	gateway.GetDeviceLog,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  GetDeviceLog
+	gateway.GetSecurityPort,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  GetSecurityPort
+	gateway.GetPersistentData,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  GetPersistentData
+	gateway.SetPersistentData,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  SetPersistentData
+	gateway.ConfigurationStarted,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  ConfigurationStarted
+	gateway.ConfigurationFinished,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  ConfigurationFinished
+	gateway.FactoryReset,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  FactoryReset
+	gateway.Reboot,                                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  Reboot
+	gateway.X_GenerateUUID,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_GenerateUUID
+	gateway.XavmGetConfigFile,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_GetConfigFile
+	gateway.XavmSetConfigFile,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_SetConfigFile
+	gateway.XavmCreateUrlSID,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_CreateUrlSID
+	gateway.XavmSendSupportData,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_SendSupportData
+	gateway.XavmGetSupportDataInfo,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_GetSupportDataInfo
+	gateway.XavmGetSupportDataEnable,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_GetSupportDataEnable
+	gateway.XavmSetSupportDataEnable,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  X_AVM-DE_SetSupportDataEnable
+	gateway.SetDefaultConnectionService,              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  SetDefaultConnectionService
+	gateway.GetDefaultConnectionService,              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  GetDefaultConnectionService
+	gateway.GetForwardNumberOfEntries,                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  GetForwardNumberOfEntries
+	gateway.AddForwardingEntry,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  AddForwardingEntry
+	gateway.DeleteForwardingEntry,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  DeleteForwardingEntry
+	gateway.GetSpecificForwardingEntry,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  GetSpecificForwardingEntry
+	gateway.GetGenericForwardingEntry,                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  GetGenericForwardingEntry
+	gateway.SetForwardingEntryEnable,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Layer3Forwarding-com:serviceId:Layer3Forwarding1,  SetForwardingEntryEnable
+	gateway.GetLanConfigSecurityInfo,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1,  GetInfo
+	gateway.XavmGetCurrentUser,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1,  X_AVM-DE_GetCurrentUser
+	gateway.XavmGetAnonymousLogin,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1,  X_AVM-DE_GetAnonymousLogin
+	gateway.SetConfigPassword,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1,  SetConfigPassword
+	gateway.XavmGetUserList,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:LANConfigSecurity-com:serviceId:LANConfigSecurity1,  X_AVM-DE_GetUserList
+	gateway.GetManagementServerInfo,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  GetInfo
+	gateway.SetManagementServerURL,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  SetManagementServerURL
+	gateway.SetManagementServerUsername,              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  SetManagementServerUsername
+	gateway.SetManagementServerPassword,              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  SetManagementServerPassword
+	gateway.SetPeriodicInform,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  SetPeriodicInform
+	gateway.SetConnectionRequestAuthentication,       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  SetConnectionRequestAuthentication
+	gateway.SetUpgradeManagement,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  SetUpgradeManagement
+	gateway.X_SetTR069Enable,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  X_SetTR069Enable
+	gateway.XavmGetTR069FirmwareDownloadEnabled,      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  X_AVM-DE_GetTR069FirmwareDownloadEnabled
+	gateway.XavmSetTR069FirmwareDownloadEnabled,      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:ManagementServer-com:serviceId:ManagementServer1,  X_AVM-DE_SetTR069FirmwareDownloadEnabled
+	gateway.GetTimeInfo,                              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Time-com:serviceId:Time1,  GetInfo
+	gateway.SetNTPServers,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:Time-com:serviceId:Time1,  SetNTPServers
+	gateway.GetUserInterfaceInfo,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  GetInfo
+	gateway.XavmCheckUpdate,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_CheckUpdate
+	gateway.XavmDoUpdate,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_DoUpdate
+	gateway.XavmDoPrepareCGI,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_DoPrepareCGI
+	gateway.XavmDoManualUpdate,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_DoManualUpdate
+	gateway.XavmGetInternationalConfig,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_GetInternationalConfig
+	gateway.XavmSetInternationalConfig,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_SetInternationalConfig
+	gateway.XavmGetUserInterfaceInfo,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_GetInfo
+	gateway.XavmSetConfig,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:UserInterface-com:serviceId:UserInterface1,  X_AVM-DE_SetConfig
+	gateway.GetAvmStorageInfo,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  GetInfo
+	gateway.RequestFTPServerWAN,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  RequestFTPServerWAN
+	gateway.SetFTPServer,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  SetFTPServer
+	gateway.SetFTPServerWAN,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  SetFTPServerWAN
+	gateway.SetSMBServer,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  SetSMBServer
+	gateway.GetUserInfo,                              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  GetUserInfo
+	gateway.SetUserConfig,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Storage-com:serviceId:X_AVM-DE_Storage1,  SetUserConfig
+	gateway.GetAvmWebdavInfo,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_WebDAV-com:serviceId:X_AVM-DE_WebDAVClient1,  GetInfo
+	gateway.SetAvmWebdavConfig,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_WebDAV-com:serviceId:X_AVM-DE_WebDAVClient1,  SetConfig
+	gateway.GetAvmUpnpInfo,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_UPnP-com:serviceId:X_AVM-DE_UPnP1,  GetInfo
+	gateway.SetAvmUpnpConfig,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_UPnP-com:serviceId:X_AVM-DE_UPnP1,  SetConfig
+	gateway.GetAvmSpeedtestInfo,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1,  GetInfo
+	gateway.SetAvmSpeedtestConfig,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1,  SetConfig
+	gateway.GetAvmSpeedtestStatistics,                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1,  GetStatistics
+	gateway.ResetStatistics,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Speedtest-com:serviceId:X_AVM-DE_Speedtest1,  ResetStatistics
+	gateway.GetAvmRemoteAccessInfo,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  GetInfo
+	gateway.SetAvmRemoteAccessConfig,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  SetConfig
+	gateway.SetAvmRemoteAccessEnable,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  SetEnable
+	gateway.SetLetsEncryptEnable,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  SetLetsEncryptEnable
+	gateway.GetDDNSInfo,                              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  GetDDNSInfo
+	gateway.GetDDNSProviders,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  GetDDNSProviders
+	gateway.SetDDNSConfig,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_RemoteAccess-com:serviceId:X_AVM-DE_RemoteAccess1,  SetDDNSConfig
+	gateway.GetAvmMyFritzInfo,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1,  GetInfo
+	gateway.SetMyFRITZ,                               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1,  SetMyFRITZ
+	gateway.GetNumberOfServices,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1,  GetNumberOfServices
+	gateway.GetServiceByIndex,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1,  GetServiceByIndex
+	gateway.SetServiceByIndex,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1,  SetServiceByIndex
+	gateway.DeleteServiceByIndex,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_MyFritz-com:serviceId:X_AVM-DE_MyFritz1,  DeleteServiceByIndex
+	gateway.GetInfoEx,                                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetInfoEx
+	gateway.XavmAddVoIPAccount,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_AddVoIPAccount
+	gateway.XavmGetVoIPAccount,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetVoIPAccount
+	gateway.XavmDelVoIPAccount,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_DelVoIPAccount
+	gateway.XavmGetVoIPAccounts,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetVoIPAccounts
+	gateway.XavmGetVoIPStatus,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetVoIPStatus
+	gateway.GetXVoipInfo,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetInfo
+	gateway.SetXVoipConfig,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  SetConfig
+	gateway.GetMaxVoIPNumbers,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetMaxVoIPNumbers
+	gateway.GetExistingVoIPNumbers,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetExistingVoIPNumbers
+	gateway.XavmGetNumberOfClients,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetNumberOfClients
+	gateway.XavmGetClient,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetClient
+	gateway.XavmGetClient2,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetClient2
+	gateway.XavmSetClient,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetClient
+	gateway.XavmSetClient2,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetClient2
+	gateway.XavmGetClient3,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetClient3
+	gateway.XavmGetClientByClientId,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetClientByClientId
+	gateway.XavmSetClient3,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetClient3
+	gateway.XavmSetClient4,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetClient4
+	gateway.XavmGetClients,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetClients
+	gateway.XavmGetNumberOfNumbers,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetNumberOfNumbers
+	gateway.XavmGetNumbers,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetNumbers
+	gateway.XavmDeleteClient,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_DeleteClient
+	gateway.XavmDialGetConfig,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_DialGetConfig
+	gateway.XavmDialSetConfig,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_DialSetConfig
+	gateway.XavmDialNumber,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_DialNumber
+	gateway.XavmDialHangup,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_DialHangup
+	gateway.XavmGetPhonePort,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetPhonePort
+	gateway.XavmSetDelayedCallNotification,           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetDelayedCallNotification
+	gateway.GetVoIPCommonCountryCode,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetVoIPCommonCountryCode
+	gateway.XavmGetVoIPCommonCountryCode,             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetVoIPCommonCountryCode
+	gateway.SetVoIPCommonCountryCode,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  SetVoIPCommonCountryCode
+	gateway.XavmSetVoIPCommonCountryCode,             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetVoIPCommonCountryCode
+	gateway.GetVoIPEnableCountryCode,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetVoIPEnableCountryCode
+	gateway.SetVoIPEnableCountryCode,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  SetVoIPEnableCountryCode
+	gateway.GetVoIPCommonAreaCode,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetVoIPCommonAreaCode
+	gateway.XavmGetVoIPCommonAreaCode,                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetVoIPCommonAreaCode
+	gateway.SetVoIPCommonAreaCode,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  SetVoIPCommonAreaCode
+	gateway.XavmSetVoIPCommonAreaCode,                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetVoIPCommonAreaCode
+	gateway.GetVoIPEnableAreaCode,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  GetVoIPEnableAreaCode
+	gateway.SetVoIPEnableAreaCode,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  SetVoIPEnableAreaCode
+	gateway.XavmGetAlarmClock,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetAlarmClock
+	gateway.XavmSetAlarmClockEnable,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_SetAlarmClockEnable
+	gateway.XavmGetNumberOfAlarmClocks,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_VoIP-com:serviceId:X_VoIP1,  X_AVM-DE_GetNumberOfAlarmClocks
+	gateway.GetAvmOnTelInfo,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetInfo
+	gateway.SetAvmOnTelEnable,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetEnable
+	gateway.SetAvmOnTelConfig,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetConfig
+	gateway.GetInfoByIndex,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetInfoByIndex
+	gateway.SetEnableByIndex,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetEnableByIndex
+	gateway.SetConfigByIndex,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetConfigByIndex
+	gateway.DeleteByIndex,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  DeleteByIndex
+	gateway.GetNumberOfEntries,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetNumberOfEntries
+	gateway.GetCallList,                              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetCallList
+	gateway.GetPhonebookList,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetPhonebookList
+	gateway.GetPhonebook,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetPhonebook
+	gateway.AddPhonebook,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  AddPhonebook
+	gateway.DeletePhonebook,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  DeletePhonebook
+	gateway.GetPhonebookEntry,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetPhonebookEntry
+	gateway.GetPhonebookEntryUID,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetPhonebookEntryUID
+	gateway.SetPhonebookEntry,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetPhonebookEntry
+	gateway.SetPhonebookEntryUID,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetPhonebookEntryUID
+	gateway.DeletePhonebookEntry,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  DeletePhonebookEntry
+	gateway.DeletePhonebookEntryUID,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  DeletePhonebookEntryUID
+	gateway.GetCallBarringEntry,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetCallBarringEntry
+	gateway.GetCallBarringEntryByNum,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetCallBarringEntryByNum
+	gateway.GetCallBarringList,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetCallBarringList
+	gateway.SetCallBarringEntry,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetCallBarringEntry
+	gateway.DeleteCallBarringEntryUID,                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  DeleteCallBarringEntryUID
+	gateway.GetDECTHandsetList,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetDECTHandsetList
+	gateway.GetDECTHandsetInfo,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetDECTHandsetInfo
+	gateway.SetDECTHandsetPhonebook,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetDECTHandsetPhonebook
+	gateway.GetNumberOfDeflections,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetNumberOfDeflections
+	gateway.GetDeflection,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetDeflection
+	gateway.GetDeflections,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  GetDeflections
+	gateway.SetDeflectionEnable,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_OnTel-com:serviceId:X_AVM-DE_OnTel1,  SetDeflectionEnable
+	gateway.GetNumberOfDectEntries,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1,  GetNumberOfDectEntries
+	gateway.GetGenericDectEntry,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1,  GetGenericDectEntry
+	gateway.GetSpecificDectEntry,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1,  GetSpecificDectEntry
+	gateway.DectDoUpdate,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1,  DectDoUpdate
+	gateway.GetDectListPath,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Dect-com:serviceId:X_AVM-DE_Dect1,  GetDectListPath
+	gateway.GetAvmTamInfo,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1,  GetInfo
+	gateway.SetAvmTamEnable,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1,  SetEnable
+	gateway.GetMessageList,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1,  GetMessageList
+	gateway.MarkMessage,                              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1,  MarkMessage
+	gateway.DeleteMessage,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1,  DeleteMessage
+	gateway.GetList,                                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_TAM-com:serviceId:X_AVM-DE_TAM1,  GetList
+	gateway.GetAvmAppSetupInfo,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  GetInfo
+	gateway.GetConfig,                                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  GetConfig
+	gateway.GetAppMessageFilter,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  GetAppMessageFilter
+	gateway.RegisterApp,                              // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  RegisterApp
+	gateway.SetAppVPN,                                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  SetAppVPN
+	gateway.SetAppVPNwithPFS,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  SetAppVPNwithPFS
+	gateway.SetAppMessageFilter,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  SetAppMessageFilter
+	gateway.SetAppMessageReceiver,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  SetAppMessageReceiver
+	gateway.ResetEvent,                               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  ResetEvent
+	gateway.GetAppRemoteInfo,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  GetAppRemoteInfo
+	gateway.GetBoxSenderId,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_AppSetup-com:serviceId:X_AVM-DE_AppSetup1,  GetBoxSenderId
+	gateway.GetAvmHomeautoInfo,                       // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1,  GetInfo
+	gateway.GetGenericDeviceInfos,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1,  GetGenericDeviceInfos
+	gateway.GetSpecificDeviceInfos,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1,  GetSpecificDeviceInfos
+	gateway.SetDeviceName,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1,  SetDeviceName
+	gateway.SetSwitch,                                // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeauto-com:serviceId:X_AVM-DE_Homeauto1,  SetSwitch
+	gateway.GetNumberOfDeviceEntries,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1,  GetNumberOfDeviceEntries
+	gateway.GetGenericDeviceEntry,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1,  GetGenericDeviceEntry
+	gateway.GetSpecificDeviceEntry,                   // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1,  GetSpecificDeviceEntry
+	gateway.DeviceDoUpdate,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Homeplug-com:serviceId:X_AVM-DE_Homeplug1,  DeviceDoUpdate
+	gateway.GetNumberOfFilelinkEntries,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  GetNumberOfFilelinkEntries
+	gateway.GetGenericFilelinkEntry,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  GetGenericFilelinkEntry
+	gateway.GetSpecificFilelinkEntry,                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  GetSpecificFilelinkEntry
+	gateway.NewFilelinkEntry,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  NewFilelinkEntry
+	gateway.SetFilelinkEntry,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  SetFilelinkEntry
+	gateway.DeleteFilelinkEntry,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  DeleteFilelinkEntry
+	gateway.GetFilelinkListPath,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Filelinks-com:serviceId:X_AVM-DE_Filelinks1,  GetFilelinkListPath
+	gateway.GetAvmAuthInfo,                           // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Auth-com:serviceId:X_AVM-DE_Auth1,  GetInfo
+	gateway.GetState,                                 // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Auth-com:serviceId:X_AVM-DE_Auth1,  GetState
+	gateway.SetAvmAuthConfig,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Auth-com:serviceId:X_AVM-DE_Auth1,  SetConfig
+	gateway.MarkTicket,                               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1,  MarkTicket
+	gateway.GetTicketIDStatus,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1,  GetTicketIDStatus
+	gateway.DiscardAllTickets,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1,  DiscardAllTickets
+	gateway.DisallowWANAccessByIP,                    // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1,  DisallowWANAccessByIP
+	gateway.GetWANAccessByIP,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_HostFilter-com:serviceId:X_AVM-DE_HostFilter1,  GetWANAccessByIP
+	gateway.GetAvmMediaInfo,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1,  GetInfo
+	gateway.GetDVBCEnable,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1,  GetDVBCEnable
+	gateway.SetDVBCEnable,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1,  SetDVBCEnable
+	gateway.StationSearch,                            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1,  StationSearch
+	gateway.GetSearchProgress,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_Media-com:serviceId:X_AVM-DE_Media1,  GetSearchProgress
+	gateway.GetAvmUspControllerInfo,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  GetInfo
+	gateway.GetUSPControllerByIndex,                  // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  GetUSPControllerByIndex
+	gateway.GetUSPControllerNumberOfEntries,          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  GetUSPControllerNumberOfEntries
+	gateway.AddUSPController,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  AddUSPController
+	gateway.DeleteUSPControllerByIndex,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  DeleteUSPControllerByIndex
+	gateway.SetUSPControllerEnableByIndex,            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  SetUSPControllerEnableByIndex
+	lan.Wlan1SetWlanConfigurationEnable,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetEnable
+	lan.Wlan1GetWlanConfigurationInfo,                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetInfo
+	lan.Wlan1SetWlanConfigurationConfig,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetConfig
+	lan.Wlan1SetSecurityKeys,                         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetSecurityKeys
+	lan.Wlan1GetSecurityKeys,                         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetSecurityKeys
+	lan.Wlan1SetDefaultWEPKeyIndex,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetDefaultWEPKeyIndex
+	lan.Wlan1GetDefaultWEPKeyIndex,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetDefaultWEPKeyIndex
+	lan.Wlan1SetBasBeaconSecurityProperties,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetBasBeaconSecurityProperties
+	lan.Wlan1GetBasBeaconSecurityProperties,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetBasBeaconSecurityProperties
+	lan.Wlan1GetWlanConfigurationStatistics,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetStatistics
+	lan.Wlan1GetPacketStatistics,                     // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetPacketStatistics
+	lan.Wlan1GetBSSID,                                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetBSSID
+	lan.Wlan1GetSSID,                                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetSSID
+	lan.Wlan1SetSSID,                                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetSSID
+	lan.Wlan1GetBeaconType,                           // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetBeaconType
+	lan.Wlan1SetBeaconType,                           // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetBeaconType
+	lan.Wlan1GetChannelInfo,                          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetChannelInfo
+	lan.Wlan1SetChannel,                              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetChannel
+	lan.Wlan1GetBeaconAdvertisement,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetBeaconAdvertisement
+	lan.Wlan1SetBeaconAdvertisement,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetBeaconAdvertisement
+	lan.Wlan1GetTotalAssociations,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetTotalAssociations
+	lan.Wlan1GetGenericAssociatedDeviceInfo,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetGenericAssociatedDeviceInfo
+	lan.Wlan1GetSpecificAssociatedDeviceInfo,         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetSpecificAssociatedDeviceInfo
+	lan.Wlan1XavmGetSpecificAssociatedDeviceInfoByIp, // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp
+	lan.Wlan1XavmGetWLANDeviceListPath,               // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetWLANDeviceListPath
+	lan.Wlan1XavmSetStickSurfEnable,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_SetStickSurfEnable
+	lan.Wlan1XavmGetIPTVOptimized,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetIPTVOptimized
+	lan.Wlan1XavmSetIPTVOptimized,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_SetIPTVOptimized
+	lan.Wlan1XavmGetNightControl,                     // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetNightControl
+	lan.Wlan1XavmGetWLANHybridMode,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetWLANHybridMode
+	lan.Wlan1XavmSetWLANHybridMode,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_SetWLANHybridMode
+	lan.Wlan1XavmGetWLANExtInfo,                      // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetWLANExtInfo
+	lan.Wlan1XavmGetWPSInfo,                          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetWPSInfo
+	lan.Wlan1XavmSetWPSConfig,                        // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_SetWPSConfig
+	lan.Wlan1XavmSetWPSEnable,                        // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_SetWPSEnable
+	lan.Wlan1XavmSetWLANGlobalEnable,                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_SetWLANGlobalEnable
+	lan.Wlan1XavmGetWLANConnectionInfo,               // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  X_AVM-DE_GetWLANConnectionInfo
+	lan.Wlan2SetWlanConfigurationEnable,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetEnable
+	lan.Wlan2GetWlanConfigurationInfo,                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetInfo
+	lan.Wlan2SetWlanConfigurationConfig,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetConfig
+	lan.Wlan2SetSecurityKeys,                         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetSecurityKeys
+	lan.Wlan2GetSecurityKeys,                         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetSecurityKeys
+	lan.Wlan2SetDefaultWEPKeyIndex,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetDefaultWEPKeyIndex
+	lan.Wlan2GetDefaultWEPKeyIndex,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetDefaultWEPKeyIndex
+	lan.Wlan2SetBasBeaconSecurityProperties,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetBasBeaconSecurityProperties
+	lan.Wlan2GetBasBeaconSecurityProperties,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetBasBeaconSecurityProperties
+	lan.Wlan2GetWlanConfigurationStatistics,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetStatistics
+	lan.Wlan2GetPacketStatistics,                     // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetPacketStatistics
+	lan.Wlan2GetBSSID,                                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetBSSID
+	lan.Wlan2GetSSID,                                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetSSID
+	lan.Wlan2SetSSID,                                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetSSID
+	lan.Wlan2GetBeaconType,                           // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetBeaconType
+	lan.Wlan2SetBeaconType,                           // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetBeaconType
+	lan.Wlan2GetChannelInfo,                          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetChannelInfo
+	lan.Wlan2SetChannel,                              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetChannel
+	lan.Wlan2GetBeaconAdvertisement,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetBeaconAdvertisement
+	lan.Wlan2SetBeaconAdvertisement,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  SetBeaconAdvertisement
+	lan.Wlan2GetTotalAssociations,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetTotalAssociations
+	lan.Wlan2GetGenericAssociatedDeviceInfo,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetGenericAssociatedDeviceInfo
+	lan.Wlan2GetSpecificAssociatedDeviceInfo,         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  GetSpecificAssociatedDeviceInfo
+	lan.Wlan2XavmGetSpecificAssociatedDeviceInfoByIp, // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp
+	lan.Wlan2XavmGetWLANDeviceListPath,               // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetWLANDeviceListPath
+	lan.Wlan2XavmSetStickSurfEnable,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_SetStickSurfEnable
+	lan.Wlan2XavmGetIPTVOptimized,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetIPTVOptimized
+	lan.Wlan2XavmSetIPTVOptimized,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_SetIPTVOptimized
+	lan.Wlan2XavmGetNightControl,                     // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetNightControl
+	lan.Wlan2XavmGetWLANHybridMode,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetWLANHybridMode
+	lan.Wlan2XavmSetWLANHybridMode,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_SetWLANHybridMode
+	lan.Wlan2XavmGetWLANExtInfo,                      // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetWLANExtInfo
+	lan.Wlan2XavmGetWPSInfo,                          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetWPSInfo
+	lan.Wlan2XavmSetWPSConfig,                        // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_SetWPSConfig
+	lan.Wlan2XavmSetWPSEnable,                        // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_SetWPSEnable
+	lan.Wlan2XavmSetWLANGlobalEnable,                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_SetWLANGlobalEnable
+	lan.Wlan2XavmGetWLANConnectionInfo,               // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration2,  X_AVM-DE_GetWLANConnectionInfo
+	lan.Wlan3SetWlanConfigurationEnable,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetEnable
+	lan.Wlan3GetWlanConfigurationInfo,                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetInfo
+	lan.Wlan3SetWlanConfigurationConfig,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetConfig
+	lan.Wlan3SetSecurityKeys,                         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetSecurityKeys
+	lan.Wlan3GetSecurityKeys,                         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetSecurityKeys
+	lan.Wlan3SetDefaultWEPKeyIndex,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetDefaultWEPKeyIndex
+	lan.Wlan3GetDefaultWEPKeyIndex,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetDefaultWEPKeyIndex
+	lan.Wlan3SetBasBeaconSecurityProperties,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetBasBeaconSecurityProperties
+	lan.Wlan3GetBasBeaconSecurityProperties,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetBasBeaconSecurityProperties
+	lan.Wlan3GetWlanConfigurationStatistics,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetStatistics
+	lan.Wlan3GetPacketStatistics,                     // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetPacketStatistics
+	lan.Wlan3GetBSSID,                                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetBSSID
+	lan.Wlan3GetSSID,                                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetSSID
+	lan.Wlan3SetSSID,                                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetSSID
+	lan.Wlan3GetBeaconType,                           // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetBeaconType
+	lan.Wlan3SetBeaconType,                           // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetBeaconType
+	lan.Wlan3GetChannelInfo,                          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetChannelInfo
+	lan.Wlan3SetChannel,                              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetChannel
+	lan.Wlan3GetBeaconAdvertisement,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetBeaconAdvertisement
+	lan.Wlan3SetBeaconAdvertisement,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  SetBeaconAdvertisement
+	lan.Wlan3GetTotalAssociations,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetTotalAssociations
+	lan.Wlan3GetGenericAssociatedDeviceInfo,          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetGenericAssociatedDeviceInfo
+	lan.Wlan3GetSpecificAssociatedDeviceInfo,         // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  GetSpecificAssociatedDeviceInfo
+	lan.Wlan3XavmGetSpecificAssociatedDeviceInfoByIp, // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp
+	lan.Wlan3XavmGetWLANDeviceListPath,               // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetWLANDeviceListPath
+	lan.Wlan3XavmSetStickSurfEnable,                  // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_SetStickSurfEnable
+	lan.Wlan3XavmGetIPTVOptimized,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetIPTVOptimized
+	lan.Wlan3XavmSetIPTVOptimized,                    // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_SetIPTVOptimized
+	lan.Wlan3XavmGetNightControl,                     // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetNightControl
+	lan.Wlan3XavmGetWLANHybridMode,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetWLANHybridMode
+	lan.Wlan3XavmSetWLANHybridMode,                   // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_SetWLANHybridMode
+	lan.Wlan3XavmGetWLANExtInfo,                      // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetWLANExtInfo
+	lan.Wlan3XavmGetWPSInfo,                          // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetWPSInfo
+	lan.Wlan3XavmSetWPSConfig,                        // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_SetWPSConfig
+	lan.Wlan3XavmSetWPSEnable,                        // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_SetWPSEnable
+	lan.Wlan3XavmSetWLANGlobalEnable,                 // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_SetWLANGlobalEnable
+	lan.Wlan3XavmGetWLANConnectionInfo,               // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration3,  X_AVM-DE_GetWLANConnectionInfo
+	lan.GetHostNumberOfEntries,                       // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  GetHostNumberOfEntries
+	lan.GetSpecificHostEntry,                         // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  GetSpecificHostEntry
+	lan.GetGenericHostEntry,                          // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  GetGenericHostEntry
+	lan.XavmGetLanDeviceHostsInfo,                    // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetInfo
+	lan.XavmGetChangeCounter,                         // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetChangeCounter
+	lan.XavmSetHostNameByMACAddress,                  // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_SetHostNameByMACAddress
+	lan.XavmGetAutoWakeOnLANByMACAddress,             // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetAutoWakeOnLANByMACAddress
+	lan.XavmSetAutoWakeOnLANByMACAddress,             // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_SetAutoWakeOnLANByMACAddress
+	lan.XavmWakeOnLANByMACAddress,                    // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_WakeOnLANByMACAddress
+	lan.XavmGetSpecificHostEntryByIP,                 // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetSpecificHostEntryByIP
+	lan.XavmHostsCheckUpdate,                         // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_HostsCheckUpdate
+	lan.XavmHostDoUpdate,                             // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_HostDoUpdate
+	lan.XavmSetPrioritizationByIP,                    // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_SetPrioritizationByIP
+	lan.XavmGetHostListPath,                          // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetHostListPath
+	lan.XavmGetMeshListPath,                          // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetMeshListPath
+	lan.XavmGetFriendlyName,                          // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_GetFriendlyName
+	lan.XavmSetFriendlyName,                          // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_SetFriendlyName
+	lan.XavmSetFriendlyNameByIP,                      // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_SetFriendlyNameByIP
+	lan.XavmSetFriendlyNameByMAC,                     // urn:dslforum-org:device:LANDevice:1,  urn:LanDeviceHosts-com:serviceId:Hosts1,  X_AVM-DE_SetFriendlyNameByMAC
+	lan.SetLanEthernetIfCfgEnable,                    // urn:dslforum-org:device:LANDevice:1,  urn:LANEthernetIfCfg-com:serviceId:LANEthernetInterfaceConfig1,  SetEnable
+	lan.GetLanEthernetIfCfgInfo,                      // urn:dslforum-org:device:LANDevice:1,  urn:LANEthernetIfCfg-com:serviceId:LANEthernetInterfaceConfig1,  GetInfo
+	lan.GetLanEthernetIfCfgStatistics,                // urn:dslforum-org:device:LANDevice:1,  urn:LANEthernetIfCfg-com:serviceId:LANEthernetInterfaceConfig1,  GetStatistics
+	lan.GetLanHCfgMgmInfo,                            // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  GetInfo
+	lan.SetDHCPServerEnable,                          // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  SetDHCPServerEnable
+	lan.SetIPInterface,                               // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  SetIPInterface
+	lan.GetAddressRange,                              // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  GetAddressRange
+	lan.SetAddressRange,                              // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  SetAddressRange
+	lan.GetIPRoutersList,                             // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  GetIPRoutersList
+	lan.SetIPRouter,                                  // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  SetIPRouter
+	lan.GetSubnetMask,                                // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  GetSubnetMask
+	lan.SetSubnetMask,                                // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  SetSubnetMask
+	lan.GetDNSServers,                                // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  GetDNSServers
+	lan.GetIPInterfaceNumberOfEntries,                // urn:dslforum-org:device:LANDevice:1,  urn:LANHCfgMgm-com:serviceId:LANHostConfigManagement1,  GetIPInterfaceNumberOfEntries
+	wan.GetCommonLinkProperties,                      // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  GetCommonLinkProperties
+	wan.GetTotalBytesSent,                            // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  GetTotalBytesSent
+	wan.GetTotalBytesReceived,                        // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  GetTotalBytesReceived
+	wan.GetTotalPacketsSent,                          // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  GetTotalPacketsSent
+	wan.GetTotalPacketsReceived,                      // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  GetTotalPacketsReceived
+	wan.XavmSetWANAccessType,                         // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  X_AVM-DE_SetWANAccessType
+	wan.XavmGetActiveProvider,                        // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  X_AVM-DE_GetActiveProvider
+	wan.XavmGetOnlineMonitor,                         // urn:dslforum-org:device:WANDevice:1,  urn:WANCIfConfig-com:serviceId:WANCommonInterfaceConfig1,  X_AVM-DE_GetOnlineMonitor
+	wan.GetWanDslIfConfigInfo,                        // urn:dslforum-org:device:WANDevice:1,  urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1,  GetInfo
+	wan.GetStatisticsTotal,                           // urn:dslforum-org:device:WANDevice:1,  urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1,  GetStatisticsTotal
+	wan.XavmGetDSLDiagnoseInfo,                       // urn:dslforum-org:device:WANDevice:1,  urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1,  X_AVM-DE_GetDSLDiagnoseInfo
+	wan.XavmGetDSLInfo,                               // urn:dslforum-org:device:WANDevice:1,  urn:WANDSLIfConfig-com:serviceId:WANDSLInterfaceConfig1,  X_AVM-DE_GetDSLInfo
 	// === END AUTO-GENERATED CODE ===
 }
 
 // Test_do_all_functions_compile just to catch compiler issues in code generation
 func Test_do_all_functions_compile(t *testing.T) {
-	then.AssertThat(t, len(functionRegistry), is.GreaterThan(0))
+	then.AssertThat(t, len(testRegistry), is.GreaterThan(0))
 }

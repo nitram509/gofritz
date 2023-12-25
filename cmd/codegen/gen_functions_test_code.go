@@ -46,7 +46,7 @@ func generateFunctionsTestCode(snc *structNameCollector) {
 
 	sb := strings.Builder{}
 	for _, md := range snc.soapMetaDataList {
-		sb.WriteString(fmt.Sprintf("\"%s--%s--%s\": %s.%s,\n", md.deviceType, md.serviceId, md.actionName, md.packageName, md.funcName))
+		sb.WriteString(fmt.Sprintf("%s.%s, // %s,  %s,  %s\n", md.packageName, md.funcName, md.deviceType, md.serviceId, md.actionName))
 	}
 
 	funcTestCode = funcTestCode[:idxStart] + markerStart + "\n" + sb.String() + funcTestCode[idxEnd:]
