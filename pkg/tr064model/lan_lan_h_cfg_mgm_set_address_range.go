@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // SetAddressRangeResponse AUTO-GENERATED (do not edit) model from [lanhostconfigmgmSCPD],
-// based on SOAP action 'SetAddressRange', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetAddressRange', Fritz!Box-System-Version 141.07.57
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
 type SetAddressRangeResponse struct {

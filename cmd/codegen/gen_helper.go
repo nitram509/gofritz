@@ -22,9 +22,8 @@ func determineStructFileName(deviceType string, serviceId string, actionName str
 
 func determineSoapStubFileName(deviceType string, serviceId string, actionName string) (result string) {
 	packageName := derivePackageName(deviceType)
-	serviceGroup := serviceId2SnakeCase(serviceId)
-	fileName := fmt.Sprintf("%s_%s.go", serviceGroup, deriveSnakeCase(actionName))
-	return filepath.Join("pkg", "tr064", packageName, fileName)
+	fName := deriveSnakeCase(determineFuncName(serviceId, actionName))
+	return filepath.Join("pkg", "tr064", packageName, fName+".go")
 }
 
 func findService(rootSpec scpd.ServiceControlledProtocolDescriptions, serviceId string) scpd.Service {
@@ -89,6 +88,16 @@ func deriveSnakeCase(str string) string {
 		sb.WriteString(strings.ToLower(string(s)))
 	}
 	return sb.String()
+}
+
+func determineFuncName(serviceId string, actionName string) string {
+	structName := deriveStructNameCamelCase(serviceId, actionName)
+	funcName := structName[:len(structName)-len(responseSuffix)]
+	number, ok := strings.CutPrefix(serviceId, "urn:WLANConfiguration-com:serviceId:WLANConfiguration")
+	if ok && len(number) == 1 {
+		funcName = "Wlan" + number + funcName
+	}
+	return funcName
 }
 
 func determineTypeName(spec scpd.ServiceControlledProtocolDescriptions, relatedStateVariable string) string {

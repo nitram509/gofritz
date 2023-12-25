@@ -20,6 +20,7 @@ func generateAllCode(description tr64Desc) {
 		generateSoapServiceStubs(service.deviceType, service.serviceId, description.root, service.spec, snc)
 	}
 	generateFunctionsTestCode(snc)
+	generateFunctionsRegistryCode(snc)
 }
 
 func main() {
