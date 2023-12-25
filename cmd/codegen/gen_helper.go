@@ -153,9 +153,11 @@ func writeFileAndFormat(fName string, data []byte) {
 	if err != nil {
 		panic(err)
 	}
-	out, err := exec.Command("go", "fmt", fName).Output()
-	if err != nil {
-		panic(errors.Join(errors.New("file: "+fName), errors.New(string(out)), err))
+	if strings.HasSuffix(fName, ".go") {
+		out, err := exec.Command("go", "fmt", fName).Output()
+		if err != nil {
+			panic(errors.Join(errors.New("file: "+fName), errors.New(string(out)), err))
+		}
 	}
 
 }
