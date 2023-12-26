@@ -4,6 +4,7 @@ import (
 	_ "embed"
 	"errors"
 	"fmt"
+	"github.com/nitram509/gofitz/pkg/scpd"
 	"os"
 	"path/filepath"
 	"strings"
@@ -12,7 +13,7 @@ import (
 const markerMarkdownStart = "<!-- MARKDOWN-AUTO-DOCS:START (CODE:src=functions_registry.go) -->"
 const markerMarkdownEnd = "<!-- MARKDOWN-AUTO-DOCS:END -->"
 
-func updateReadme(snc *structNameCollector) {
+func updateReadme(snc *structNameCollector, rootDesc scpd.ServiceControlledProtocolDescriptions) {
 	readmeFileName := filepath.Join("README.md")
 
 	data, err := os.ReadFile(readmeFileName)
@@ -28,12 +29,12 @@ func updateReadme(snc *structNameCollector) {
 	}
 
 	sb := strings.Builder{}
-	sb.WriteString("| (Go) function |  |\n")
-	sb.WriteString("|---------------|--|\n")
+	sb.WriteString("| (Go) function | Discovered via |\n")
+	sb.WriteString("|---------------|----------------|\n")
 	for _, md := range snc.soapMetaDataList {
 		goFileName := determineSoapStubFileName(md.deviceType, md.serviceId, md.actionName)
-		sb.WriteString(fmt.Sprintf("| [%s.%s](./%s) |  |\n",
-			md.packageName, md.funcName, goFileName))
+		sb.WriteString(fmt.Sprintf("| [%s.%s](./%s) | %s v%s |\n",
+			md.packageName, md.funcName, goFileName, rootDesc.Device.ModelName, rootDesc.SystemVersion.Display))
 
 	}
 

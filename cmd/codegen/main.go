@@ -21,7 +21,7 @@ func generateAllCode(description tr64Desc) {
 	}
 	generateFunctionsTestCode(snc)
 	generateFunctionsRegistryCode(snc)
-	updateReadme(snc)
+	updateReadme(snc, description.root)
 }
 
 func main() {

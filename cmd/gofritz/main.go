@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/nitram509/gofitz/pkg/soap"
-	"github.com/nitram509/gofitz/pkg/tr064/gateway"
+	"github.com/nitram509/gofitz/pkg/tr064/lan"
 	"os"
 )
 
@@ -12,19 +12,11 @@ func main() {
 	password := os.Getenv("FB_PASSWORD")
 	session := soap.NewSession("fritz.box", username, password)
 
-	//resp, _ := lan.XAvmGetSpecificHostEntryByIp(*session, "192.168.178.40")
-	//print(resp.HostName)
-
-	CreateUrlSIDResponse, _ := gateway.XavmCreateUrlSID(session)
-	print(fmt.Sprintf("Session ID = %s", CreateUrlSIDResponse.UrlSID))
-
-	//resp0, _ := gateway.GetAvmAuthInfo(session)
-	//print(fmt.Sprintf("%v", resp0))
-
-	//resp1, _ := lan.XAvmGetHostList(session)
-	//print(fmt.Sprintf("%v", resp1))
-
-	//resp2, _ := lan.GetLanHCfgMgmInfo(session)
-	//print(fmt.Sprintf("%v", resp2))
-
+	hostList, err := lan.XAvmGetHostList(session)
+	if err != nil {
+		panic(err)
+	}
+	for _, host := range hostList {
+		println(fmt.Sprintf("Host: %s, Active:%v", host.XAvmPort, host.Active))
+	}
 }
