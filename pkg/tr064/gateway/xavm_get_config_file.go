@@ -7,7 +7,7 @@ import (
 )
 
 // XavmGetConfigFile AUTO-GENERATED (do not edit) code from [deviceconfigSCPD],
-// based on SOAP action 'X_AVM-DE_GetConfigFile', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'X_AVM-DE_GetConfigFile', Fritz!Box-System-Version 164.07.57
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
 func XavmGetConfigFile(session *soap.SoapSession, avmPassword string) (tr064model.XavmGetConfigFileResponse, error) {

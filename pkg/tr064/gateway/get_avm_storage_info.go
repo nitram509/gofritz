@@ -7,7 +7,7 @@ import (
 )
 
 // GetAvmStorageInfo AUTO-GENERATED (do not edit) code from [x_storageSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [x_storageSCPD]: http://fritz.box:49000/x_storageSCPD.xml
 func GetAvmStorageInfo(session *soap.SoapSession) (tr064model.GetAvmStorageInfoResponse, error) {

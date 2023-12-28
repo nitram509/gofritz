@@ -7,7 +7,7 @@ import (
 )
 
 // Wlan2SetDefaultWEPKeyIndex AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'SetDefaultWEPKeyIndex', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetDefaultWEPKeyIndex', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan2SetDefaultWEPKeyIndex(session *soap.SoapSession, defaultWepKeyIndex int) (tr064model.SetDefaultWEPKeyIndexResponse, error) {

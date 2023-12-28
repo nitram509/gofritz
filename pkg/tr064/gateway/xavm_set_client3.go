@@ -7,7 +7,7 @@ import (
 )
 
 // XavmSetClient3 AUTO-GENERATED (do not edit) code from [x_voipSCPD],
-// based on SOAP action 'X_AVM-DE_SetClient3', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'X_AVM-DE_SetClient3', Fritz!Box-System-Version 164.07.57
 //
 // [x_voipSCPD]: http://fritz.box:49000/x_voipSCPD.xml
 func XavmSetClient3(session *soap.SoapSession, avmClientIndex int, avmClientPassword string, avmClientId string, avmPhoneName string, avmOutGoingNumber string, avmInComingNumbers string, avmExternalRegistration bool) (tr064model.XavmSetClient3Response, error) {

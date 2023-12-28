@@ -7,7 +7,7 @@ import (
 )
 
 // SetIPRouter AUTO-GENERATED (do not edit) code from [lanhostconfigmgmSCPD],
-// based on SOAP action 'SetIPRouter', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetIPRouter', Fritz!Box-System-Version 164.07.57
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
 func SetIPRouter(session *soap.SoapSession, ipRouters string) (tr064model.SetIPRouterResponse, error) {

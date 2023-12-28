@@ -7,7 +7,7 @@ import (
 )
 
 // XavmSetPrioritizationByIP AUTO-GENERATED (do not edit) code from [hostsSCPD],
-// based on SOAP action 'X_AVM-DE_SetPrioritizationByIP', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'X_AVM-DE_SetPrioritizationByIP', Fritz!Box-System-Version 164.07.57
 //
 // [hostsSCPD]: http://fritz.box:49000/hostsSCPD.xml
 func XavmSetPrioritizationByIP(session *soap.SoapSession, ipAddress string, avmPriority bool) (tr064model.XavmSetPrioritizationByIPResponse, error) {

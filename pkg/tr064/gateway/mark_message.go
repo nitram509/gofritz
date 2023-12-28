@@ -7,7 +7,7 @@ import (
 )
 
 // MarkMessage AUTO-GENERATED (do not edit) code from [x_tamSCPD],
-// based on SOAP action 'MarkMessage', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'MarkMessage', Fritz!Box-System-Version 164.07.57
 //
 // [x_tamSCPD]: http://fritz.box:49000/x_tamSCPD.xml
 func MarkMessage(session *soap.SoapSession, index int, messageIndex int, markedAsRead bool) (tr064model.MarkMessageResponse, error) {

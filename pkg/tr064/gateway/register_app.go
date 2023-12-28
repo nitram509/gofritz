@@ -7,7 +7,7 @@ import (
 )
 
 // RegisterApp AUTO-GENERATED (do not edit) code from [x_appsetupSCPD],
-// based on SOAP action 'RegisterApp', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'RegisterApp', Fritz!Box-System-Version 164.07.57
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
 func RegisterApp(session *soap.SoapSession, appId string, appDisplayName string, appDeviceMac string, appUsername string, appPassword string, appRight string, nasRight string, phoneRight string, homeautoRight string, appInternetRights bool) (tr064model.RegisterAppResponse, error) {

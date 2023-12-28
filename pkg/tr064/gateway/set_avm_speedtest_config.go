@@ -7,7 +7,7 @@ import (
 )
 
 // SetAvmSpeedtestConfig AUTO-GENERATED (do not edit) code from [x_speedtestSCPD],
-// based on SOAP action 'SetConfig', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.07.57
 //
 // [x_speedtestSCPD]: http://fritz.box:49000/x_speedtestSCPD.xml
 func SetAvmSpeedtestConfig(session *soap.SoapSession, enableTcp bool, enableUdp bool, enableUdpBidirect bool, wanEnableTcp bool, wanEnableUdp bool) (tr064model.SetAvmSpeedtestConfigResponse, error) {

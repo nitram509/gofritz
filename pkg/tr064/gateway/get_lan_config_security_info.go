@@ -7,7 +7,7 @@ import (
 )
 
 // GetLanConfigSecurityInfo AUTO-GENERATED (do not edit) code from [lanconfigsecuritySCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [lanconfigsecuritySCPD]: http://fritz.box:49000/lanconfigsecuritySCPD.xml
 func GetLanConfigSecurityInfo(session *soap.SoapSession) (tr064model.GetLanConfigSecurityInfoResponse, error) {

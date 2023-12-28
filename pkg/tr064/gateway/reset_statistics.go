@@ -7,7 +7,7 @@ import (
 )
 
 // ResetStatistics AUTO-GENERATED (do not edit) code from [x_speedtestSCPD],
-// based on SOAP action 'ResetStatistics', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'ResetStatistics', Fritz!Box-System-Version 164.07.57
 //
 // [x_speedtestSCPD]: http://fritz.box:49000/x_speedtestSCPD.xml
 func ResetStatistics(session *soap.SoapSession) (tr064model.ResetStatisticsResponse, error) {

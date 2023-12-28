@@ -7,7 +7,7 @@ import (
 )
 
 // DeleteByIndex AUTO-GENERATED (do not edit) code from [x_contactSCPD],
-// based on SOAP action 'DeleteByIndex', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'DeleteByIndex', Fritz!Box-System-Version 164.07.57
 //
 // [x_contactSCPD]: http://fritz.box:49000/x_contactSCPD.xml
 func DeleteByIndex(session *soap.SoapSession, index int) (tr064model.DeleteByIndexResponse, error) {

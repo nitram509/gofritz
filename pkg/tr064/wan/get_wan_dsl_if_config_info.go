@@ -7,7 +7,7 @@ import (
 )
 
 // GetWanDslIfConfigInfo AUTO-GENERATED (do not edit) code from [wandslifconfigSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml
 func GetWanDslIfConfigInfo(session *soap.SoapSession) (tr064model.GetWanDslIfConfigInfoResponse, error) {

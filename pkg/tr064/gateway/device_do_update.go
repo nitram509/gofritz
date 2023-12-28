@@ -7,7 +7,7 @@ import (
 )
 
 // DeviceDoUpdate AUTO-GENERATED (do not edit) code from [x_homeplugSCPD],
-// based on SOAP action 'DeviceDoUpdate', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'DeviceDoUpdate', Fritz!Box-System-Version 164.07.57
 //
 // [x_homeplugSCPD]: http://fritz.box:49000/x_homeplugSCPD.xml
 func DeviceDoUpdate(session *soap.SoapSession, macAddress string) (tr064model.DeviceDoUpdateResponse, error) {

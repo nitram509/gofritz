@@ -7,7 +7,7 @@ import (
 )
 
 // GetAppRemoteInfo AUTO-GENERATED (do not edit) code from [x_appsetupSCPD],
-// based on SOAP action 'GetAppRemoteInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetAppRemoteInfo', Fritz!Box-System-Version 164.07.57
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
 func GetAppRemoteInfo(session *soap.SoapSession) (tr064model.GetAppRemoteInfoResponse, error) {

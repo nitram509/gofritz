@@ -7,7 +7,7 @@ import (
 )
 
 // GetPersistentData AUTO-GENERATED (do not edit) code from [deviceconfigSCPD],
-// based on SOAP action 'GetPersistentData', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetPersistentData', Fritz!Box-System-Version 164.07.57
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
 func GetPersistentData(session *soap.SoapSession) (tr064model.GetPersistentDataResponse, error) {

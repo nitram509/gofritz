@@ -7,7 +7,7 @@ import (
 )
 
 // Wlan3XavmSetWPSConfig AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'X_AVM-DE_SetWPSConfig', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'X_AVM-DE_SetWPSConfig', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3XavmSetWPSConfig(session *soap.SoapSession, avmWpsMode string) (tr064model.XavmSetWPSConfigResponse, error) {

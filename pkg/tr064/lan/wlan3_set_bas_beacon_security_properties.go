@@ -7,7 +7,7 @@ import (
 )
 
 // Wlan3SetBasBeaconSecurityProperties AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'SetBasBeaconSecurityProperties', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetBasBeaconSecurityProperties', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3SetBasBeaconSecurityProperties(session *soap.SoapSession, basicEncryptionModes string, basicAuthenticationMode string) (tr064model.SetBasBeaconSecurityPropertiesResponse, error) {

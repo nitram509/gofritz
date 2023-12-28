@@ -7,7 +7,7 @@ import (
 )
 
 // GetState AUTO-GENERATED (do not edit) code from [x_authSCPD],
-// based on SOAP action 'GetState', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetState', Fritz!Box-System-Version 164.07.57
 //
 // [x_authSCPD]: http://fritz.box:49000/x_authSCPD.xml
 func GetState(session *soap.SoapSession) (tr064model.GetStateResponse, error) {

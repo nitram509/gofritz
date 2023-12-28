@@ -12,8 +12,6 @@ import (
 	"time"
 )
 
-const safeXmlData2Disc = false
-
 type tr64Desc struct {
 	root     scpd.ServiceControlledProtocolDescriptions
 	services []struct {

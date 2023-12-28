@@ -9,7 +9,7 @@ const HOST = "fritz.box"
 const URL = "http://" + HOST + ":49000"
 
 const responseSuffix = "Response"
-
+const safeXmlData2Disc = false
 const writeFiles = true
 
 func generateAllCode(description tr64Desc) {

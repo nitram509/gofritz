@@ -7,7 +7,7 @@ import (
 )
 
 // Wlan2GetGenericAssociatedDeviceInfo AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'GetGenericAssociatedDeviceInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetGenericAssociatedDeviceInfo', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan2GetGenericAssociatedDeviceInfo(session *soap.SoapSession, associatedDeviceIndex int) (tr064model.GetGenericAssociatedDeviceInfoResponse, error) {

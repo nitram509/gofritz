@@ -7,7 +7,7 @@ import (
 )
 
 // SetPeriodicInform AUTO-GENERATED (do not edit) code from [mgmsrvSCPD],
-// based on SOAP action 'SetPeriodicInform', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetPeriodicInform', Fritz!Box-System-Version 164.07.57
 //
 // [mgmsrvSCPD]: http://fritz.box:49000/mgmsrvSCPD.xml
 func SetPeriodicInform(session *soap.SoapSession, periodicInformEnable bool, periodicInformInterval int, periodicInformTime string) (tr064model.SetPeriodicInformResponse, error) {

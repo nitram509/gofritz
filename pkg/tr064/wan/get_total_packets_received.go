@@ -7,7 +7,7 @@ import (
 )
 
 // GetTotalPacketsReceived AUTO-GENERATED (do not edit) code from [wancommonifconfigSCPD],
-// based on SOAP action 'GetTotalPacketsReceived', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetTotalPacketsReceived', Fritz!Box-System-Version 164.07.57
 //
 // [wancommonifconfigSCPD]: http://fritz.box:49000/wancommonifconfigSCPD.xml
 func GetTotalPacketsReceived(session *soap.SoapSession) (tr064model.GetTotalPacketsReceivedResponse, error) {

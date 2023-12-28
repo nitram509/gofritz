@@ -7,7 +7,7 @@ import (
 )
 
 // Wlan1SetChannel AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'SetChannel', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetChannel', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan1SetChannel(session *soap.SoapSession, channel int) (tr064model.SetChannelResponse, error) {

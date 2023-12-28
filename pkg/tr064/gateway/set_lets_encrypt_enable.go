@@ -7,7 +7,7 @@ import (
 )
 
 // SetLetsEncryptEnable AUTO-GENERATED (do not edit) code from [x_remoteSCPD],
-// based on SOAP action 'SetLetsEncryptEnable', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetLetsEncryptEnable', Fritz!Box-System-Version 164.07.57
 //
 // [x_remoteSCPD]: http://fritz.box:49000/x_remoteSCPD.xml
 func SetLetsEncryptEnable(session *soap.SoapSession, letsEncryptEnabled bool) (tr064model.SetLetsEncryptEnableResponse, error) {

@@ -7,7 +7,7 @@ import (
 )
 
 // SetAvmRemoteAccessEnable AUTO-GENERATED (do not edit) code from [x_remoteSCPD],
-// based on SOAP action 'SetEnable', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetEnable', Fritz!Box-System-Version 164.07.57
 //
 // [x_remoteSCPD]: http://fritz.box:49000/x_remoteSCPD.xml
 func SetAvmRemoteAccessEnable(session *soap.SoapSession, enabled bool) (tr064model.SetAvmRemoteAccessEnableResponse, error) {

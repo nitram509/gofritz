@@ -7,7 +7,7 @@ import (
 )
 
 // AddUSPController AUTO-GENERATED (do not edit) code from [x_uspcontrollerSCPD],
-// based on SOAP action 'AddUSPController', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'AddUSPController', Fritz!Box-System-Version 164.07.57
 //
 // [x_uspcontrollerSCPD]: http://fritz.box:49000/x_uspcontrollerSCPD.xml
 func AddUSPController(session *soap.SoapSession, enable bool, endpointId string, mTP string, hostname string, path string, port int, useTLS bool, accessRightSmarthome bool, accessRightMesh bool, accessRightInternet bool, accessRightSystem bool, accessRightController bool, accessRightWiFi bool, accessRightVoip bool, username string, password string) (tr064model.AddUSPControllerResponse, error) {

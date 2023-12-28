@@ -7,7 +7,7 @@ import (
 )
 
 // SetAvmAuthConfig AUTO-GENERATED (do not edit) code from [x_authSCPD],
-// based on SOAP action 'SetConfig', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.07.57
 //
 // [x_authSCPD]: http://fritz.box:49000/x_authSCPD.xml
 func SetAvmAuthConfig(session *soap.SoapSession, action string) (tr064model.SetAvmAuthConfigResponse, error) {

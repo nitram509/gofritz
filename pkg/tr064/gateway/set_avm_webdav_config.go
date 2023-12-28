@@ -7,7 +7,7 @@ import (
 )
 
 // SetAvmWebdavConfig AUTO-GENERATED (do not edit) code from [x_webdavSCPD],
-// based on SOAP action 'SetConfig', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.07.57
 //
 // [x_webdavSCPD]: http://fritz.box:49000/x_webdavSCPD.xml
 func SetAvmWebdavConfig(session *soap.SoapSession, enable bool, hostUrl string, username string, password string, mountpointName string) (tr064model.SetAvmWebdavConfigResponse, error) {

@@ -7,7 +7,7 @@ import (
 )
 
 // Wlan3GetWlanConfigurationInfo AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3GetWlanConfigurationInfo(session *soap.SoapSession) (tr064model.GetWlanConfigurationInfoResponse, error) {

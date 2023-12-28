@@ -7,7 +7,7 @@ import (
 )
 
 // GetAvmSpeedtestInfo AUTO-GENERATED (do not edit) code from [x_speedtestSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
 //
 // [x_speedtestSCPD]: http://fritz.box:49000/x_speedtestSCPD.xml
 func GetAvmSpeedtestInfo(session *soap.SoapSession) (tr064model.GetAvmSpeedtestInfoResponse, error) {

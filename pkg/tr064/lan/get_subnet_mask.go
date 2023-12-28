@@ -7,7 +7,7 @@ import (
 )
 
 // GetSubnetMask AUTO-GENERATED (do not edit) code from [lanhostconfigmgmSCPD],
-// based on SOAP action 'GetSubnetMask', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetSubnetMask', Fritz!Box-System-Version 164.07.57
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
 func GetSubnetMask(session *soap.SoapSession) (tr064model.GetSubnetMaskResponse, error) {

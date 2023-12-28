@@ -223,6 +223,8 @@ var testRegistry = []interface{}{
 	gateway.AddUSPController,                         // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  AddUSPController
 	gateway.DeleteUSPControllerByIndex,               // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  DeleteUSPControllerByIndex
 	gateway.SetUSPControllerEnableByIndex,            // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  SetUSPControllerEnableByIndex
+	gateway.GetUSPMyFRITZEnable,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  GetUSPMyFRITZEnable
+	gateway.SetUSPMyFRITZEnable,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:X_AVM-DE_USPController-com:serviceId:X_AVM-DE_USPController1,  SetUSPMyFRITZEnable
 	lan.Wlan1SetWlanConfigurationEnable,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetEnable
 	lan.Wlan1GetWlanConfigurationInfo,                // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  GetInfo
 	lan.Wlan1SetWlanConfigurationConfig,              // urn:dslforum-org:device:LANDevice:1,  urn:WLANConfiguration-com:serviceId:WLANConfiguration1,  SetConfig

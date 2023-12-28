@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // GetGenericDeviceEntryResponse AUTO-GENERATED (do not edit) model from [x_homeplugSCPD],
-// based on SOAP action 'GetGenericDeviceEntry', Fritz!Box-System-Version 141.07.57
+// based on SOAP action 'GetGenericDeviceEntry', Fritz!Box-System-Version 164.07.57
 //
 // [x_homeplugSCPD]: http://fritz.box:49000/x_homeplugSCPD.xml
 type GetGenericDeviceEntryResponse struct {
