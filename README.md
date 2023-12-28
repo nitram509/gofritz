@@ -48,7 +48,7 @@ func main() {
       panic(err)
    }
    for _, host := range hostList {
-      println(fmt.Sprintf("Host: %s, Active:%v", host.XAvmPort, host.Active))
+      println(fmt.Sprintf("Host: %s, Active:%v", host.HostName, host.Active))
    }
 }
 ```
