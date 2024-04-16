@@ -2,8 +2,8 @@ package lan
 
 import (
 	"encoding/xml"
-	"github.com/nitram509/gofitz/pkg/soap"
-	"github.com/nitram509/gofitz/pkg/tr064model"
+	"github.com/nitram509/gofritz/pkg/soap"
+	"github.com/nitram509/gofritz/pkg/tr064model"
 )
 
 // Wlan3GetTotalAssociations AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],

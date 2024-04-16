@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/xml"
 	"errors"
-	"github.com/nitram509/gofitz/pkg/http"
-	"github.com/nitram509/gofitz/pkg/scpd"
+	"github.com/nitram509/gofritz/pkg/http"
+	"github.com/nitram509/gofritz/pkg/scpd"
 	"os"
 	"path/filepath"
 	"regexp"

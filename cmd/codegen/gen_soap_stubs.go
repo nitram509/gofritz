@@ -2,7 +2,7 @@ package main
 
 import (
 	_ "embed"
-	"github.com/nitram509/gofitz/pkg/scpd"
+	"github.com/nitram509/gofritz/pkg/scpd"
 	"strings"
 	"text/template"
 )

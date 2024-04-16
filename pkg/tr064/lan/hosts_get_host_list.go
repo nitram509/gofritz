@@ -2,9 +2,9 @@ package lan
 
 import (
 	"encoding/xml"
-	"github.com/nitram509/gofitz/pkg/http"
-	"github.com/nitram509/gofitz/pkg/soap"
-	"github.com/nitram509/gofitz/pkg/tr064model"
+	"github.com/nitram509/gofritz/pkg/http"
+	"github.com/nitram509/gofritz/pkg/soap"
+	"github.com/nitram509/gofritz/pkg/tr064model"
 )
 
 func XAvmGetHostList(session *soap.SoapSession) ([]tr064model.XAvmGetHostListResponse, error) {

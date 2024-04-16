@@ -1,4 +1,4 @@
-module github.com/nitram509/gofitz
+module github.com/nitram509/gofritz
 
 go 1.22
 

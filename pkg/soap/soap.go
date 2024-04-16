@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"github.com/nitram509/gofitz/pkg"
+	"github.com/nitram509/gofritz/pkg"
 	"io"
 	"net/http"
 	"strconv"
