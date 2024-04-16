@@ -4,11 +4,12 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"github.com/nitram509/gofritz/pkg"
 	"io"
 	"net/http"
 	"strconv"
 	"strings"
+
+	"github.com/nitram509/gofritz/pkg"
 )
 
 const httpMethod = "POST"
@@ -40,7 +41,7 @@ type soapErrorResponse struct {
 	} `xml:"Body"`
 }
 
-func newHttpRequest(requestUrl string, digestAuth string, soapAction string, soapUri string, params []soapParam) *http.Request {
+func newHttpRequest(requestUrl string, digestAuth string, soapAction string, soapUri string, params []soapParam) (*http.Request, error) {
 	sb := strings.Builder{}
 	if params != nil {
 		for _, param := range params {
@@ -56,7 +57,7 @@ func newHttpRequest(requestUrl string, digestAuth string, soapAction string, soa
 
 	req, err := http.NewRequest(httpMethod, requestUrl, strings.NewReader(envelope))
 	if err != nil {
-		panic(err)
+		return &http.Request{}, err
 	}
 	req.Header.Set("SOAPACTION", soapUri+"#"+soapAction)
 	req.Header.Set("Accept", "text/xml")
@@ -65,10 +66,10 @@ func newHttpRequest(requestUrl string, digestAuth string, soapAction string, soa
 	if len(digestAuth) > 0 {
 		req.Header.Set("Authorization", digestAuth)
 	}
-	return req
+	return req, nil
 }
 
-func (cmd *soapCmd) Do() GenericSoapResponse {
+func (cmd *soapCmd) Do() (GenericSoapResponse, error) {
 	fullUrl := cmd.session.BaseUrl() + cmd.reqPath
 	client := &http.Client{}
 
@@ -77,11 +78,17 @@ func (cmd *soapCmd) Do() GenericSoapResponse {
 	var err error
 	maxRetries := 1
 	for unauthorized := true; unauthorized; maxRetries-- {
-		digest := cmd.session.computeDigestResponse(httpMethod, fullUrl)
-		req := newHttpRequest(fullUrl, digest, cmd.soapAction, cmd.soapUri, cmd.soapActionParams)
+		digest, err := cmd.session.computeDigestResponse(httpMethod, fullUrl)
+		if err != nil {
+			return GenericSoapResponse{}, err
+		}
+		req, err := newHttpRequest(fullUrl, digest, cmd.soapAction, cmd.soapUri, cmd.soapActionParams)
+		if err != nil {
+			return GenericSoapResponse{}, err
+		}
 		response, err = client.Do(req)
 		if err != nil {
-			panic(err)
+			return GenericSoapResponse{}, err
 		}
 		respData, err = io.ReadAll(response.Body)
 		unauthorized = response.StatusCode == 401
@@ -89,7 +96,7 @@ func (cmd *soapCmd) Do() GenericSoapResponse {
 			cmd.session.reqAuthDigest = response.Header.Get("WWW-Authenticate")
 		} // else, there is no indicator for how long the session is valid ...
 		if unauthorized && maxRetries <= 0 {
-			panic(errors.New(fmt.Sprintf("can't authenticate '%s' with user '%s'", cmd.session.BaseUrl(), cmd.session.username)))
+			return GenericSoapResponse{}, errors.New(fmt.Sprintf("can't authenticate at '%s' with user '%s'", cmd.session.BaseUrl(), cmd.session.username))
 		}
 	}
 
@@ -98,7 +105,7 @@ func (cmd *soapCmd) Do() GenericSoapResponse {
 			upnpError := soapErrorResponse{}
 			err := xml.Unmarshal(respData, &upnpError)
 			if err != nil {
-				panic(err)
+				return GenericSoapResponse{}, err
 			}
 			err = errors.New(fmt.Sprintf("%s, soap_action=%s, error_code=%s, error_description=%s",
 				upnpError.Body.Fault.Faultstring,
@@ -106,18 +113,18 @@ func (cmd *soapCmd) Do() GenericSoapResponse {
 				upnpError.Body.Fault.Detail.UPnPError.ErrorCode,
 				upnpError.Body.Fault.Detail.UPnPError.ErrorDescription,
 			))
-			panic(err)
+			return GenericSoapResponse{}, err
 		} else {
-			panic(errors.New("Error calling '" + fullUrl + "', Status:" + response.Status))
+			return GenericSoapResponse{}, errors.New("Error calling '" + fullUrl + "', Status:" + response.Status)
 		}
 	}
 
 	envResp := GenericSoapResponse{}
 	err = xml.Unmarshal(respData, &envResp)
 	if err != nil {
-		panic(err)
+		return GenericSoapResponse{}, err
 	}
-	return envResp
+	return envResp, nil
 }
 
 type soapParam struct {
@@ -129,7 +136,7 @@ func (cmd *soapCmd) AddStringParam(name string, value string) SoapCommand {
 	escapedValue := strings.Builder{}
 	err := xml.EscapeText(&escapedValue, []byte(value))
 	if err != nil {
-		panic(err)
+		panic(fmt.Sprintf("AddStringParam: %v", err)) // TODO: ERRORHANDLING
 	}
 	cmd.soapActionParams = append(cmd.soapActionParams, soapParam{
 		name:  name,
@@ -174,9 +181,9 @@ func (ss *SoapSession) BaseUrl() string {
 	return "http://" + ss.hostname + ":49000"
 }
 
-func (ss *SoapSession) computeDigestResponse(httpMethod string, fullUrl string) string {
+func (ss *SoapSession) computeDigestResponse(httpMethod string, fullUrl string) (string, error) {
 	if len(ss.reqAuthDigest) == 0 {
-		return ""
+		return "", nil
 	}
 	return createAuthenticationDigestResponse(ss.username, ss.password, ss.reqAuthDigest, httpMethod, fullUrl)
 }
@@ -194,7 +201,7 @@ type SoapCommand interface {
 	AddStringParam(name string, value string) SoapCommand
 	AddIntParam(name string, value int) SoapCommand
 	AddBoolParam(name string, value bool) SoapCommand
-	Do() GenericSoapResponse
+	Do() (GenericSoapResponse, error)
 }
 
 type soapCmd struct {
