@@ -5,9 +5,9 @@ gofritz
 A Go library, to interact with AVM Fritz!Box routers/devices via TR064 API.
 The library offers convenient Go-functions, which are SOAP based client stubs,
 having no external dependencies, and purely work with Go's standard lib.
-In future releases, a command line (CLI) implementation is planned.
+In (a very far) future, a command line (CLI) implementation is planned.
 
-Contributors and testers are highly welcome.
+**Contributors and testers are highly welcome.**
 
 This work was inspired by https://github.com/kanimaru/fritzbox-soap-example - thanks for that.
 
