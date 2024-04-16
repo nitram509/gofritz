@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/http"
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
@@ -9,6 +10,9 @@ import (
 
 func XAvmGetHostList(session *soap.SoapSession) ([]tr064model.XAvmGetHostListResponse, error) {
 	hostListPathResp, err := XavmGetHostListPath(session)
+	if err != nil {
+		return nil, err
+	}
 
 	var resp struct {
 		XMLName xml.Name                             `xml:"List"`
@@ -21,7 +25,7 @@ func XAvmGetHostList(session *soap.SoapSession) ([]tr064model.XAvmGetHostListRes
 	}
 	err = xml.Unmarshal(bytes, &resp)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 	return resp.Items, err
 }
