@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,7 +12,7 @@ import (
 //
 // [x_contactSCPD]: http://fritz.box:49000/x_contactSCPD.xml
 func SetAvmOnTelConfig(session *soap.SoapSession, enable bool, url string, serviceId string, username string, password string, name string) (tr064model.SetAvmOnTelConfigResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_contact").
 		Uri("urn:dslforum-org:service:X_AVM-DE_OnTel:1").
 		Action("SetConfig").
@@ -21,8 +22,15 @@ func SetAvmOnTelConfig(session *soap.SoapSession, enable bool, url string, servi
 		AddStringParam("NewUsername", username).
 		AddStringParam("NewPassword", password).
 		AddStringParam("NewName", name).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetAvmOnTelConfigResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetAvmOnTelConfigResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetAvmOnTelConfigResponse{}, err
+	}
+	return result, nil
 }

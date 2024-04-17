@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [deviceinfoSCPD]: http://fritz.box:49000/deviceinfoSCPD.xml
 func GetSecurityPort(session *soap.SoapSession) (tr064model.GetSecurityPortResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceinfo").
 		Uri("urn:dslforum-org:service:DeviceInfo:1").
 		Action("GetSecurityPort").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetSecurityPortResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetSecurityPortResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetSecurityPortResponse{}, err
+	}
+	return result, nil
 }

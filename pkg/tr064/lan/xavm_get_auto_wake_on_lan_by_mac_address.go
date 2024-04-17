@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [hostsSCPD]: http://fritz.box:49000/hostsSCPD.xml
 func XavmGetAutoWakeOnLANByMACAddress(session *soap.SoapSession, macAddress string) (tr064model.XavmGetAutoWakeOnLANByMACAddressResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/hosts").
 		Uri("urn:dslforum-org:service:Hosts:1").
 		Action("X_AVM-DE_GetAutoWakeOnLANByMACAddress").
 		AddStringParam("NewMACAddress", macAddress).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.XavmGetAutoWakeOnLANByMACAddressResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.XavmGetAutoWakeOnLANByMACAddressResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.XavmGetAutoWakeOnLANByMACAddressResponse{}, err
+	}
+	return result, nil
 }

@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
 func Reboot(session *soap.SoapSession) (tr064model.RebootResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceconfig").
 		Uri("urn:dslforum-org:service:DeviceConfig:1").
 		Action("Reboot").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.RebootResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.RebootResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.RebootResponse{}, err
+	}
+	return result, nil
 }

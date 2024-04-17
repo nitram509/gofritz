@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [hostsSCPD]: http://fritz.box:49000/hostsSCPD.xml
 func GetGenericHostEntry(session *soap.SoapSession, index int) (tr064model.GetGenericHostEntryResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/hosts").
 		Uri("urn:dslforum-org:service:Hosts:1").
 		Action("GetGenericHostEntry").
 		AddIntParam("NewIndex", index).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetGenericHostEntryResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetGenericHostEntryResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetGenericHostEntryResponse{}, err
+	}
+	return result, nil
 }

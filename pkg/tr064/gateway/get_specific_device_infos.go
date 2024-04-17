@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [x_homeautoSCPD]: http://fritz.box:49000/x_homeautoSCPD.xml
 func GetSpecificDeviceInfos(session *soap.SoapSession, aIN string) (tr064model.GetSpecificDeviceInfosResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_homeauto").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Homeauto:1").
 		Action("GetSpecificDeviceInfos").
 		AddStringParam("NewAIN", aIN).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetSpecificDeviceInfosResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetSpecificDeviceInfosResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetSpecificDeviceInfosResponse{}, err
+	}
+	return result, nil
 }

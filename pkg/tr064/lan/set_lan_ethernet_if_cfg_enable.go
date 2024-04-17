@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [ethifconfigSCPD]: http://fritz.box:49000/ethifconfigSCPD.xml
 func SetLanEthernetIfCfgEnable(session *soap.SoapSession, enable bool) (tr064model.SetLanEthernetIfCfgEnableResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/lanethernetifcfg").
 		Uri("urn:dslforum-org:service:LANEthernetInterfaceConfig:1").
 		Action("SetEnable").
 		AddBoolParam("NewEnable", enable).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetLanEthernetIfCfgEnableResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetLanEthernetIfCfgEnableResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetLanEthernetIfCfgEnableResponse{}, err
+	}
+	return result, nil
 }

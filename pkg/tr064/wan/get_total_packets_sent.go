@@ -2,6 +2,7 @@ package wan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [wancommonifconfigSCPD]: http://fritz.box:49000/wancommonifconfigSCPD.xml
 func GetTotalPacketsSent(session *soap.SoapSession) (tr064model.GetTotalPacketsSentResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wancommonifconfig1").
 		Uri("urn:dslforum-org:service:WANCommonInterfaceConfig:1").
 		Action("GetTotalPacketsSent").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetTotalPacketsSentResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetTotalPacketsSentResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetTotalPacketsSentResponse{}, err
+	}
+	return result, nil
 }

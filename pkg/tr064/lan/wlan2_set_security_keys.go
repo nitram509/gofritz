@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,7 +12,7 @@ import (
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan2SetSecurityKeys(session *soap.SoapSession, wepKey0 string, wepKey1 string, wepKey2 string, wepKey3 string, preSharedKey string, keyPassphrase string) (tr064model.SetSecurityKeysResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wlanconfig2").
 		Uri("urn:dslforum-org:service:WLANConfiguration:2").
 		Action("SetSecurityKeys").
@@ -21,8 +22,15 @@ func Wlan2SetSecurityKeys(session *soap.SoapSession, wepKey0 string, wepKey1 str
 		AddStringParam("NewWEPKey3", wepKey3).
 		AddStringParam("NewPreSharedKey", preSharedKey).
 		AddStringParam("NewKeyPassphrase", keyPassphrase).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetSecurityKeysResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetSecurityKeysResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetSecurityKeysResponse{}, err
+	}
+	return result, nil
 }

@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,7 +12,7 @@ import (
 //
 // [x_myfritzSCPD]: http://fritz.box:49000/x_myfritzSCPD.xml
 func SetServiceByIndex(session *soap.SoapSession, index int, enabled bool, name string, scheme string, port int, urlPath string, aType string, ipv4Address string, ipv6Address string, ipv6InterfaceId string, macAddress string, hostName string) (tr064model.SetServiceByIndexResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_myfritz").
 		Uri("urn:dslforum-org:service:X_AVM-DE_MyFritz:1").
 		Action("SetServiceByIndex").
@@ -27,8 +28,15 @@ func SetServiceByIndex(session *soap.SoapSession, index int, enabled bool, name 
 		AddStringParam("NewIPv6InterfaceID", ipv6InterfaceId).
 		AddStringParam("NewMACAddress", macAddress).
 		AddStringParam("NewHostName", hostName).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetServiceByIndexResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetServiceByIndexResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetServiceByIndexResponse{}, err
+	}
+	return result, nil
 }

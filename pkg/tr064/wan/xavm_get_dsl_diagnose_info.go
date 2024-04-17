@@ -2,6 +2,7 @@ package wan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml
 func XavmGetDSLDiagnoseInfo(session *soap.SoapSession) (tr064model.XavmGetDSLDiagnoseInfoResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wandslifconfig1").
 		Uri("urn:dslforum-org:service:WANDSLInterfaceConfig:1").
 		Action("X_AVM-DE_GetDSLDiagnoseInfo").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.XavmGetDSLDiagnoseInfoResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.XavmGetDSLDiagnoseInfoResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.XavmGetDSLDiagnoseInfoResponse{}, err
+	}
+	return result, nil
 }

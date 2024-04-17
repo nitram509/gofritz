@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [x_hostfilterSCPD]: http://fritz.box:49000/x_hostfilterSCPD.xml
 func GetWANAccessByIP(session *soap.SoapSession, ipv4Address string) (tr064model.GetWANAccessByIPResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_hostfilter").
 		Uri("urn:dslforum-org:service:X_AVM-DE_HostFilter:1").
 		Action("GetWANAccessByIP").
 		AddStringParam("NewIPv4Address", ipv4Address).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetWANAccessByIPResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetWANAccessByIPResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetWANAccessByIPResponse{}, err
+	}
+	return result, nil
 }

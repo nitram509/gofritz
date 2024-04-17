@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
 func SetDHCPServerEnable(session *soap.SoapSession, dhcpServerEnable bool) (tr064model.SetDHCPServerEnableResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/lanhostconfigmgm").
 		Uri("urn:dslforum-org:service:LANHostConfigManagement:1").
 		Action("SetDHCPServerEnable").
 		AddBoolParam("NewDHCPServerEnable", dhcpServerEnable).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetDHCPServerEnableResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetDHCPServerEnableResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetDHCPServerEnableResponse{}, err
+	}
+	return result, nil
 }

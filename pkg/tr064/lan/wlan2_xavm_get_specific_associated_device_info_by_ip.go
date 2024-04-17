@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan2XavmGetSpecificAssociatedDeviceInfoByIp(session *soap.SoapSession, associatedDeviceIpAddress string) (tr064model.XavmGetSpecificAssociatedDeviceInfoByIpResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wlanconfig2").
 		Uri("urn:dslforum-org:service:WLANConfiguration:2").
 		Action("X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp").
 		AddStringParam("NewAssociatedDeviceIPAddress", associatedDeviceIpAddress).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.XavmGetSpecificAssociatedDeviceInfoByIpResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.XavmGetSpecificAssociatedDeviceInfoByIpResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.XavmGetSpecificAssociatedDeviceInfoByIpResponse{}, err
+	}
+	return result, nil
 }

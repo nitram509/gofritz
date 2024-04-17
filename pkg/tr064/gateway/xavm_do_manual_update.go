@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,14 +12,21 @@ import (
 //
 // [userifSCPD]: http://fritz.box:49000/userifSCPD.xml
 func XavmDoManualUpdate(session *soap.SoapSession, avmAllowDowngrade bool, avmDownloadUrl string) (tr064model.XavmDoManualUpdateResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/userif").
 		Uri("urn:dslforum-org:service:UserInterface:1").
 		Action("X_AVM-DE_DoManualUpdate").
 		AddBoolParam("NewX_AVM-DE_AllowDowngrade", avmAllowDowngrade).
 		AddStringParam("NewX_AVM-DE_DownloadURL", avmDownloadUrl).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.XavmDoManualUpdateResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.XavmDoManualUpdateResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.XavmDoManualUpdateResponse{}, err
+	}
+	return result, nil
 }

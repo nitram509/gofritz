@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [x_dectSCPD]: http://fritz.box:49000/x_dectSCPD.xml
 func GetGenericDectEntry(session *soap.SoapSession, index int) (tr064model.GetGenericDectEntryResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_dect").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Dect:1").
 		Action("GetGenericDectEntry").
 		AddIntParam("NewIndex", index).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetGenericDectEntryResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetGenericDectEntryResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetGenericDectEntryResponse{}, err
+	}
+	return result, nil
 }

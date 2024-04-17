@@ -1,14 +1,11 @@
 package main
 
 import (
-	"encoding/xml"
 	"errors"
-	"github.com/nitram509/gofritz/pkg/http"
 	"github.com/nitram509/gofritz/pkg/scpd"
 	"os"
 	"path/filepath"
 	"regexp"
-	"strings"
 	"time"
 )
 
@@ -21,19 +18,22 @@ type tr64Desc struct {
 	}
 }
 
-func fetchAllTr64SDescription() tr64Desc {
+func fetchAllTr64SDescription(f fetcher) tr64Desc {
 	result := tr64Desc{}
-	root := fetchAndParseResponse("/tr64desc.xml")
+	root, err := f.fetchAndParseResponse("/tr64desc.xml")
+	if err != nil {
+		panic(err)
+	}
 	result.root = root
 
 	for _, service := range root.Device.ServiceList {
-		serviceSpec := retrieveServiceSepc(service)
+		serviceSpec := retrieveServiceSepc(f, service)
 		serviceSpec.deviceType = root.Device.DeviceType
 		result.services = append(result.services, serviceSpec)
 	}
 	for _, device := range root.Device.DeviceList {
 		for _, service := range device.ServiceList {
-			serviceSpec := retrieveServiceSepc(service)
+			serviceSpec := retrieveServiceSepc(f, service)
 			serviceSpec.deviceType = device.DeviceType
 			if len(serviceSpec.spec.Device.DeviceList) > 0 {
 				panic(errors.New("more devices than expected"))
@@ -47,12 +47,15 @@ func fetchAllTr64SDescription() tr64Desc {
 	return result
 }
 
-func retrieveServiceSepc(service scpd.Service) struct {
+func retrieveServiceSepc(f fetcher, service scpd.Service) struct {
 	deviceType string
 	serviceId  string
 	spec       scpd.ServiceControlledProtocolDescriptions
 } {
-	spec := fetchAndParseResponse(service.SCPDURL)
+	spec, err := f.fetchAndParseResponse(service.SCPDURL)
+	if err != nil {
+		panic(err)
+	}
 	serviceSpec := struct {
 		deviceType string
 		serviceId  string
@@ -62,23 +65,6 @@ func retrieveServiceSepc(service scpd.Service) struct {
 		spec:      spec,
 	}
 	return serviceSpec
-}
-
-func fetchAndParseResponse(urlPath string) scpd.ServiceControlledProtocolDescriptions {
-	result := scpd.ServiceControlledProtocolDescriptions{}
-	bytes, err := http.DoHttpRequest(URL + urlPath)
-	if err != nil {
-		panic(err)
-	}
-	if safeXmlData2Disc {
-		fName, _ := strings.CutPrefix(urlPath, "/")
-		safe2Disc(fName, bytes)
-	}
-	err = xml.Unmarshal(bytes, &result)
-	if err != nil {
-		panic(err)
-	}
-	return result
 }
 
 var timestamp = time.Now().UTC().Format("20060102T150405Z")

@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [x_mediaSCPD]: http://fritz.box:49000/x_mediaSCPD.xml
 func GetAvmMediaInfo(session *soap.SoapSession) (tr064model.GetAvmMediaInfoResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_media").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Media:1").
 		Action("GetInfo").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetAvmMediaInfoResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetAvmMediaInfoResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetAvmMediaInfoResponse{}, err
+	}
+	return result, nil
 }

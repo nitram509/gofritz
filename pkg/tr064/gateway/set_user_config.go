@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,15 +12,22 @@ import (
 //
 // [x_storageSCPD]: http://fritz.box:49000/x_storageSCPD.xml
 func SetUserConfig(session *soap.SoapSession, enable bool, password string, avmNetworkAccessReadOnly bool) (tr064model.SetUserConfigResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_storage").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Storage:1").
 		Action("SetUserConfig").
 		AddBoolParam("NewEnable", enable).
 		AddStringParam("NewPassword", password).
 		AddBoolParam("NewX_AVM-DE_NetworkAccessReadOnly", avmNetworkAccessReadOnly).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetUserConfigResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetUserConfigResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetUserConfigResponse{}, err
+	}
+	return result, nil
 }

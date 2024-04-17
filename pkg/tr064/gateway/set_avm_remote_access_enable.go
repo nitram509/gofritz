@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [x_remoteSCPD]: http://fritz.box:49000/x_remoteSCPD.xml
 func SetAvmRemoteAccessEnable(session *soap.SoapSession, enabled bool) (tr064model.SetAvmRemoteAccessEnableResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_remote").
 		Uri("urn:dslforum-org:service:X_AVM-DE_RemoteAccess:1").
 		Action("SetEnable").
 		AddBoolParam("NewEnabled", enabled).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetAvmRemoteAccessEnableResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetAvmRemoteAccessEnableResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetAvmRemoteAccessEnableResponse{}, err
+	}
+	return result, nil
 }

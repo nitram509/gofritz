@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
 func SetPersistentData(session *soap.SoapSession, persistentData string) (tr064model.SetPersistentDataResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/deviceconfig").
 		Uri("urn:dslforum-org:service:DeviceConfig:1").
 		Action("SetPersistentData").
 		AddStringParam("NewPersistentData", persistentData).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetPersistentDataResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetPersistentDataResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetPersistentDataResponse{}, err
+	}
+	return result, nil
 }

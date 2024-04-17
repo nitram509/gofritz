@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [x_uspcontrollerSCPD]: http://fritz.box:49000/x_uspcontrollerSCPD.xml
 func SetUSPMyFRITZEnable(session *soap.SoapSession, uspMyFritzEnabled bool) (tr064model.SetUSPMyFRITZEnableResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_uspcontroller").
 		Uri("urn:dslforum-org:service:X_AVM-DE_USPController:1").
 		Action("SetUSPMyFRITZEnable").
 		AddBoolParam("NewUSPMyFRITZEnabled", uspMyFritzEnabled).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetUSPMyFRITZEnableResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetUSPMyFRITZEnableResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetUSPMyFRITZEnableResponse{}, err
+	}
+	return result, nil
 }

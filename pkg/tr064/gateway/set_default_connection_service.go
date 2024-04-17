@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [layer3forwardingSCPD]: http://fritz.box:49000/layer3forwardingSCPD.xml
 func SetDefaultConnectionService(session *soap.SoapSession, defaultConnectionService string) (tr064model.SetDefaultConnectionServiceResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/layer3forwarding").
 		Uri("urn:dslforum-org:service:Layer3Forwarding:1").
 		Action("SetDefaultConnectionService").
 		AddStringParam("NewDefaultConnectionService", defaultConnectionService).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.SetDefaultConnectionServiceResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.SetDefaultConnectionServiceResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.SetDefaultConnectionServiceResponse{}, err
+	}
+	return result, nil
 }

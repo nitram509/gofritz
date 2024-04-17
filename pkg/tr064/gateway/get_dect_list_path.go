@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [x_dectSCPD]: http://fritz.box:49000/x_dectSCPD.xml
 func GetDectListPath(session *soap.SoapSession) (tr064model.GetDectListPathResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_dect").
 		Uri("urn:dslforum-org:service:X_AVM-DE_Dect:1").
 		Action("GetDectListPath").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetDectListPathResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetDectListPathResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetDectListPathResponse{}, err
+	}
+	return result, nil
 }

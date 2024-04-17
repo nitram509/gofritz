@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,13 +12,20 @@ import (
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan1GetGenericAssociatedDeviceInfo(session *soap.SoapSession, associatedDeviceIndex int) (tr064model.GetGenericAssociatedDeviceInfoResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wlanconfig1").
 		Uri("urn:dslforum-org:service:WLANConfiguration:1").
 		Action("GetGenericAssociatedDeviceInfo").
 		AddIntParam("NewAssociatedDeviceIndex", associatedDeviceIndex).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetGenericAssociatedDeviceInfoResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetGenericAssociatedDeviceInfoResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetGenericAssociatedDeviceInfoResponse{}, err
+	}
+	return result, nil
 }

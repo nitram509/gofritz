@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [x_myfritzSCPD]: http://fritz.box:49000/x_myfritzSCPD.xml
 func GetNumberOfServices(session *soap.SoapSession) (tr064model.GetNumberOfServicesResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_myfritz").
 		Uri("urn:dslforum-org:service:X_AVM-DE_MyFritz:1").
 		Action("GetNumberOfServices").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetNumberOfServicesResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetNumberOfServicesResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetNumberOfServicesResponse{}, err
+	}
+	return result, nil
 }

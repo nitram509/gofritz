@@ -2,6 +2,7 @@ package lan
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3XavmGetWLANHybridMode(session *soap.SoapSession) (tr064model.XavmGetWLANHybridModeResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/wlanconfig3").
 		Uri("urn:dslforum-org:service:WLANConfiguration:3").
 		Action("X_AVM-DE_GetWLANHybridMode").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.XavmGetWLANHybridModeResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.XavmGetWLANHybridModeResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.XavmGetWLANHybridModeResponse{}, err
+	}
+	return result, nil
 }

@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,7 +12,7 @@ import (
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
 func RegisterApp(session *soap.SoapSession, appId string, appDisplayName string, appDeviceMac string, appUsername string, appPassword string, appRight string, nasRight string, phoneRight string, homeautoRight string, appInternetRights bool) (tr064model.RegisterAppResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_appsetup").
 		Uri("urn:dslforum-org:service:X_AVM-DE_AppSetup:1").
 		Action("RegisterApp").
@@ -25,8 +26,15 @@ func RegisterApp(session *soap.SoapSession, appId string, appDisplayName string,
 		AddStringParam("NewPhoneRight", phoneRight).
 		AddStringParam("NewHomeautoRight", homeautoRight).
 		AddBoolParam("NewAppInternetRights", appInternetRights).
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.RegisterAppResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.RegisterAppResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.RegisterAppResponse{}, err
+	}
+	return result, nil
 }

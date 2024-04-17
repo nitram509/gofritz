@@ -2,6 +2,7 @@ package gateway
 
 import (
 	"encoding/xml"
+
 	"github.com/nitram509/gofritz/pkg/soap"
 	"github.com/nitram509/gofritz/pkg/tr064model"
 )
@@ -11,12 +12,19 @@ import (
 //
 // [lanconfigsecuritySCPD]: http://fritz.box:49000/lanconfigsecuritySCPD.xml
 func GetLanConfigSecurityInfo(session *soap.SoapSession) (tr064model.GetLanConfigSecurityInfoResponse, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/lanconfigsecurity").
 		Uri("urn:dslforum-org:service:LANConfigSecurity:1").
 		Action("GetInfo").
-		Do().Body.Data
+		Do()
+	if err != nil {
+		return tr064model.GetLanConfigSecurityInfoResponse{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.GetLanConfigSecurityInfoResponse{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+	if err != nil {
+		return tr064model.GetLanConfigSecurityInfoResponse{}, err
+	}
+	return result, nil
 }
