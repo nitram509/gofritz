@@ -16,7 +16,6 @@ This work was inspired by https://github.com/kanimaru/fritzbox-soap-example - th
 * Tested with `Fritz!Box Cable` and a `Fritz!Box` device
 * The CLI part is not yet implemented
 * The library part is fully implemented (using code generation, based on AVM's service descriptions)
-* The error handling is rather naive, and mostly creates a panic (TODO: for future releases, the errors should rather percolate up to the lib consumers)
 * There are no config options for timeouts, or retries or other things yet, to make the lib more robust
 * No anonymous API calls supported (only with user/pass)
 * No SSL transport encryption is supported (planned for future releases)
