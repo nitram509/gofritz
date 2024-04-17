@@ -20,7 +20,7 @@ import (
 //		qop="auth,auth-int",
 //		nonce="dcd98b7102dd2f0e8b11d0f600bfb0c093",
 //		opaque="5ccc069c403ebaf9f0171e9517f40e41"
-func createAuthenticationDigestResponse(username string, password string, reqAuthHeader string, httpMethod string, fullUrl string) string {
+func createAuthenticationDigestResponse(username string, password string, reqAuthHeader string, httpMethod string, fullUrl string) (string, error) {
 	if !strings.HasPrefix(reqAuthHeader, "Digest") {
 		log.Fatal("Can handle digest auth only!")
 	}
@@ -31,10 +31,13 @@ func createAuthenticationDigestResponse(username string, password string, reqAut
 	qop := digestChallenge["qop"]
 
 	if strings.ToLower(algorithm) != "md5" {
-		panic(errors.New("unsupported hash algorithm=" + algorithm))
+		return "", (errors.New("unsupported hash algorithm=" + algorithm))
 	}
 	nonceCount := 00000001
-	cnonce := createEightRandomBytes()
+	cnonce, err := createEightRandomBytes()
+	if err != nil {
+		return "", err
+	}
 	response := "undefined"
 
 	if strings.ToLower(qop) == "auth" {
@@ -42,11 +45,11 @@ func createAuthenticationDigestResponse(username string, password string, reqAut
 		ha2 := md5Sum(httpMethod + ":" + fullUrl)
 		response = md5Sum(fmt.Sprintf("%s:%s:%v:%s:%s:%s", ha1, nonce, nonceCount, cnonce, qop, ha2))
 	} else {
-		panic(errors.New("unsupported quality of protection (qop):" + algorithm))
+		return "", (errors.New("unsupported quality of protection (qop):" + algorithm))
 	}
 
 	return fmt.Sprintf(`Digest username="%s", realm="%s", nonce="%s", Uri="%s", cnonce="%s", nc="%v", qop="%s", response="%s"`,
-		username, realm, nonce, fullUrl, cnonce, nonceCount, qop, response)
+		username, realm, nonce, fullUrl, cnonce, nonceCount, qop, response), nil
 }
 
 func md5Sum(text string) string {
@@ -55,13 +58,13 @@ func md5Sum(text string) string {
 	return hex.EncodeToString(hasher.Sum(nil))
 }
 
-func createEightRandomBytes() string {
+func createEightRandomBytes() (string, error) {
 	b := make([]byte, 8)
 	_, err := io.ReadFull(rand.Reader, b)
 	if err != nil {
-		log.Fatal("Can't create random bytes: \n" + err.Error())
+		return "", err
 	}
-	return fmt.Sprintf("%x", b)[:16]
+	return fmt.Sprintf("%x", b)[:16], nil
 }
 
 func parseAuthParam(allParams string) map[string]string {

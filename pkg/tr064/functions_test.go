@@ -3,9 +3,9 @@ package tr064
 import (
 	"github.com/corbym/gocrest/is"
 	"github.com/corbym/gocrest/then"
-	"github.com/nitram509/gofitz/pkg/tr064/gateway"
-	"github.com/nitram509/gofitz/pkg/tr064/lan"
-	"github.com/nitram509/gofitz/pkg/tr064/wan"
+	"github.com/nitram509/gofritz/pkg/tr064/gateway"
+	"github.com/nitram509/gofritz/pkg/tr064/lan"
+	"github.com/nitram509/gofritz/pkg/tr064/wan"
 	"testing"
 )
 

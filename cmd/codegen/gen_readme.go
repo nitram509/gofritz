@@ -4,7 +4,7 @@ import (
 	_ "embed"
 	"errors"
 	"fmt"
-	"github.com/nitram509/gofitz/pkg/scpd"
+	"github.com/nitram509/gofritz/pkg/scpd"
 	"os"
 	"path/filepath"
 	"strings"

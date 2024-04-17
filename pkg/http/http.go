@@ -2,7 +2,7 @@ package http
 
 import (
 	"errors"
-	"github.com/nitram509/gofitz/pkg"
+	"github.com/nitram509/gofritz/pkg"
 	"io"
 	"net/http"
 )

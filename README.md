@@ -33,8 +33,8 @@ package main
 
 import (
    "fmt"
-   "github.com/nitram509/gofitz/pkg/soap"
-   "github.com/nitram509/gofitz/pkg/tr064/lan"
+   "github.com/nitram509/gofritz/pkg/soap"
+   "github.com/nitram509/gofritz/pkg/tr064/lan"
    "os"
 )
 

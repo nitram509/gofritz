@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/nitram509/gofitz/pkg/scpd"
+	"github.com/nitram509/gofritz/pkg/scpd"
 	"os"
 	"os/exec"
 	"path/filepath"

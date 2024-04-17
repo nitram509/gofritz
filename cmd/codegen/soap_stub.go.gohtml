@@ -2,21 +2,29 @@ package {{ .PackageName }}
 
 import (
 	"encoding/xml"
-	"github.com/nitram509/gofitz/pkg/soap"
-	"github.com/nitram509/gofitz/pkg/tr064model"
+
+	"github.com/nitram509/gofritz/pkg/soap"
+	"github.com/nitram509/gofritz/pkg/tr064model"
 )
 // {{ .FuncName }} AUTO-GENERATED (do not edit) code from [{{ .SCDPShortName }}],
 // based on SOAP action '{{ .SoapActionName }}', Fritz!Box-System-Version {{ .SystemVersion }}
 //
 // [{{ .SCDPShortName }}]: http://fritz.box:49000{{ .SCDPUrlPath }}
 func {{ .FuncName }}(session *soap.SoapSession{{ .FuncParameters}}) (tr064model.{{ .ReturnTypeName }}, error) {
-	bodyData := soap.NewSoapRequest(session).
+	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("{{ .ReqPath }}").
 		Uri("{{ .Uri }}").
 		Action("{{ .SoapActionName }}").
 {{ range $I, $Param := .Parameters }}		{{ $Param.AddParamFuncName }}("{{ $Param.SoapName }}", {{ $Param.VarName }}).
-{{ end }}		Do().Body.Data
+{{ end }}		Do()
+  if err != nil {
+		return tr064model.{{ .ReturnTypeName }}{}, err
+	}
+	bodyData := fbAction.Body.Data
 	result := tr064model.{{ .ReturnTypeName }}{}
-	err := xml.Unmarshal(bodyData, &result)
-	return result, err
+	err = xml.Unmarshal(bodyData, &result)
+  if err != nil {
+		return tr064model.{{ .ReturnTypeName }}{}, err
+	}
+	return result, nil
 }
