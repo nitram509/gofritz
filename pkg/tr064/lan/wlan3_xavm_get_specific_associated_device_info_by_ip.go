@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan3XavmGetSpecificAssociatedDeviceInfoByIp AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_GetSpecificAssociatedDeviceInfoByIp', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3XavmGetSpecificAssociatedDeviceInfoByIp(session *soap.SoapSession, associatedDeviceIpAddress string) (tr064model.XavmGetSpecificAssociatedDeviceInfoByIpResponse, error) {

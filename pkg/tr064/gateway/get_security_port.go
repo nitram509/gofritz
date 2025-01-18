@@ -8,7 +8,7 @@ import (
 )
 
 // GetSecurityPort AUTO-GENERATED (do not edit) code from [deviceinfoSCPD],
-// based on SOAP action 'GetSecurityPort', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetSecurityPort', Fritz!Box-System-Version 164.08.00
 //
 // [deviceinfoSCPD]: http://fritz.box:49000/deviceinfoSCPD.xml
 func GetSecurityPort(session *soap.SoapSession) (tr064model.GetSecurityPortResponse, error) {

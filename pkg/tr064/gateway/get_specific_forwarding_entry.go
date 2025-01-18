@@ -8,7 +8,7 @@ import (
 )
 
 // GetSpecificForwardingEntry AUTO-GENERATED (do not edit) code from [layer3forwardingSCPD],
-// based on SOAP action 'GetSpecificForwardingEntry', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetSpecificForwardingEntry', Fritz!Box-System-Version 164.08.00
 //
 // [layer3forwardingSCPD]: http://fritz.box:49000/layer3forwardingSCPD.xml
 func GetSpecificForwardingEntry(session *soap.SoapSession, destIpAddress string, destSubnetMask string, sourceIpAddress string, sourceSubnetMask string) (tr064model.GetSpecificForwardingEntryResponse, error) {

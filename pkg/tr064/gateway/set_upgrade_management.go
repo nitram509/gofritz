@@ -8,7 +8,7 @@ import (
 )
 
 // SetUpgradeManagement AUTO-GENERATED (do not edit) code from [mgmsrvSCPD],
-// based on SOAP action 'SetUpgradeManagement', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetUpgradeManagement', Fritz!Box-System-Version 164.08.00
 //
 // [mgmsrvSCPD]: http://fritz.box:49000/mgmsrvSCPD.xml
 func SetUpgradeManagement(session *soap.SoapSession, upgradesManaged bool) (tr064model.SetUpgradeManagementResponse, error) {

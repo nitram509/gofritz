@@ -8,7 +8,7 @@ import (
 )
 
 // SetLanEthernetIfCfgEnable AUTO-GENERATED (do not edit) code from [ethifconfigSCPD],
-// based on SOAP action 'SetEnable', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetEnable', Fritz!Box-System-Version 164.08.00
 //
 // [ethifconfigSCPD]: http://fritz.box:49000/ethifconfigSCPD.xml
 func SetLanEthernetIfCfgEnable(session *soap.SoapSession, enable bool) (tr064model.SetLanEthernetIfCfgEnableResponse, error) {

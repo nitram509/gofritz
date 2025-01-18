@@ -8,7 +8,7 @@ import (
 )
 
 // GetSpecificDeviceEntry AUTO-GENERATED (do not edit) code from [x_homeplugSCPD],
-// based on SOAP action 'GetSpecificDeviceEntry', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetSpecificDeviceEntry', Fritz!Box-System-Version 164.08.00
 //
 // [x_homeplugSCPD]: http://fritz.box:49000/x_homeplugSCPD.xml
 func GetSpecificDeviceEntry(session *soap.SoapSession, macAddress string) (tr064model.GetSpecificDeviceEntryResponse, error) {

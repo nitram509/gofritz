@@ -8,7 +8,7 @@ import (
 )
 
 // XavmSetFriendlyNameByMAC AUTO-GENERATED (do not edit) code from [hostsSCPD],
-// based on SOAP action 'X_AVM-DE_SetFriendlyNameByMAC', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_SetFriendlyNameByMAC', Fritz!Box-System-Version 164.08.00
 //
 // [hostsSCPD]: http://fritz.box:49000/hostsSCPD.xml
 func XavmSetFriendlyNameByMAC(session *soap.SoapSession, macAddress string, avmFriendlyName string) (tr064model.XavmSetFriendlyNameByMACResponse, error) {

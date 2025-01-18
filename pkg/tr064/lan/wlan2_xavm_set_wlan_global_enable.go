@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan2XavmSetWLANGlobalEnable AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'X_AVM-DE_SetWLANGlobalEnable', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_SetWLANGlobalEnable', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan2XavmSetWLANGlobalEnable(session *soap.SoapSession, avmWlanGlobalEnable bool) (tr064model.XavmSetWLANGlobalEnableResponse, error) {

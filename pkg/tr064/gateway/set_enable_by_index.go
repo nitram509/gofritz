@@ -8,7 +8,7 @@ import (
 )
 
 // SetEnableByIndex AUTO-GENERATED (do not edit) code from [x_contactSCPD],
-// based on SOAP action 'SetEnableByIndex', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetEnableByIndex', Fritz!Box-System-Version 164.08.00
 //
 // [x_contactSCPD]: http://fritz.box:49000/x_contactSCPD.xml
 func SetEnableByIndex(session *soap.SoapSession, index int, enable bool) (tr064model.SetEnableByIndexResponse, error) {

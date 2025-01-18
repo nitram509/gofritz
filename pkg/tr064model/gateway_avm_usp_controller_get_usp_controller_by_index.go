@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // GetUSPControllerByIndexResponse AUTO-GENERATED (do not edit) model from [x_uspcontrollerSCPD],
-// based on SOAP action 'GetUSPControllerByIndex', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetUSPControllerByIndex', Fritz!Box-System-Version 164.08.00
 //
 // [x_uspcontrollerSCPD]: http://fritz.box:49000/x_uspcontrollerSCPD.xml
 type GetUSPControllerByIndexResponse struct {
@@ -15,6 +15,8 @@ type GetUSPControllerByIndexResponse struct {
 	Path                  string   `xml:"NewPath"`                  //
 	Port                  int      `xml:"NewPort"`                  // default=0
 	UseTLS                bool     `xml:"NewUseTLS"`                // default=0
+	MQTTControllerTopic   string   `xml:"NewMQTTControllerTopic"`   //
+	MQTTResponseTopic     string   `xml:"NewMQTTResponseTopic"`     //
 	AccessRightSmarthome  bool     `xml:"NewAccessRightSmarthome"`  // default=0
 	AccessRightMesh       bool     `xml:"NewAccessRightMesh"`       // default=0
 	AccessRightInternet   bool     `xml:"NewAccessRightInternet"`   // default=0

@@ -8,7 +8,7 @@ import (
 )
 
 // XavmGetChangeCounter AUTO-GENERATED (do not edit) code from [hostsSCPD],
-// based on SOAP action 'X_AVM-DE_GetChangeCounter', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_GetChangeCounter', Fritz!Box-System-Version 164.08.00
 //
 // [hostsSCPD]: http://fritz.box:49000/hostsSCPD.xml
 func XavmGetChangeCounter(session *soap.SoapSession) (tr064model.XavmGetChangeCounterResponse, error) {

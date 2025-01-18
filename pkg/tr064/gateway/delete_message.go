@@ -8,7 +8,7 @@ import (
 )
 
 // DeleteMessage AUTO-GENERATED (do not edit) code from [x_tamSCPD],
-// based on SOAP action 'DeleteMessage', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'DeleteMessage', Fritz!Box-System-Version 164.08.00
 //
 // [x_tamSCPD]: http://fritz.box:49000/x_tamSCPD.xml
 func DeleteMessage(session *soap.SoapSession, index int, messageIndex int) (tr064model.DeleteMessageResponse, error) {

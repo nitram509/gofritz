@@ -8,7 +8,7 @@ import (
 )
 
 // SetConfigPassword AUTO-GENERATED (do not edit) code from [lanconfigsecuritySCPD],
-// based on SOAP action 'SetConfigPassword', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetConfigPassword', Fritz!Box-System-Version 164.08.00
 //
 // [lanconfigsecuritySCPD]: http://fritz.box:49000/lanconfigsecuritySCPD.xml
 func SetConfigPassword(session *soap.SoapSession, password string) (tr064model.SetConfigPasswordResponse, error) {

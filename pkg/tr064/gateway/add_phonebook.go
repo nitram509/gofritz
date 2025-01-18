@@ -8,7 +8,7 @@ import (
 )
 
 // AddPhonebook AUTO-GENERATED (do not edit) code from [x_contactSCPD],
-// based on SOAP action 'AddPhonebook', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'AddPhonebook', Fritz!Box-System-Version 164.08.00
 //
 // [x_contactSCPD]: http://fritz.box:49000/x_contactSCPD.xml
 func AddPhonebook(session *soap.SoapSession, phonebookExtraId string, phonebookName string) (tr064model.AddPhonebookResponse, error) {

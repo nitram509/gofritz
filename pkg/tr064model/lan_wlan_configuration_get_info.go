@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // GetWlanConfigurationInfoResponse AUTO-GENERATED (do not edit) model from [wlanconfigSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 type GetWlanConfigurationInfoResponse struct {
@@ -13,10 +13,10 @@ type GetWlanConfigurationInfoResponse struct {
 	MaxBitRate               string   `xml:"NewMaxBitRate"`                   //
 	Channel                  int      `xml:"NewChannel"`                      // default=0
 	SSID                     string   `xml:"NewSSID"`                         //
-	BeaconType               string   `xml:"NewBeaconType"`                   // oneOf=[none,Basic,WPA,11i,WPAand11i,WPA3,11iandWPA3,OWE,OWETrans]
+	BeaconType               string   `xml:"NewBeaconType"`                   // oneOf=[None,Basic,WPA,11i,WPAand11i,WPA3,11iandWPA3,OWE,OWETrans]
 	PossibleBeaconTypes      string   `xml:"NewX_AVM-DE_PossibleBeaconTypes"` //
 	MACAddressControlEnabled bool     `xml:"NewMACAddressControlEnabled"`     // default=0
-	Standard                 string   `xml:"NewStandard"`                     // oneOf=[b,g,n,ac,ax,]
+	Standard                 string   `xml:"NewStandard"`                     // oneOf=[b,g,n,ac,ax,be,]
 	BSSID                    string   `xml:"NewBSSID"`                        //
 	BasicEncryptionModes     string   `xml:"NewBasicEncryptionModes"`         //
 	BasicAuthenticationMode  string   `xml:"NewBasicAuthenticationMode"`      //

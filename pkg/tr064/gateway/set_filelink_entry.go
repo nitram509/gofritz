@@ -8,7 +8,7 @@ import (
 )
 
 // SetFilelinkEntry AUTO-GENERATED (do not edit) code from [x_filelinksSCPD],
-// based on SOAP action 'SetFilelinkEntry', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetFilelinkEntry', Fritz!Box-System-Version 164.08.00
 //
 // [x_filelinksSCPD]: http://fritz.box:49000/x_filelinksSCPD.xml
 func SetFilelinkEntry(session *soap.SoapSession, id string, accessCountLimit int, expire int) (tr064model.SetFilelinkEntryResponse, error) {

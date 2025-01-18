@@ -8,7 +8,7 @@ import (
 )
 
 // GetBoxSenderId AUTO-GENERATED (do not edit) code from [x_appsetupSCPD],
-// based on SOAP action 'GetBoxSenderId', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetBoxSenderId', Fritz!Box-System-Version 164.08.00
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
 func GetBoxSenderId(session *soap.SoapSession, appId string) (tr064model.GetBoxSenderIdResponse, error) {

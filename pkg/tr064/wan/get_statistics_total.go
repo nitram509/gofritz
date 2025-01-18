@@ -8,7 +8,7 @@ import (
 )
 
 // GetStatisticsTotal AUTO-GENERATED (do not edit) code from [wandslifconfigSCPD],
-// based on SOAP action 'GetStatisticsTotal', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetStatisticsTotal', Fritz!Box-System-Version 164.08.00
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml
 func GetStatisticsTotal(session *soap.SoapSession) (tr064model.GetStatisticsTotalResponse, error) {

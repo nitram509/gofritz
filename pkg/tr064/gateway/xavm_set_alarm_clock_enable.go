@@ -8,7 +8,7 @@ import (
 )
 
 // XavmSetAlarmClockEnable AUTO-GENERATED (do not edit) code from [x_voipSCPD],
-// based on SOAP action 'X_AVM-DE_SetAlarmClockEnable', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_SetAlarmClockEnable', Fritz!Box-System-Version 164.08.00
 //
 // [x_voipSCPD]: http://fritz.box:49000/x_voipSCPD.xml
 func XavmSetAlarmClockEnable(session *soap.SoapSession, index int, avmAlarmClockEnable bool) (tr064model.XavmSetAlarmClockEnableResponse, error) {

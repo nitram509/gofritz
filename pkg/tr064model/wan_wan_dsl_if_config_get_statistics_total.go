@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // GetStatisticsTotalResponse AUTO-GENERATED (do not edit) model from [wandslifconfigSCPD],
-// based on SOAP action 'GetStatisticsTotal', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetStatisticsTotal', Fritz!Box-System-Version 164.08.00
 //
 // [wandslifconfigSCPD]: http://fritz.box:49000/wandslifconfigSCPD.xml
 type GetStatisticsTotalResponse struct {

@@ -8,7 +8,7 @@ import (
 )
 
 // GetSpecificDeviceInfos AUTO-GENERATED (do not edit) code from [x_homeautoSCPD],
-// based on SOAP action 'GetSpecificDeviceInfos', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetSpecificDeviceInfos', Fritz!Box-System-Version 164.08.00
 //
 // [x_homeautoSCPD]: http://fritz.box:49000/x_homeautoSCPD.xml
 func GetSpecificDeviceInfos(session *soap.SoapSession, aIN string) (tr064model.GetSpecificDeviceInfosResponse, error) {

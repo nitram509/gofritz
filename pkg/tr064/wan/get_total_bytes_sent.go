@@ -8,7 +8,7 @@ import (
 )
 
 // GetTotalBytesSent AUTO-GENERATED (do not edit) code from [wancommonifconfigSCPD],
-// based on SOAP action 'GetTotalBytesSent', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetTotalBytesSent', Fritz!Box-System-Version 164.08.00
 //
 // [wancommonifconfigSCPD]: http://fritz.box:49000/wancommonifconfigSCPD.xml
 func GetTotalBytesSent(session *soap.SoapSession) (tr064model.GetTotalBytesSentResponse, error) {

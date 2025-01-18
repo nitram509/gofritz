@@ -8,7 +8,7 @@ import (
 )
 
 // GetUserInfo AUTO-GENERATED (do not edit) code from [x_storageSCPD],
-// based on SOAP action 'GetUserInfo', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetUserInfo', Fritz!Box-System-Version 164.08.00
 //
 // [x_storageSCPD]: http://fritz.box:49000/x_storageSCPD.xml
 func GetUserInfo(session *soap.SoapSession) (tr064model.GetUserInfoResponse, error) {

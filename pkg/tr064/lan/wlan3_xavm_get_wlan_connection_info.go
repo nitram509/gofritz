@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan3XavmGetWLANConnectionInfo AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'X_AVM-DE_GetWLANConnectionInfo', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_GetWLANConnectionInfo', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3XavmGetWLANConnectionInfo(session *soap.SoapSession) (tr064model.XavmGetWLANConnectionInfoResponse, error) {

@@ -8,7 +8,7 @@ import (
 )
 
 // SetVoIPEnableAreaCode AUTO-GENERATED (do not edit) code from [x_voipSCPD],
-// based on SOAP action 'SetVoIPEnableAreaCode', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetVoIPEnableAreaCode', Fritz!Box-System-Version 164.08.00
 //
 // [x_voipSCPD]: http://fritz.box:49000/x_voipSCPD.xml
 func SetVoIPEnableAreaCode(session *soap.SoapSession, voipAccountIndex int, voipEnableAreaCode bool) (tr064model.SetVoIPEnableAreaCodeResponse, error) {

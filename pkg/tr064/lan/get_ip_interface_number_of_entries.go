@@ -8,7 +8,7 @@ import (
 )
 
 // GetIPInterfaceNumberOfEntries AUTO-GENERATED (do not edit) code from [lanhostconfigmgmSCPD],
-// based on SOAP action 'GetIPInterfaceNumberOfEntries', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetIPInterfaceNumberOfEntries', Fritz!Box-System-Version 164.08.00
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
 func GetIPInterfaceNumberOfEntries(session *soap.SoapSession) (tr064model.GetIPInterfaceNumberOfEntriesResponse, error) {

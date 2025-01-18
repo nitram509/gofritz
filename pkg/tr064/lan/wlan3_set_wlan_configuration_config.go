@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan3SetWlanConfigurationConfig AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetConfig', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3SetWlanConfigurationConfig(session *soap.SoapSession, maxBitRate string, channel int, ssid string, beaconType string, macAddressControlEnabled bool, basicEncryptionModes string, basicAuthenticationMode string) (tr064model.SetWlanConfigurationConfigResponse, error) {

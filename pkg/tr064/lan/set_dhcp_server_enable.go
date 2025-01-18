@@ -8,7 +8,7 @@ import (
 )
 
 // SetDHCPServerEnable AUTO-GENERATED (do not edit) code from [lanhostconfigmgmSCPD],
-// based on SOAP action 'SetDHCPServerEnable', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetDHCPServerEnable', Fritz!Box-System-Version 164.08.00
 //
 // [lanhostconfigmgmSCPD]: http://fritz.box:49000/lanhostconfigmgmSCPD.xml
 func SetDHCPServerEnable(session *soap.SoapSession, dhcpServerEnable bool) (tr064model.SetDHCPServerEnableResponse, error) {

@@ -8,7 +8,7 @@ import (
 )
 
 // DectDoUpdate AUTO-GENERATED (do not edit) code from [x_dectSCPD],
-// based on SOAP action 'DectDoUpdate', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'DectDoUpdate', Fritz!Box-System-Version 164.08.00
 //
 // [x_dectSCPD]: http://fritz.box:49000/x_dectSCPD.xml
 func DectDoUpdate(session *soap.SoapSession, id string) (tr064model.DectDoUpdateResponse, error) {

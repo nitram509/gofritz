@@ -15,6 +15,7 @@ var testRegistry = []interface{}{
 	gateway.SetProvisioningCode,                      // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  SetProvisioningCode
 	gateway.GetDeviceLog,                             // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  GetDeviceLog
 	gateway.GetSecurityPort,                          // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  GetSecurityPort
+	gateway.XavmGetDeviceLogPath,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceInfo-com:serviceId:DeviceInfo1,  X_AVM-DE_GetDeviceLogPath
 	gateway.GetPersistentData,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  GetPersistentData
 	gateway.SetPersistentData,                        // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  SetPersistentData
 	gateway.ConfigurationStarted,                     // urn:dslforum-org:device:InternetGatewayDevice:1,  urn:DeviceConfig-com:serviceId:DeviceConfig1,  ConfigurationStarted

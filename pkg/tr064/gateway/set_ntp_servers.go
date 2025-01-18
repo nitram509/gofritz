@@ -8,7 +8,7 @@ import (
 )
 
 // SetNTPServers AUTO-GENERATED (do not edit) code from [timeSCPD],
-// based on SOAP action 'SetNTPServers', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetNTPServers', Fritz!Box-System-Version 164.08.00
 //
 // [timeSCPD]: http://fritz.box:49000/timeSCPD.xml
 func SetNTPServers(session *soap.SoapSession, ntpServer1 string, ntpServer2 string) (tr064model.SetNTPServersResponse, error) {

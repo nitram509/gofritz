@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan2XavmSetWLANHybridMode AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'X_AVM-DE_SetWLANHybridMode', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_SetWLANHybridMode', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan2XavmSetWLANHybridMode(session *soap.SoapSession, enable bool, beaconType string, keyPassphrase string, ssid string, bSsid string, trafficMode string, manualSpeed bool, maxSpeedDS int, maxSpeedUS int) (tr064model.XavmSetWLANHybridModeResponse, error) {

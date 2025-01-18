@@ -8,7 +8,7 @@ import (
 )
 
 // ResetEvent AUTO-GENERATED (do not edit) code from [x_appsetupSCPD],
-// based on SOAP action 'ResetEvent', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'ResetEvent', Fritz!Box-System-Version 164.08.00
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
 func ResetEvent(session *soap.SoapSession, eventId int) (tr064model.ResetEventResponse, error) {

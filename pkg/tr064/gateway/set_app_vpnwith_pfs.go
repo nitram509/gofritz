@@ -8,7 +8,7 @@ import (
 )
 
 // SetAppVPNwithPFS AUTO-GENERATED (do not edit) code from [x_appsetupSCPD],
-// based on SOAP action 'SetAppVPNwithPFS', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetAppVPNwithPFS', Fritz!Box-System-Version 164.08.00
 //
 // [x_appsetupSCPD]: http://fritz.box:49000/x_appsetupSCPD.xml
 func SetAppVPNwithPFS(session *soap.SoapSession, appId string, ipSecIdentifier string, ipSecPreSharedKey string, ipSecXauthUsername string, ipSecXauthPassword string) (tr064model.SetAppVPNwithPFSResponse, error) {

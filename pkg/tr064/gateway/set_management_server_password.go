@@ -8,7 +8,7 @@ import (
 )
 
 // SetManagementServerPassword AUTO-GENERATED (do not edit) code from [mgmsrvSCPD],
-// based on SOAP action 'SetManagementServerPassword', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetManagementServerPassword', Fritz!Box-System-Version 164.08.00
 //
 // [mgmsrvSCPD]: http://fritz.box:49000/mgmsrvSCPD.xml
 func SetManagementServerPassword(session *soap.SoapSession, password string) (tr064model.SetManagementServerPasswordResponse, error) {

@@ -8,7 +8,7 @@ import (
 )
 
 // X_GenerateUUID AUTO-GENERATED (do not edit) code from [deviceconfigSCPD],
-// based on SOAP action 'X_GenerateUUID', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_GenerateUUID', Fritz!Box-System-Version 164.08.00
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
 func X_GenerateUUID(session *soap.SoapSession) (tr064model.X_GenerateUUIDResponse, error) {

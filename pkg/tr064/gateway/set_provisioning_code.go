@@ -8,7 +8,7 @@ import (
 )
 
 // SetProvisioningCode AUTO-GENERATED (do not edit) code from [deviceinfoSCPD],
-// based on SOAP action 'SetProvisioningCode', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetProvisioningCode', Fritz!Box-System-Version 164.08.00
 //
 // [deviceinfoSCPD]: http://fritz.box:49000/deviceinfoSCPD.xml
 func SetProvisioningCode(session *soap.SoapSession, provisioningCode string) (tr064model.SetProvisioningCodeResponse, error) {

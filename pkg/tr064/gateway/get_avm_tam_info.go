@@ -8,7 +8,7 @@ import (
 )
 
 // GetAvmTamInfo AUTO-GENERATED (do not edit) code from [x_tamSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.08.00
 //
 // [x_tamSCPD]: http://fritz.box:49000/x_tamSCPD.xml
 func GetAvmTamInfo(session *soap.SoapSession, index int) (tr064model.GetAvmTamInfoResponse, error) {

@@ -8,7 +8,7 @@ import (
 )
 
 // SetServiceByIndex AUTO-GENERATED (do not edit) code from [x_myfritzSCPD],
-// based on SOAP action 'SetServiceByIndex', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'SetServiceByIndex', Fritz!Box-System-Version 164.08.00
 //
 // [x_myfritzSCPD]: http://fritz.box:49000/x_myfritzSCPD.xml
 func SetServiceByIndex(session *soap.SoapSession, index int, enabled bool, name string, scheme string, port int, urlPath string, aType string, ipv4Address string, ipv6Address string, ipv6InterfaceId string, macAddress string, hostName string) (tr064model.SetServiceByIndexResponse, error) {

@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan3XavmGetIPTVOptimized AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'X_AVM-DE_GetIPTVOptimized', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_GetIPTVOptimized', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3XavmGetIPTVOptimized(session *soap.SoapSession) (tr064model.XavmGetIPTVOptimizedResponse, error) {

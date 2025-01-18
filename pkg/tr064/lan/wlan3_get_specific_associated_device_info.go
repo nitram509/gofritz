@@ -8,7 +8,7 @@ import (
 )
 
 // Wlan3GetSpecificAssociatedDeviceInfo AUTO-GENERATED (do not edit) code from [wlanconfigSCPD],
-// based on SOAP action 'GetSpecificAssociatedDeviceInfo', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetSpecificAssociatedDeviceInfo', Fritz!Box-System-Version 164.08.00
 //
 // [wlanconfigSCPD]: http://fritz.box:49000/wlanconfigSCPD.xml
 func Wlan3GetSpecificAssociatedDeviceInfo(session *soap.SoapSession, associatedDeviceMacAddress string) (tr064model.GetSpecificAssociatedDeviceInfoResponse, error) {

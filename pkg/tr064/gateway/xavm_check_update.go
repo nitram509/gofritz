@@ -8,7 +8,7 @@ import (
 )
 
 // XavmCheckUpdate AUTO-GENERATED (do not edit) code from [userifSCPD],
-// based on SOAP action 'X_AVM-DE_CheckUpdate', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'X_AVM-DE_CheckUpdate', Fritz!Box-System-Version 164.08.00
 //
 // [userifSCPD]: http://fritz.box:49000/userifSCPD.xml
 func XavmCheckUpdate(session *soap.SoapSession) (tr064model.XavmCheckUpdateResponse, error) {

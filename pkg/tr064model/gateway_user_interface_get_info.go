@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // GetUserInterfaceInfoResponse AUTO-GENERATED (do not edit) model from [userifSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.08.00
 //
 // [userifSCPD]: http://fritz.box:49000/userifSCPD.xml
 type GetUserInterfaceInfoResponse struct {

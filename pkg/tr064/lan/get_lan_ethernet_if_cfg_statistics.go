@@ -8,7 +8,7 @@ import (
 )
 
 // GetLanEthernetIfCfgStatistics AUTO-GENERATED (do not edit) code from [ethifconfigSCPD],
-// based on SOAP action 'GetStatistics', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'GetStatistics', Fritz!Box-System-Version 164.08.00
 //
 // [ethifconfigSCPD]: http://fritz.box:49000/ethifconfigSCPD.xml
 func GetLanEthernetIfCfgStatistics(session *soap.SoapSession) (tr064model.GetLanEthernetIfCfgStatisticsResponse, error) {

@@ -8,7 +8,7 @@ import (
 )
 
 // FactoryReset AUTO-GENERATED (do not edit) code from [deviceconfigSCPD],
-// based on SOAP action 'FactoryReset', Fritz!Box-System-Version 164.07.57
+// based on SOAP action 'FactoryReset', Fritz!Box-System-Version 164.08.00
 //
 // [deviceconfigSCPD]: http://fritz.box:49000/deviceconfigSCPD.xml
 func FactoryReset(session *soap.SoapSession) (tr064model.FactoryResetResponse, error) {
