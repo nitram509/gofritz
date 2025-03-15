@@ -2,12 +2,16 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"github.com/nitram509/gofritz/pkg/scpd"
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"time"
 )
+
+var sdcpFolderName = time.Now().UTC().Format("20060102T150405Z")
 
 type tr64Desc struct {
 	root     scpd.ServiceControlledProtocolDescriptions
@@ -67,11 +71,9 @@ func retrieveServiceSepc(f fetcher, service scpd.Service) struct {
 	return serviceSpec
 }
 
-var timestamp = time.Now().UTC().Format("20060102T150405Z")
-
 func safe2Disc(fName string, bytes []byte) {
 	const basePath = "__sdcp__"
-	targetFolder := filepath.Join(basePath, timestamp)
+	targetFolder := filepath.Join(basePath, sdcpFolderName)
 	if _, err := os.Stat(targetFolder); errors.Is(err, os.ErrNotExist) {
 		err := os.MkdirAll(targetFolder, 0755)
 		if err != nil {
@@ -82,6 +84,16 @@ func safe2Disc(fName string, bytes []byte) {
 	err := os.WriteFile(filepath.Join(targetFolder, fName), bytes, 0644)
 	if err != nil {
 		panic(err)
+	}
+}
+
+func updateSdcpFolderName(descriptions scpd.ServiceControlledProtocolDescriptions) {
+	s := fmt.Sprintf("%s_%s", descriptions.Device.ModelDescription, descriptions.SystemVersion.Display)
+	s = strings.Replace(s, "!", "", -1)
+	s = strings.Replace(s, " ", "_", -1)
+	if len(s) > 5 {
+		// only available, when reading the tr64desc.xml
+		sdcpFolderName = s
 	}
 }
 

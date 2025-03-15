@@ -26,12 +26,17 @@ func (h httpFetcher) fetchAndParseResponse(urlPath string) (scpd.ServiceControll
 	if err != nil {
 		panic(err)
 	}
+	result := scpd.ServiceControlledProtocolDescriptions{}
+	err = xml.Unmarshal(bytes, &result)
+
+	if err == nil {
+		updateSdcpFolderName(result)
+	}
 	if safeXmlData2Disc {
 		fName, _ := strings.CutPrefix(urlPath, "/")
 		safe2Disc(fName, bytes)
 	}
-	result := scpd.ServiceControlledProtocolDescriptions{}
-	err = xml.Unmarshal(bytes, &result)
+
 	return result, err
 }
 

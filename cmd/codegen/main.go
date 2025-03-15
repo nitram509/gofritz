@@ -7,7 +7,7 @@ import (
 )
 
 const responseSuffix = "Response"
-const safeXmlData2Disc = false
+const safeXmlData2Disc = true
 const writeFiles = true
 
 func generateAllCode(description tr64Desc) {
@@ -46,7 +46,7 @@ func main() {
 	} else if len(os.Args) > 1 && os.Args[1] == "--local" {
 		//fetchLocalFilesAndGenerate("__sdcp__/FRITZBox_6490_Cable_141_07_57")
 		//fetchLocalFilesAndGenerate("__sdcp__/FRITZBox_7590_154_07_57")
-		fetchLocalFilesAndGenerate("__sdcp__/FRITZBox_7530_164_07_57")
+		fetchLocalFilesAndGenerate("__sdcp__/FRITZBox_7530_164.07.57")
 	} else {
 		println("usage: codegen <--host|--local>")
 	}

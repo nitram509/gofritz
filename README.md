@@ -456,3 +456,14 @@ The following functions offer comfort features, over the existing API functions.
 | Go function                                                   | description                                            |
 |---------------------------------------------------------------|--------------------------------------------------------|
 | [lan.XavmGetHostList](./pkg/tr064/lan/hosts_get_host_list.go) | lists all known hosts, wraps `lan.XavmGetHostListPath` |
+
+## Code generation and contribution
+
+When you have a different version of Fritz!Box OS running and want to generate code for your own,
+you can use the code generator like this.
+This will also create a copy of all XML files in the `__sdcp__` folder and I would be glad getting pull requests,
+to include the file here.
+
+```shell
+go run ./cmd/codegen/... --host fritz.box
+```
