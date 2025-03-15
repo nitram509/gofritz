@@ -3,7 +3,7 @@ package tr064model
 import "encoding/xml"
 
 // GetAvmUspControllerInfoResponse AUTO-GENERATED (do not edit) model from [x_uspcontrollerSCPD],
-// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.08.00
+// based on SOAP action 'GetInfo', Fritz!Box-System-Version 164.08.02
 //
 // [x_uspcontrollerSCPD]: http://fritz.box:49000/x_uspcontrollerSCPD.xml
 type GetAvmUspControllerInfoResponse struct {
@@ -19,9 +19,11 @@ type GetAvmUspControllerInfoResponse struct {
 	MaxCharsMQTTControllerTopic int      `xml:"NewMaxCharsMQTTControllerTopic"` // default=1024
 	MinCharsMQTTResponseTopic   int      `xml:"NewMinCharsMQTTResponseTopic"`   // default=0
 	MaxCharsMQTTResponseTopic   int      `xml:"NewMaxCharsMQTTResponseTopic"`   // default=1024
+	MinCharsMQTTClientID        int      `xml:"NewMinCharsMQTTClientID"`        // default=0
+	MaxCharsMQTTClientID        int      `xml:"NewMaxCharsMQTTClientID"`        // default=1024
 	MinCharsUsername            int      `xml:"NewMinCharsUsername"`            // default=0
-	MaxCharsUsername            int      `xml:"NewMaxCharsUsername"`            // default=255
+	MaxCharsUsername            int      `xml:"NewMaxCharsUsername"`            // default=256
 	MinCharsPassword            int      `xml:"NewMinCharsPassword"`            // default=0
-	MaxCharsPassword            int      `xml:"NewMaxCharsPassword"`            // default=255
+	MaxCharsPassword            int      `xml:"NewMaxCharsPassword"`            // default=256
 	USPMyFRITZEnabled           bool     `xml:"NewUSPMyFRITZEnabled"`           // default=0
 }

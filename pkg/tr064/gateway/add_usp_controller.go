@@ -8,10 +8,10 @@ import (
 )
 
 // AddUSPController AUTO-GENERATED (do not edit) code from [x_uspcontrollerSCPD],
-// based on SOAP action 'AddUSPController', Fritz!Box-System-Version 164.08.00
+// based on SOAP action 'AddUSPController', Fritz!Box-System-Version 164.08.02
 //
 // [x_uspcontrollerSCPD]: http://fritz.box:49000/x_uspcontrollerSCPD.xml
-func AddUSPController(session *soap.SoapSession, enable bool, endpointId string, mTP string, hostname string, path string, port int, useTLS bool, mQTTControllerTopic string, mQTTresponseTopic string, accessRightSmarthome bool, accessRightMesh bool, accessRightInternet bool, accessRightSystem bool, accessRightController bool, accessRightWiFi bool, accessRightVoip bool, username string, password string) (tr064model.AddUSPControllerResponse, error) {
+func AddUSPController(session *soap.SoapSession, enable bool, endpointId string, mTP string, hostname string, path string, port int, useTLS bool, mQTTControllerTopic string, mQTTresponseTopic string, mQTTClientId string, accessRightSmarthome bool, accessRightMesh bool, accessRightInternet bool, accessRightSystem bool, accessRightController bool, accessRightWiFi bool, accessRightVoip bool, username string, password string) (tr064model.AddUSPControllerResponse, error) {
 	fbAction, err := soap.NewSoapRequest(session).
 		ReqPath("/upnp/control/x_uspcontroller").
 		Uri("urn:dslforum-org:service:X_AVM-DE_USPController:1").
@@ -25,6 +25,7 @@ func AddUSPController(session *soap.SoapSession, enable bool, endpointId string,
 		AddBoolParam("NewUseTLS", useTLS).
 		AddStringParam("NewMQTTControllerTopic", mQTTControllerTopic).
 		AddStringParam("NewMQTTResponseTopic", mQTTresponseTopic).
+		AddStringParam("NewMQTTClientID", mQTTClientId).
 		AddBoolParam("NewAccessRightSmarthome", accessRightSmarthome).
 		AddBoolParam("NewAccessRightMesh", accessRightMesh).
 		AddBoolParam("NewAccessRightInternet", accessRightInternet).
